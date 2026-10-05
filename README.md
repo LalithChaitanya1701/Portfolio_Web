@@ -5,7 +5,7 @@
 
 ---
 
-## ⚡ Overview
+## Overview
 
 This repository houses a hybrid cybersecurity portfolio featuring two tightly integrated visual paradigms:
 1. **Stage 1 — The Gateway**: A pixel-faithful, cinematic black stage landing page with dual-pass looping video atmosphere, SVG color-lookup grading (`#grade` / `#grade2`), left-locked typography (`Space Grotesk` & `JetBrains Mono`), responsive coordinate scaling, and one-shot WAAPI entrance choreography.
@@ -13,7 +13,7 @@ This repository houses a hybrid cybersecurity portfolio featuring two tightly in
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 ### 1. Cinematic Landing Page (Stage 1)
 - **Fluid Scaled Canvas**: Dynamic CSS `--s` coordinate system targeting `1505×700` (desktop), `900×1200` (tablet portrait), and `430×620` (mobile) with zero scrolling and strict mathematical scaling.
@@ -55,7 +55,7 @@ This repository houses a hybrid cybersecurity portfolio featuring two tightly in
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Runtime / Framework**: React 19, TypeScript, Vanilla Modern JS (ES Modules)
 - **Bundler & Tooling**: Vite 8, tsx, esbuild
@@ -66,7 +66,7 @@ This repository houses a hybrid cybersecurity portfolio featuring two tightly in
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ├── index.html              # Document shell, Stage 1 Landing markup, HUD Stage, and SVG filters
@@ -92,7 +92,7 @@ This repository houses a hybrid cybersecurity portfolio featuring two tightly in
 
 ---
 
-## 💻 Getting Started Locally
+## Getting Started Locally
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/) (v18.0.0 or higher recommended)
@@ -127,35 +127,6 @@ This repository houses a hybrid cybersecurity portfolio featuring two tightly in
    ```bash
    npm run lint
    ```
-
----
-
-## 🌐 Pushing to Your GitHub Repository
-
-If you haven't connected this directory to your remote GitHub repository yet, run the following commands:
-
-```bash
-# 1. Initialize git (if not already done)
-git init
-
-# 2. Add all files
-git add .
-
-# 3. Create your initial commit
-git commit -m "feat: complete cybersecurity portfolio with cinematic landing and OS HUD workstation"
-
-# 4. Set default branch to main
-git branch -M main
-
-# 5. Link your GitHub remote repository
-# Replace with your repository URL (e.g. portfolio-website or Portfolio_Website):
-git remote add origin https://github.com/LalithChaitanya1701/portfolio-website.git
-
-# 6. Push code to GitHub
-git push -u origin main
-```
-
-*(Note: If you have already created the remote repository on GitHub with existing commits, use `git push -u origin main --force` or pull with `--rebase` before pushing).*
 
 ---
 
