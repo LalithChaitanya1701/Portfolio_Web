@@ -3,7 +3,7 @@
  */
 
 :root {
-  --s: min(100vw / 1505, 100vh / 700);
+  --s: clamp(0.72px, min(calc(100vw / 1505), calc(100vh / 700)), 1.35px);
   --ink: #fff;
   --sub: #e6e6e6;
   --lab: #949494;
@@ -52,7 +52,7 @@
 
 @media (max-width: 1023px) and (max-aspect-ratio: 1/1) {
   :root {
-    --s: clamp(0.82px, min(100vw / 900, 100vh / 1200), 1.25px);
+    --s: clamp(0.78px, min(calc(100vw / 900), calc(100vh / 1200)), 1.25px);
     --bx: 56;
     --by: 33;
     --bs: 40;
@@ -71,7 +71,7 @@
 
 @media (max-width: 599px) {
   :root {
-    --s: min(100vw / 430, 100vh / 620, 1.02px);
+    --s: clamp(0.85px, min(calc(100vw / 430), calc(100vh / 620)), 1.15px);
     --bx: 20;
     --by: 16;
     --bs: 34;
@@ -86,6 +86,25 @@
     --r2x: 250;
     --s3x: 266;
   }
+}
+
+/* ----------------------------------------------------
+   Fonts: exact aliases 'SG' and 'JB' with swap display
+   ---------------------------------------------------- */
+@font-face {
+  font-family: 'SG';
+  src: local('Space Grotesk'), local('SpaceGrotesk');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JB';
+  src: local('JetBrains Mono'), local('JetBrainsMono');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* ----------------------------------------------------

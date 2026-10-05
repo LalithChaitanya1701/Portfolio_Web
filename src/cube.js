@@ -26,15 +26,25 @@ export function initCyberCube(containerEl) {
   let destroyed = false;
   let animId = null;
 
-  // Renderer
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: true,
-    alpha: false
-  });
-  renderer.setClearColor(0x000000, 1);
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  // Renderer with graceful fallback if WebGL is unavailable
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: false
+    });
+    renderer.setClearColor(0x000000, 1);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  } catch (e) {
+    console.warn('WebGL init skipped:', e);
+    if (loaderEl) {
+      loaderEl.textContent = '[3D CANVAS READY]';
+      loaderEl.classList.remove('done');
+    }
+    return () => {};
+  }
 
   // Main Scene & Camera
   const scene = new THREE.Scene();

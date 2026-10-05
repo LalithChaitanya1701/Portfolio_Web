@@ -14,6 +14,7 @@ class App {
   }
 
   init() {
+    window.__LCM_APP_MOUNTED__ = true;
     this.hud = new HUDController({
       onBackToLanding: () => this.switchMode('landing'),
       onThemeChange: (theme) => this.setTheme(theme),
@@ -230,7 +231,6 @@ class App {
   initEntranceAnimation() {
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReduced || typeof document.documentElement.animate !== 'function') {
-      document.documentElement.classList.remove('intro');
       return;
     }
 
@@ -322,25 +322,12 @@ class App {
       });
 
       // 1.10 Stat labs
-      let lastA = null;
       document.querySelectorAll('.stat-lab').forEach((lab, i) => {
-        lastA = anim(lab, [
+        anim(lab, [
           { opacity: 0, transform: `translateY(${10 * s}px)` },
           { opacity: 1, transform: 'translateY(0px)' }
         ], { duration: 620 * F, delay: (1100 + i * 85) * F, easing: QUINT });
       });
-
-      const cleanup = () => {
-        document.documentElement.classList.remove('intro');
-        anims.forEach(a => { try { a.cancel(); } catch (e) {} });
-      };
-
-      if (lastA?.finished) {
-        lastA.finished.then(cleanup).catch(cleanup);
-      } else {
-        setTimeout(cleanup, 2200 * F);
-      }
-      setTimeout(cleanup, 4000);
     };
 
     const fontP = document.fonts ? document.fonts.ready : Promise.resolve();
