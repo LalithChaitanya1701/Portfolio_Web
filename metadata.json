@@ -1,0 +1,8 @@
+{
+  "name": "Portfolio_Website",
+  "description": "Engineered to stay resilient, controlled, and uncompromised under pressure.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

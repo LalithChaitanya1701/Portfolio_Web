@@ -1,0 +1,1063 @@
+/**
+ * Unified Cybersecurity Landing Page & OS Window HUD Workstation Stylesheet
+ */
+
+:root {
+  --s: min(100vw / 1505, 100vh / 700);
+  --ink: #fff;
+  --sub: #e6e6e6;
+  --lab: #949494;
+
+  /* Theme Accents (default: Crimson Security) */
+  --accent: #c81b1c;
+  --accent-rgb: 200, 27, 28;
+  --accent-dim: rgba(200, 27, 28, 0.18);
+  --accent-border: rgba(200, 27, 28, 0.45);
+  --accent-hover: #b01617;
+  --red: #c81b1c;
+
+  /* Landing coordinates */
+  --bx: 60;
+  --by: 36;
+  --bs: 44;
+  --h1y: -12.5;
+  --suby: 167.5;
+  --numy: 19;
+  --laby: 74;
+  --ctay: 248;
+  --s1x: 70.4;
+  --r1x: 181;
+  --s2x: 213.1;
+  --r2x: 356;
+  --s3x: 392.6;
+}
+
+[data-theme="matrix"] {
+  --accent: #00ff66;
+  --accent-rgb: 0, 255, 102;
+  --accent-dim: rgba(0, 255, 102, 0.14);
+  --accent-border: rgba(0, 255, 102, 0.4);
+  --accent-hover: #00dd55;
+  --red: #00ff66;
+}
+
+[data-theme="amber"] {
+  --accent: #ffb000;
+  --accent-rgb: 255, 176, 0;
+  --accent-dim: rgba(255, 176, 0, 0.16);
+  --accent-border: rgba(255, 176, 0, 0.45);
+  --accent-hover: #e09b00;
+  --red: #ffb000;
+}
+
+@media (max-width: 1023px) and (max-aspect-ratio: 1/1) {
+  :root {
+    --s: clamp(0.82px, min(100vw / 900, 100vh / 1200), 1.25px);
+    --bx: 56;
+    --by: 33;
+    --bs: 40;
+    --h1y: -10.25;
+    --suby: 137.4;
+    --numy: 15.6;
+    --laby: 60.7;
+    --ctay: 200;
+    --s1x: 56;
+    --r1x: 175;
+    --s2x: 198;
+    --r2x: 345;
+    --s3x: 368;
+  }
+}
+
+@media (max-width: 599px) {
+  :root {
+    --s: min(100vw / 430, 100vh / 620, 1.02px);
+    --bx: 20;
+    --by: 16;
+    --bs: 34;
+    --h1y: -7.1;
+    --suby: 108;
+    --numy: 13;
+    --laby: 50;
+    --ctay: 164;
+    --s1x: 20;
+    --r1x: 120;
+    --s2x: 136;
+    --r2x: 250;
+    --s3x: 266;
+  }
+}
+
+/* ----------------------------------------------------
+   HUD Workstation Layout (OS Desktop)
+   ---------------------------------------------------- */
+#hud-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  background: #020704;
+  color: #c8ffd9;
+  font-family: 'JB', monospace;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  overflow: hidden;
+}
+
+body.mode-hud #hud-stage {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+body.mode-hud .frame {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Workstation Ambient Motion Background */
+#hud-motion-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Status Bar */
+.hud-bar {
+  height: 48px;
+  flex: none;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--accent-border);
+  background: rgba(2, 10, 5, 0.95);
+  backdrop-filter: blur(8px);
+  z-index: 30;
+  position: relative;
+}
+
+.hud-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'SG', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-size: 13.5px;
+}
+
+.led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.hud-meta {
+  color: #8be0a5;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hud-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hud-btn {
+  background: transparent;
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  padding: 5px 12px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.18s, color 0.18s;
+  white-space: nowrap;
+}
+
+.hud-btn:hover {
+  background: var(--accent-dim);
+}
+
+.hud-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hud-dir-btn {
+  display: none;
+  background: rgba(var(--accent-rgb), 0.15);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+}
+
+.hud-dir-btn:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+.hud-dir-close-btn {
+  display: none;
+}
+
+/* HUD Middle Split: Pinned Directory + Desktop Workspace Area */
+.hud-main-grid {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  position: relative;
+  z-index: 10;
+}
+
+/* Pinned Directory Tile (Never dragged or floated) */
+.hud-nav {
+  width: 220px;
+  flex: none;
+  padding: 16px 12px;
+  border-right: 1px solid rgba(var(--accent-rgb), 0.25);
+  background: rgba(3, 14, 7, 0.95);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  z-index: 20;
+}
+
+.hud-nav-head {
+  font-size: 11px;
+  color: #72cf90;
+  letter-spacing: 0.16em;
+  margin-bottom: 8px;
+  padding-left: 6px;
+}
+
+.hud-nav-item {
+  text-align: left;
+  padding: 9px 12px;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  background: transparent;
+  border: 1px solid rgba(var(--accent-rgb), 0.15);
+  color: #c8ffd9;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hud-nav-item:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.hud-nav-item.active {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+  box-shadow: inset 0 0 10px rgba(var(--accent-rgb), 0.12);
+}
+
+.dir-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--accent);
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.hud-nav-item.is-open .dir-indicator {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+/* Desktop Canvas Area for OS Draggable/Resizable Windows */
+#hud-desktop-area {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* ----------------------------------------------------
+   OS Draggable / Resizable Window Tiles
+   ---------------------------------------------------- */
+.os-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: rgba(5, 16, 9, 0.95);
+  border: 1px solid var(--accent-border);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75), 0 0 14px rgba(var(--accent-rgb), 0.12);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  min-width: 290px;
+  min-height: 180px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.os-window.win-focused {
+  border-color: var(--accent);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85), 0 0 20px rgba(var(--accent-rgb), 0.25);
+}
+
+.os-window.is-dragging {
+  opacity: 0.92;
+  cursor: grabbing !important;
+  user-select: none;
+}
+
+.os-window.is-resizing {
+  user-select: none;
+}
+
+.os-window.is-minimized .win-body,
+.os-window.is-minimized .win-resizer {
+  display: none !important;
+}
+
+.os-window.is-minimized {
+  height: 38px !important;
+}
+
+.os-window.is-maximized {
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.win-titlebar {
+  height: 38px;
+  background: rgba(8, 24, 13, 0.96);
+  border-bottom: 1px solid var(--accent-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  cursor: grab;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.win-title-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.win-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.win-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.win-btn {
+  width: 24px;
+  height: 22px;
+  background: transparent;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  color: #c8ffd9;
+  font-size: 11px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.win-btn:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.win-close:hover {
+  background: #c81b1c;
+  color: #fff;
+  border-color: #c81b1c;
+}
+
+.win-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px;
+  min-height: 0;
+}
+
+/* 8-Direction Edge & Corner Resizers with generous touch hit zones */
+.win-resizer {
+  position: absolute;
+  touch-action: none;
+  z-index: 15;
+}
+
+/* Edges */
+.win-resizer-r {
+  top: 12px;
+  right: -5px;
+  bottom: 24px;
+  width: 14px;
+  cursor: ew-resize;
+}
+
+.win-resizer-l {
+  top: 12px;
+  left: -5px;
+  bottom: 24px;
+  width: 14px;
+  cursor: ew-resize;
+}
+
+.win-resizer-b {
+  left: 24px;
+  right: 24px;
+  bottom: -5px;
+  height: 14px;
+  cursor: ns-resize;
+}
+
+.win-resizer-t {
+  left: 24px;
+  right: 24px;
+  top: -5px;
+  height: 14px;
+  cursor: ns-resize;
+}
+
+/* Corners with visual cyber markers */
+.win-resizer-br {
+  right: 0;
+  bottom: 0;
+  width: 24px;
+  height: 24px;
+  cursor: se-resize;
+  background: linear-gradient(135deg, transparent 50%, var(--accent) 50%);
+  opacity: 0.75;
+}
+
+.win-resizer-bl {
+  left: 0;
+  bottom: 0;
+  width: 24px;
+  height: 24px;
+  cursor: sw-resize;
+  background: linear-gradient(225deg, transparent 50%, var(--accent) 50%);
+  opacity: 0.75;
+}
+
+.win-resizer-tr {
+  right: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  cursor: ne-resize;
+  background: linear-gradient(45deg, transparent 50%, var(--accent) 50%);
+  opacity: 0.75;
+}
+
+.win-resizer-tl {
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  cursor: nw-resize;
+  background: linear-gradient(315deg, transparent 50%, var(--accent) 50%);
+  opacity: 0.75;
+}
+
+.win-resizer-br:hover,
+.win-resizer-bl:hover,
+.win-resizer-tr:hover,
+.win-resizer-tl:hover,
+.win-resizer.is-resizing {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+
+/* ----------------------------------------------------
+   3D Cyber Cube Container inside OS Window
+   ---------------------------------------------------- */
+.cube-hero {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  overflow: hidden;
+  background: #000;
+}
+
+#scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  touch-action: none;
+}
+
+#scene.dragging {
+  cursor: grabbing;
+}
+
+.cube-ui {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+
+.cube-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.cube-arrows {
+  display: flex;
+  gap: 12px;
+  pointer-events: auto;
+}
+
+.cube-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.cube-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.cube-arrow:hover {
+  background: #fff;
+  color: #000;
+}
+
+.cube-dots {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  pointer-events: auto;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dot.active {
+  background: transparent;
+}
+
+.cube-cta-row {
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+  margin-top: auto;
+}
+
+.cube-cta {
+  padding: 0 14px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid rgba(255,255,255,0.85);
+  border-radius: 4px;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  font-size: 11.5px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.cube-cta:hover {
+  background: #fff;
+  color: #000;
+}
+
+.cube-cta-line {
+  flex: 1;
+  height: 1.5px;
+  background: rgba(255,255,255,0.6);
+  margin: 0 12px;
+  min-width: 20px;
+}
+
+.cube-count {
+  font-size: clamp(36px, 7vw, 72px);
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.7);
+  user-select: none;
+}
+
+.cube-loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: #fff;
+  opacity: 0.6;
+  transition: opacity 0.6s;
+  pointer-events: none;
+}
+
+.cube-loader.done {
+  opacity: 0;
+}
+
+/* First-Person Experience Switcher */
+.view-switch {
+  display: inline-flex;
+  border: 1px solid var(--accent-border);
+  background: #020704;
+  padding: 2px;
+  gap: 2px;
+}
+
+.switch-btn {
+  background: transparent;
+  border: none;
+  color: #92e0ab;
+  padding: 4px 8px;
+  font-size: 10.5px;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+}
+
+.switch-btn.active {
+  background: var(--accent);
+  color: #000;
+  font-weight: 600;
+}
+
+.story-bubble {
+  line-height: 1.7;
+  color: #e0f8e9;
+  font-size: 13px;
+  border-left: 2px solid var(--accent);
+  padding: 10px 14px;
+  background: rgba(var(--accent-rgb), 0.06);
+  white-space: pre-line;
+  margin-top: 8px;
+}
+
+.spec-list {
+  list-style: none;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.spec-item {
+  display: flex;
+  gap: 8px;
+  line-height: 1.55;
+  color: #b8efcb;
+  font-size: 12.5px;
+}
+
+.spec-item::before {
+  content: ">";
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* Projects Grid */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.proj-card {
+  border: 1px solid var(--accent-border);
+  background: rgba(6, 20, 10, 0.85);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.proj-name {
+  font-family: 'SG', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  line-height: 1.35;
+}
+
+.proj-role {
+  color: var(--accent);
+  font-size: 11.5px;
+}
+
+.proj-stack {
+  color: #6edaa0;
+  font-size: 11.5px;
+}
+
+.proj-blurb {
+  color: #a8e5be;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.proj-link {
+  color: var(--accent);
+  font-size: 11.5px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  font-weight: 600;
+}
+
+.proj-link:hover {
+  text-decoration: underline;
+}
+
+/* Skills Matrix */
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.skill-bar-wrap {
+  margin-top: 4px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  background: var(--accent);
+}
+
+/* Hologram Avatar Canvas */
+.avatar-canvas-wrap {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#avatar-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Terminal Content within OS Window */
+.term-output {
+  padding: 6px 4px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.term-line {
+  word-break: break-word;
+}
+.term-in {
+  color: var(--accent);
+  font-weight: 600;
+}
+.term-out {
+  color: #c0f4d3;
+}
+.term-err {
+  color: #ffb000;
+}
+
+.term-input-row {
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.2);
+}
+
+.term-prompt {
+  color: var(--accent);
+  white-space: nowrap;
+  font-size: 12.5px;
+}
+
+.term-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #c8ffd9;
+  font-family: inherit;
+  font-size: 13px;
+  padding: 4px 0;
+  outline: none;
+}
+
+.term-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.chip-btn {
+  background: #06140a;
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  padding: 2px 7px;
+  font-size: 10.5px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.chip-btn:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+/* Printable Resume Modal */
+#resume-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+#resume-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.resume-paper {
+  background: #08120a;
+  border: 1px solid var(--accent-border);
+  width: 100%;
+  max-width: 840px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px 36px;
+  color: #e2f7ea;
+  box-shadow: 0 0 35px rgba(var(--accent-rgb), 0.2);
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #resume-modal, #resume-modal.active, .resume-paper, .resume-paper * {
+    visibility: visible;
+  }
+  #resume-modal {
+    position: static;
+    background: #fff;
+    padding: 0;
+  }
+  .resume-paper {
+    border: none;
+    box-shadow: none;
+    color: #111;
+    background: #fff;
+    max-height: none;
+    padding: 0;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* ----------------------------------------------------
+   Responsive Tablet & Mobile Rules
+   ---------------------------------------------------- */
+@media (max-width: 1024px), (max-height: 650px) {
+  .hud-dir-btn {
+    display: inline-flex;
+  }
+  .hud-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    background: rgba(4, 14, 8, 0.98);
+    box-shadow: 10px 0 35px rgba(0, 0, 0, 0.9);
+    transform: translateX(-105%);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+  }
+  body.dir-open .hud-nav {
+    transform: translateX(0);
+  }
+  .hud-nav-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(var(--accent-rgb), 0.2);
+  }
+  .hud-dir-close-btn {
+    display: inline-block;
+    background: transparent;
+    border: none;
+    color: var(--accent);
+    font-size: 11px;
+    font-family: inherit;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    padding: 4px 6px;
+  }
+  .hud-dir-close-btn:hover {
+    color: #fff;
+  }
+  #hud-nav-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+  body.dir-open #hud-nav-backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+/* Specific to mobile portrait phones where windows stack neatly */
+@media (max-width: 540px) and (orientation: portrait) {
+  .hud-bar {
+    height: auto;
+    padding: 8px 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hud-meta {
+    font-size: 10px;
+    gap: 8px;
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+  }
+  #hud-desktop-area {
+    position: relative;
+    padding: 10px;
+    overflow-y: auto;
+  }
+  .os-window {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin-bottom: 12px;
+  }
+  .win-resizer {
+    display: none !important;
+  }
+}
