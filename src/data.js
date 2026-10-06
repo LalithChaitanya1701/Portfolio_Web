@@ -75,7 +75,7 @@ export const PROJECTS = [
     role: "Cloud Security Architect & Engineer",
     stack: ["Terraform", "AWS Security Hub", "AWS Config", "Python", "CloudTrail", "SNS"],
     blurb: "Automated IaC continuous compliance for 18 security controls against CIS AWS Foundations Benchmark and PCI-DSS, cutting audit evaluation cycle time by 60%.",
-    repo: "https://github.com/LalithChaitanya1701",
+    repo: null,
     highlights: [
       "Automated policy-as-code for S3 bucket encryption, IAM MFA enforcement, and Security Group ingress rules.",
       "Created automated remediation lambdas triggered via SNS notifications when configuration drift is detected.",
@@ -89,7 +89,7 @@ export const PROJECTS = [
     role: "Core Systems Developer",
     stack: ["Python", "SQLite", "SMTP Protocol", "Regex", "Multithreading", "Socket API"],
     blurb: "Lightweight SIEM simulation featuring multithreaded log ingestion, 50+ pre-configured detection rules, and sub-2-second automated security alerts.",
-    repo: "https://github.com/LalithChaitanya1701",
+    repo: "https://github.com/LalithChaitanya1701/Log_Based_Threat_Detector",
     highlights: [
       "Engineered regex-driven correlation engine identifying brute-force bursts, privilege escalations, and port sweeps.",
       "Reduced triage latency by 45% compared to baseline file auditing.",
@@ -103,7 +103,7 @@ export const PROJECTS = [
     role: "Security Tool Developer",
     stack: ["Python", "Paramiko", "Requests", "Tkinter", "Multithreading", "Rate-Limiter"],
     blurb: "Modular authentication stress-testing suite for HTTP, FTP, and SSH protocols with configurable thread pools, adaptive backoff, and Tkinter GUI. Built for authorized lab use.",
-    repo: "https://github.com/LalithChaitanya1701",
+    repo: "https://github.com/LalithChaitanya1701/Brut3Zer0_mark_2",
     highlights: [
       "Built resilient socket handlers supporting HTTP POST/Basic, SSH key/password, and FTP handshake probes.",
       "Implemented jitter and rate-limiting controls to simulate realistic authentication boundary conditions.",
@@ -117,7 +117,7 @@ export const PROJECTS = [
     role: "Forensic Investigator",
     stack: ["Volatility 3", "Wireshark", "FTK Imager", "Hex Editors"],
     blurb: "Acquired and analyzed 4 raw memory and disk images with SHA-256 integrity verification, reconstructed full adversary kill-chain, and authored a 22-page forensic investigation report.",
-    repo: "https://github.com/LalithChaitanya1701",
+    repo: null,
     highlights: [
       "Identified memory-injected DLL artifacts and malicious process parentage using Volatility 3.",
       "Extracted C2 beaconing patterns and packet payloads from PCAP packet captures.",
@@ -131,7 +131,7 @@ export const PROJECTS = [
     role: "Full-Stack Developer",
     stack: ["Java EE", "React.js", "MySQL", "Docker", "JWT", "Bcrypt"],
     blurb: "Production-ready web platform with granular Role-Based Access Control (RBAC), secure password hashing, session tokens, and containerized Docker deployment.",
-    repo: "https://github.com/LalithChaitanya1701",
+    repo: "https://github.com/LalithChaitanya1701/Yari_E-Commerce_Mark_1",
     highlights: [
       "Designed normalized relational database schema with parameterized SQL queries preventing injection attacks.",
       "Implemented secure JWT session management and HTTP-only cookie guards.",
@@ -183,7 +183,9 @@ export const CERTIFICATIONS = [
     issuer: "(ISC)²",
     period: "Active Member",
     desc: "Demonstrates core foundation in security principles, business continuity, disaster recovery, access controls, network security, and incident operations.",
-    badge: "ISC2-CC-VERIFIED"
+    badge: "ISC2-CC-VERIFIED",
+    image: "./assets/certified-in-cybersecurity-cc.1.png",
+    verifyUrl: "https://www.credly.com/badges/ea74f8ba-4c5c-41e4-bdf5-e4c0dc0eb9ef/public_url"
   },
   {
     title: "Best Class Representative (CR) Award (2× Honoree)",

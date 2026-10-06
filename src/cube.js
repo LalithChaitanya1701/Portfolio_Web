@@ -36,7 +36,8 @@ export function initCyberCube(containerEl) {
     });
     renderer.setClearColor(0x000000, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const isMobile = window.innerWidth <= 640;
+    renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5));
   } catch (e) {
     console.warn('WebGL init skipped:', e);
     if (loaderEl) {
@@ -479,9 +480,24 @@ export function initCyberCube(containerEl) {
   });
   resizeObserver.observe(containerEl);
 
+  let lastFrameTime = 0;
+
   // Render Loop
   function tick(now) {
     if (destroyed) return;
+    animId = requestAnimationFrame(tick);
+
+    // Skip rendering if document is hidden or not in mode-hud
+    if (document.hidden || !document.body.classList.contains('mode-hud')) {
+      return;
+    }
+
+    const isMobile = window.innerWidth <= 640;
+    // On mobile, cap render rate at 30 FPS to prevent phone lag/overheating
+    if (isMobile && now - lastFrameTime < 33) {
+      return;
+    }
+    lastFrameTime = now;
 
     const dt = Math.min((now - lastTime) / 1000, 0.05);
     lastTime = now;
@@ -548,8 +564,6 @@ export function initCyberCube(containerEl) {
       renderer.render(scene, camera);
       renderer.autoClear = true;
     }
-
-    animId = requestAnimationFrame(tick);
   }
 
   animId = requestAnimationFrame(tick);

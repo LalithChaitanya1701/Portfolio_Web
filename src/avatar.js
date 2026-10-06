@@ -45,10 +45,11 @@ export function initWireframeAvatar(canvasId) {
 
   function getAccentColor() {
     const root = document.documentElement;
-    const theme = root.getAttribute('data-theme') || 'crimson';
-    if (theme === 'matrix') return '#00ff66';
+    const theme = root.getAttribute('data-theme') || 'cyan';
     if (theme === 'amber') return '#ffb000';
-    return '#c81b1c';
+    if (theme === 'violet') return '#c084fc';
+    if (theme === 'blue') return '#38a0ff';
+    return '#00e5ff';
   }
 
   function render() {

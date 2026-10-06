@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -37,13 +37,13 @@
   --sub: #e6e6e6;
   --lab: #949494;
 
-  /* Theme Accents (default: Crimson Security) */
-  --accent: #c81b1c;
-  --accent-rgb: 200, 27, 28;
-  --accent-dim: rgba(200, 27, 28, 0.18);
-  --accent-border: rgba(200, 27, 28, 0.45);
-  --accent-hover: #b01617;
-  --red: #c81b1c;
+  /* Theme Accents (default: Cyber Cyan / Quantum Teal) */
+  --accent: #00e5ff;
+  --accent-rgb: 0, 229, 255;
+  --accent-dim: rgba(0, 229, 255, 0.14);
+  --accent-border: rgba(0, 229, 255, 0.42);
+  --accent-hover: #00c4d8;
+  --red: #00e5ff;
 
   /* Landing coordinates */
   --bx: 60;
@@ -54,20 +54,20 @@
   --numy: 19;
   --laby: 74;
   --ctay: 248;
-  --s1x: 70.4;
-  --r1x: 181;
-  --s2x: 213.1;
-  --r2x: 356;
-  --s3x: 392.6;
+  --s1x: 60;
+  --r1x: 172;
+  --s2x: 204;
+  --r2x: 348;
+  --s3x: 380;
 }
 
-[data-theme="matrix"] {
-  --accent: #00ff66;
-  --accent-rgb: 0, 255, 102;
-  --accent-dim: rgba(0, 255, 102, 0.14);
-  --accent-border: rgba(0, 255, 102, 0.4);
-  --accent-hover: #00dd55;
-  --red: #00ff66;
+[data-theme="cyan"] {
+  --accent: #00e5ff;
+  --accent-rgb: 0, 229, 255;
+  --accent-dim: rgba(0, 229, 255, 0.14);
+  --accent-border: rgba(0, 229, 255, 0.42);
+  --accent-hover: #00c4d8;
+  --red: #00e5ff;
 }
 
 [data-theme="amber"] {
@@ -77,6 +77,24 @@
   --accent-border: rgba(255, 176, 0, 0.45);
   --accent-hover: #e09b00;
   --red: #ffb000;
+}
+
+[data-theme="violet"] {
+  --accent: #c084fc;
+  --accent-rgb: 192, 132, 252;
+  --accent-dim: rgba(192, 132, 252, 0.16);
+  --accent-border: rgba(192, 132, 252, 0.45);
+  --accent-hover: #a855f7;
+  --red: #c084fc;
+}
+
+[data-theme="blue"] {
+  --accent: #38a0ff;
+  --accent-rgb: 56, 160, 255;
+  --accent-dim: rgba(56, 160, 255, 0.16);
+  --accent-border: rgba(56, 160, 255, 0.45);
+  --accent-hover: #1f86e6;
+  --red: #38a0ff;
 }
 
 @media (max-width: 1023px) and (max-aspect-ratio: 1/1) {
@@ -356,7 +374,7 @@ body {
 }
 
 .burger {
-  display: none;
+  display: flex;
   position: absolute;
   right: calc(var(--bx) * var(--s));
   top: calc(var(--by) * var(--s));
@@ -390,8 +408,7 @@ body.nav-open .b2 { opacity: 0; }
 body.nav-open .b3 { width: 100%; transform: translateY(calc(-9.4 * var(--s))) rotate(-45deg); }
 
 @media (max-width: 1023px) {
-  .nav, .btn-top { display: none !important; }
-  .burger { display: flex; }
+  .nav { display: none !important; }
 }
 
 /* ----------------------------------------------------
@@ -482,7 +499,7 @@ body.nav-open .b3 { width: 100%; transform: translateY(calc(-9.4 * var(--s))) ro
 
 .hero h1 {
   position: absolute;
-  left: calc(73 * var(--s));
+  left: calc(60 * var(--s));
   top: calc(var(--h1y) * var(--s));
   font-family: 'SG', sans-serif;
   font-weight: 700;
@@ -508,7 +525,7 @@ body.nav-open .b3 { width: 100%; transform: translateY(calc(-9.4 * var(--s))) ro
 
 .hero .sub {
   position: absolute;
-  left: calc(73 * var(--s));
+  left: calc(60 * var(--s));
   top: calc(var(--suby) * var(--s));
   font-family: 'JB', monospace;
   font-weight: 400;
@@ -522,9 +539,13 @@ body.nav-open .b3 { width: 100%; transform: translateY(calc(-9.4 * var(--s))) ro
 
 .hero .btn-cta {
   position: absolute;
-  left: calc(73 * var(--s));
+  left: calc(60 * var(--s));
   top: calc(var(--ctay) * var(--s));
   pointer-events: auto;
+}
+
+.desktop-break {
+  display: inline;
 }
 
 @media (max-width: 1023px) and (max-aspect-ratio: 1/1) {
@@ -532,21 +553,38 @@ body.nav-open .b3 { width: 100%; transform: translateY(calc(-9.4 * var(--s))) ro
   .hero h1, .hero .sub, .hero .btn-cta { left: calc(56 * var(--s)); }
 }
 
+@media (max-width: 768px) {
+  .desktop-break {
+    display: none;
+  }
+  .bg, .bg2 {
+    filter: none !important;
+  }
+}
+
 @media (max-width: 599px) {
   .hero {
-    height: calc(240 * var(--s));
+    height: auto;
+    min-height: calc(240 * var(--s));
   }
   .hero h1, .hero .sub, .hero .btn-cta {
-    left: calc(26 * var(--s));
+    left: calc(20 * var(--s));
   }
   .hero h1 {
-    font-size: clamp(24px, calc(34 * var(--s)), 38px);
-    line-height: 1.15;
-    letter-spacing: -0.5px;
+    font-size: clamp(24px, calc(32 * var(--s)), 36px);
+    line-height: 1.18;
+    letter-spacing: -0.4px;
+    max-width: calc(100vw - 40px);
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  .hero .ln {
+    overflow: visible;
   }
   .hero .sub {
-    font-size: clamp(11.5px, calc(14 * var(--s)), 15px);
-    line-height: 1.45;
+    font-size: clamp(12px, calc(14 * var(--s)), 15px);
+    line-height: 1.5;
+    max-width: calc(100vw - 40px);
   }
   .stats {
     height: auto;
@@ -555,7 +593,7 @@ body.nav-open .b3 { width: 100%; transform: translateY(calc(-9.4 * var(--s))) ro
     align-items: center;
     justify-content: flex-start;
     gap: calc(14 * var(--s));
-    padding-left: calc(26 * var(--s));
+    padding-left: calc(20 * var(--s));
     padding-right: calc(16 * var(--s));
   }
   .stat-col {
@@ -882,414 +920,6 @@ body.nav-open .mi-4 { transition-delay: 0.26s; }
 }
 
 /* ----------------------------------------------------
-   HUD Workstation Layout (OS Desktop)
-   ---------------------------------------------------- */
-#hud-stage {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  background: #020704;
-  color: #c8ffd9;
-  font-family: 'JB', monospace;
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
-  overflow: hidden;
-}
-
-body.mode-hud #hud-stage {
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
-}
-
-body.mode-hud .frame {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Workstation Ambient Motion Background */
-#hud-motion-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Status Bar */
-.hud-bar {
-  height: 48px;
-  flex: none;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--accent-border);
-  background: rgba(2, 10, 5, 0.95);
-  backdrop-filter: blur(8px);
-  z-index: 30;
-  position: relative;
-}
-
-.hud-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'SG', sans-serif;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--accent);
-  font-size: 13.5px;
-}
-
-.led {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
-}
-
-.hud-meta {
-  color: #8be0a5;
-  font-size: 11.5px;
-  letter-spacing: 0.06em;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.hud-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.hud-btn {
-  background: transparent;
-  border: 1px solid var(--accent-border);
-  color: var(--accent);
-  padding: 5px 12px;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  font-family: inherit;
-  transition: background 0.18s, color 0.18s;
-  white-space: nowrap;
-}
-
-.hud-btn:hover {
-  background: var(--accent-dim);
-}
-
-.hud-bar-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.hud-dir-btn {
-  display: none;
-  background: rgba(var(--accent-rgb), 0.15);
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 5px 12px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  font-family: inherit;
-  white-space: nowrap;
-  transition: all 0.18s ease;
-}
-
-.hud-dir-btn:hover {
-  background: var(--accent);
-  color: #000;
-}
-
-.hud-dir-close-btn {
-  display: none;
-}
-
-/* HUD Middle Split: Directory + Desktop Workspace Area */
-.hud-main-grid {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  position: relative;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.hud-nav {
-  width: 220px;
-  flex: none;
-  padding: 16px 12px;
-  border-right: 1px solid rgba(var(--accent-rgb), 0.25);
-  background: rgba(3, 14, 7, 0.95);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  overflow-y: auto;
-  z-index: 20;
-  pointer-events: auto;
-}
-
-.hud-nav-head {
-  font-size: 11px;
-  color: #72cf90;
-  letter-spacing: 0.16em;
-  margin-bottom: 8px;
-  padding-left: 6px;
-}
-
-.hud-nav-item {
-  text-align: left;
-  padding: 9px 12px;
-  font-size: 11.5px;
-  letter-spacing: 0.06em;
-  background: transparent;
-  border: 1px solid rgba(var(--accent-rgb), 0.15);
-  color: #c8ffd9;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.hud-nav-item:hover, .hud-nav-item.active {
-  background: var(--accent-dim);
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.dir-indicator {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: transparent;
-  border: 1px solid var(--accent);
-  transition: background 0.2s;
-  flex-shrink: 0;
-}
-
-.hud-nav-item.is-open .dir-indicator {
-  background: var(--accent);
-  box-shadow: 0 0 6px var(--accent);
-}
-
-#hud-desktop-area {
-  flex: 1;
-  min-width: 0;
-  position: relative;
-  overflow: hidden;
-  background: transparent;
-  pointer-events: none;
-}
-
-/* OS Window Styles */
-.os-window {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  pointer-events: auto;
-  background: rgba(5, 16, 9, 0.95);
-  border: 1px solid var(--accent-border);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75), 0 0 14px rgba(var(--accent-rgb), 0.12);
-  backdrop-filter: blur(12px);
-  overflow: hidden;
-  min-width: 290px;
-  min-height: 180px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.os-window.win-focused {
-  border-color: var(--accent);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85), 0 0 20px rgba(var(--accent-rgb), 0.25);
-}
-
-.os-window.is-dragging { opacity: 0.92; cursor: grabbing !important; user-select: none; }
-.os-window.is-resizing { user-select: none; }
-.os-window.is-minimized .win-body, .os-window.is-minimized .win-resizer { display: none !important; }
-.os-window.is-minimized { height: 38px !important; }
-.os-window.is-maximized { left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; }
-
-.win-titlebar {
-  height: 38px;
-  background: rgba(8, 24, 13, 0.96);
-  border-bottom: 1px solid var(--accent-border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 12px;
-  cursor: grab;
-  user-select: none;
-  flex-shrink: 0;
-}
-
-.win-title-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-  font-weight: 700;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.win-led {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-.win-controls { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
-.win-btn {
-  width: 24px;
-  height: 22px;
-  background: transparent;
-  border: 1px solid rgba(var(--accent-rgb), 0.3);
-  color: #c8ffd9;
-  font-size: 11px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: inherit;
-  transition: all 0.15s;
-}
-.win-btn:hover { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
-.win-close:hover { background: #c81b1c; color: #fff; border-color: #c81b1c; }
-
-.win-body { flex: 1; overflow-y: auto; padding: 18px; min-height: 0; }
-
-/* 8-Direction Resizers */
-.win-resizer { position: absolute; touch-action: none; z-index: 15; }
-.win-resizer-r { top: 12px; right: -5px; bottom: 24px; width: 14px; cursor: ew-resize; }
-.win-resizer-l { top: 12px; left: -5px; bottom: 24px; width: 14px; cursor: ew-resize; }
-.win-resizer-b { left: 24px; right: 24px; bottom: -5px; height: 14px; cursor: ns-resize; }
-.win-resizer-t { left: 24px; right: 24px; top: -5px; height: 14px; cursor: ns-resize; }
-.win-resizer-br { right: 0; bottom: 0; width: 24px; height: 24px; cursor: se-resize; background: linear-gradient(135deg, transparent 50%, var(--accent) 50%); opacity: 0.75; }
-.win-resizer-bl { left: 0; bottom: 0; width: 24px; height: 24px; cursor: sw-resize; background: linear-gradient(225deg, transparent 50%, var(--accent) 50%); opacity: 0.75; }
-.win-resizer-tr { right: 0; top: 0; width: 24px; height: 24px; cursor: ne-resize; background: linear-gradient(45deg, transparent 50%, var(--accent) 50%); opacity: 0.75; }
-.win-resizer-tl { left: 0; top: 0; width: 24px; height: 24px; cursor: nw-resize; background: linear-gradient(315deg, transparent 50%, var(--accent) 50%); opacity: 0.75; }
-.win-resizer-br:hover, .win-resizer-bl:hover, .win-resizer-tr:hover, .win-resizer-tl:hover, .win-resizer.is-resizing { opacity: 1; filter: drop-shadow(0 0 6px var(--accent)); }
-
-/* 3D Cyber Cube Container */
-.cube-hero { position: relative; width: 100%; height: 100%; min-height: 380px; overflow: hidden; background: #000; }
-#scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
-#scene.dragging { cursor: grabbing; }
-.cube-ui { position: absolute; inset: 0; pointer-events: none; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; padding: 16px 20px; }
-.cube-header { display: flex; justify-content: space-between; align-items: center; pointer-events: auto; }
-.cube-arrows { display: flex; gap: 12px; pointer-events: auto; }
-.cube-arrow { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #fff; background: transparent; color: #fff; display: grid; place-items: center; cursor: pointer; transition: background 0.2s, color 0.2s; }
-.cube-arrow svg { width: 16px; height: 16px; }
-.cube-arrow:hover { background: #fff; color: #000; }
-.cube-dots { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 14px; pointer-events: auto; }
-.dot { width: 11px; height: 11px; border-radius: 50%; border: 2px solid #fff; background: #fff; cursor: pointer; transition: background 0.2s; }
-.dot.active { background: transparent; }
-.cube-cta-row { display: flex; align-items: center; pointer-events: auto; margin-top: auto; }
-.cube-cta { padding: 0 14px; height: 36px; display: inline-flex; align-items: center; border: 1.5px solid rgba(255,255,255,0.85); border-radius: 4px; background: rgba(0,0,0,0.4); color: #fff; font-size: 11.5px; font-family: 'Poppins', sans-serif; cursor: pointer; transition: background 0.2s, color 0.2s; }
-.cube-cta:hover { background: #fff; color: #000; }
-.cube-cta-line { flex: 1; height: 1.5px; background: rgba(255,255,255,0.6); margin: 0 12px; min-width: 20px; }
-.cube-count { font-size: clamp(36px, 7vw, 72px); font-weight: 700; font-family: 'Poppins', sans-serif; color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.7); user-select: none; }
-.cube-loader { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 11px; letter-spacing: 0.2em; color: #fff; opacity: 0.6; transition: opacity 0.6s; pointer-events: none; }
-.cube-loader.done { opacity: 0; }
-
-/* First-Person Experience Switcher */
-.view-switch { display: inline-flex; border: 1px solid var(--accent-border); background: #020704; padding: 2px; gap: 2px; }
-.switch-btn { background: transparent; border: none; color: #92e0ab; padding: 4px 8px; font-size: 10.5px; font-family: inherit; cursor: pointer; letter-spacing: 0.06em; }
-.switch-btn.active { background: var(--accent); color: #000; font-weight: 600; }
-.story-bubble { line-height: 1.7; color: #e0f8e9; font-size: 13px; border-left: 2px solid var(--accent); padding: 10px 14px; background: rgba(var(--accent-rgb), 0.06); white-space: pre-line; margin-top: 8px; }
-.spec-list { list-style: none; margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
-.spec-item { display: flex; gap: 8px; line-height: 1.55; color: #b8efcb; font-size: 12.5px; }
-.spec-item::before { content: ">"; color: var(--accent); font-weight: bold; }
-
-/* Projects & Skills Grids */
-.proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
-.proj-card { border: 1px solid var(--accent-border); background: rgba(6, 20, 10, 0.85); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
-.proj-name { font-family: 'SG', sans-serif; font-weight: 700; font-size: 15px; color: #fff; line-height: 1.35; }
-.proj-role { color: var(--accent); font-size: 11.5px; }
-.proj-stack { color: #6edaa0; font-size: 11.5px; }
-.proj-blurb { color: #a8e5be; font-size: 12.5px; line-height: 1.55; }
-.proj-link { color: var(--accent); font-size: 11.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-top: auto; font-weight: 600; }
-.proj-link:hover { text-decoration: underline; }
-.skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
-.skill-bar-wrap { margin-top: 4px; height: 5px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
-.skill-bar-fill { height: 100%; background: var(--accent); }
-.avatar-canvas-wrap { width: 100%; position: relative; display: flex; align-items: center; justify-content: center; }
-#avatar-canvas { width: 100%; height: 100%; display: block; }
-
-/* Terminal Styles */
-.term-output { padding: 6px 4px; overflow-y: auto; display: flex; flex-direction: column; gap: 3px; font-size: 12px; line-height: 1.5; }
-.term-line { word-break: break-word; }
-.term-in { color: var(--accent); font-weight: 600; }
-.term-out { color: #c0f4d3; }
-.term-err { color: #ffb000; }
-.term-input-row { padding: 6px 0; display: flex; align-items: center; gap: 8px; border-top: 1px solid rgba(var(--accent-rgb), 0.2); }
-.term-prompt { color: var(--accent); white-space: nowrap; font-size: 12.5px; }
-.term-input { flex: 1; background: transparent; border: none; color: #c8ffd9; font-family: inherit; font-size: 13px; padding: 4px 0; outline: none; }
-.term-chips { display: flex; flex-wrap: wrap; gap: 5px; }
-.chip-btn { background: #06140a; border: 1px solid var(--accent-border); color: var(--accent); padding: 2px 7px; font-size: 10.5px; cursor: pointer; font-family: inherit; transition: all 0.15s ease; }
-.chip-btn:hover { background: var(--accent); color: #000; }
-
-/* Printable Resume Modal */
-#resume-modal { position: fixed; inset: 0; z-index: 1000; background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.3s, visibility 0.3s; }
-#resume-modal.active { opacity: 1; visibility: visible; pointer-events: auto; }
-.resume-paper { background: #08120a; border: 1px solid var(--accent-border); width: 100%; max-width: 840px; max-height: 90vh; overflow-y: auto; padding: 32px 36px; color: #e2f7ea; box-shadow: 0 0 35px rgba(var(--accent-rgb), 0.2); }
-@media print {
-  body * { visibility: hidden; }
-  #resume-modal, #resume-modal.active, .resume-paper, .resume-paper * { visibility: visible; }
-  #resume-modal { position: static; background: #fff; padding: 0; }
-  .resume-paper { border: none; box-shadow: none; color: #111; background: #fff; max-height: none; padding: 0; }
-  .no-print { display: none !important; }
-}
-
-/* Responsive Rules for Tablet & Mobile Drawer */
-@media (max-width: 1024px), (max-height: 650px) {
-  .hud-dir-btn { display: inline-flex; }
-  .hud-nav {
-    position: absolute; top: 0; left: 0; bottom: 0; width: 260px;
-    background: rgba(4, 14, 8, 0.98); box-shadow: 10px 0 35px rgba(0, 0, 0, 0.9);
-    transform: translateX(-105%); transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1000;
-  }
-  body.dir-open .hud-nav { transform: translateX(0); }
-  .hud-nav-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid rgba(var(--accent-rgb), 0.2); }
-  .hud-dir-close-btn { display: inline-block; background: transparent; border: none; color: var(--accent); font-size: 11px; font-family: inherit; cursor: pointer; letter-spacing: 0.08em; padding: 4px 6px; }
-  .hud-dir-close-btn:hover { color: #fff; }
-  #hud-nav-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px); z-index: 999; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.3s, visibility 0.3s; }
-  body.dir-open #hud-nav-backdrop { opacity: 1; visibility: visible; pointer-events: auto; }
-}
-
-@media (max-width: 540px) and (orientation: portrait) {
-  .hud-bar { height: auto; padding: 8px 12px; flex-wrap: wrap; gap: 8px; }
-  .hud-meta { font-size: 10px; gap: 8px; order: 3; width: 100%; justify-content: space-between; }
-  #hud-desktop-area { position: relative; padding: 10px; overflow-y: auto; }
-  .os-window { position: static !important; width: 100% !important; height: auto !important; min-height: auto !important; margin-bottom: 12px; }
-  .win-resizer { display: none !important; }
-}
-
-/* ----------------------------------------------------
    3D Cyber Cube Container on Workstation Background
    ---------------------------------------------------- */
 .hud-cube-bg {
@@ -1299,7 +929,7 @@ body.mode-hud .frame {
   height: 100%;
   z-index: 1;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 50%, rgba(var(--accent-rgb), 0.12) 0%, rgba(2, 7, 4, 0.96) 75%);
+  background: radial-gradient(circle at 50% 50%, rgba(var(--accent-rgb), 0.12) 0%, rgba(3, 7, 12, 0.96) 75%);
   pointer-events: auto;
 }
 
@@ -1343,7 +973,7 @@ body.mode-hud .frame {
   font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--accent);
-  background: rgba(2, 10, 5, 0.85);
+  background: rgba(4, 9, 15, 0.85);
   border: 1px solid var(--accent-border);
   padding: 5px 12px;
   backdrop-filter: blur(8px);
@@ -1370,7 +1000,7 @@ body.mode-hud .frame {
   height: 32px;
   border-radius: 50%;
   border: 1px solid rgba(var(--accent-rgb), 0.45);
-  background: rgba(3, 14, 7, 0.85);
+  background: rgba(4, 9, 15, 0.85);
   color: var(--accent);
   display: grid;
   place-items: center;
@@ -1460,8 +1090,8 @@ body.mode-hud .frame {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #72cf90;
-  box-shadow: 0 0 6px #72cf90;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
   animation: pulse 2s infinite ease-in-out;
 }
 </style>
@@ -1524,26 +1154,11 @@ body.mode-hud .frame {
         <a href="#contact" class="nav-item">Contact</a>
       </nav>
 
-      <!-- Mobile Burger -->
+      <!-- Menu Toggle Icon (Top Right Corner) -->
       <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
         <span class="b-bar b1"></span>
         <span class="b-bar b2"></span>
         <span class="b-bar b3"></span>
-      </button>
-
-      <!-- Workstation Quick Switcher Button -->
-      <button class="btn-workstation-launch" id="quick-hud-btn" aria-label="Launch interactive 3D cybersecurity workstation">
-        <span class="btn-led"></span>
-        <span>WORKSTATION 3D ⚡</span>
-      </button>
-
-      <!-- Top CTA: Boots into HUD Workstation -->
-      <button class="btn btn-top">
-        <span class="btn-lbl">Explore portfolio</span>
-        <svg class="btn-arr" viewBox="0 0 21.5 18" fill="none" stroke="#fff" stroke-width="2">
-          <path d="M0 9H20.1" />
-          <path d="M12.1 1L20.1 9L12.1 17" />
-        </svg>
       </button>
     </header>
 
@@ -1555,7 +1170,7 @@ body.mode-hud .frame {
         <span class="ln"><span>Security engineered into</span></span>
         <span class="ln"><span>every threat vector</span></span>
       </h1>
-      <p class="sub">Lalith Chaitanya Mulapala — Cybersecurity Analyst &amp; Systems Engineer<br>specializing in VAPT, cloud compliance, and real-time SIEM pipelines.</p>
+      <p class="sub">Lalith Chaitanya Mulapala — Cybersecurity Analyst &amp; Systems Engineer<br class="desktop-break">specializing in VAPT, cloud compliance, and real-time SIEM pipelines.</p>
       <button class="btn btn-cta">
         <span class="btn-lbl">Explore portfolio</span>
         <svg class="btn-arr" viewBox="0 0 21.5 18" fill="none" stroke="#fff" stroke-width="2">
@@ -1685,7 +1300,7 @@ body.mode-hud .frame {
       </nav>
 
       <div class="cube-bg-footer">
-        <span class="cube-bg-caption">DRAG BACKGROUND TO ROTATE 3D CORE // OPTICAL DISPERSION</span>
+        <span class="cube-bg-caption">DRAG BACKGROUND TO ROTATE 3D CORE</span>
       </div>
       <div class="cube-loader done" id="loader">3D CORE ONLINE</div>
     </div>
@@ -1697,7 +1312,6 @@ body.mode-hud .frame {
   <!-- Top Status Bar -->
   <header class="hud-bar">
     <div class="hud-bar-left">
-      <button id="hud-dir-toggle" class="hud-dir-btn" aria-label="Toggle directory menu">☰ DIRECTORY</button>
       <div class="hud-logo">
         <span class="led"></span>
         <span>LCM://WORKSTATION</span>
@@ -1706,34 +1320,40 @@ body.mode-hud .frame {
 
     <div class="hud-meta">
       <span>ACTIVE: <b id="hud-current-panel" style="color:var(--accent)">OVERVIEW</b></span>
-      <span>STATUS: <b style="color:#72cf90">ONLINE</b></span>
+      <span>STATUS: <b style="color:var(--accent)">ONLINE</b></span>
       <span>LOC: HYDERABAD, IN</span>
     </div>
 
     <div class="hud-actions">
-      <button id="hud-theme-toggle" class="hud-btn" aria-label="Cycle visual theme">THEME: CRIMSON</button>
+      <button id="hud-arrange-btn" class="hud-btn" title="Re-tile windows to fill the screen" aria-label="Arrange open windows">ARRANGE</button>
+      <button id="hud-theme-toggle" class="hud-btn" aria-label="Cycle visual theme">THEME: CYAN</button>
       <button id="hud-sound-toggle" class="hud-btn" aria-label="Toggle synthesized audio">SOUND: OFF</button>
       <button id="hud-back-btn" class="hud-btn" style="background:var(--accent);color:#000;font-weight:700;border:none">EXIT WORKSPACE ✕</button>
     </div>
   </header>
 
-  <!-- Middle Row: Directory Drawer/Tile + OS Window Desktop Area -->
+  <!-- Desktop Canvas Area for OS Draggable/Resizable Windows -->
   <div class="hud-main-grid">
-    <!-- Backdrop for mobile/tablet drawer -->
-    <div id="hud-nav-backdrop" class="hud-nav-backdrop" aria-hidden="true"></div>
-
-    <!-- Navigation Rail (Directory Drawer / Pinned Desktop Tile) -->
-    <nav class="hud-nav" id="hud-nav-bar" aria-label="HUD Sections">
-      <div class="hud-nav-top">
-        <div class="hud-nav-head">// DIRECTORY</div>
-        <button id="hud-dir-close" class="hud-dir-close-btn" aria-label="Close directory">[✕ CLOSE]</button>
-      </div>
-      <div id="hud-nav-list" style="display:flex;flex-direction:column;gap:6px"></div>
-    </nav>
-
-    <!-- Desktop Canvas Area for OS Draggable/Resizable Windows -->
     <main id="hud-desktop-area" role="main" aria-label="OS Desktop Tiles"></main>
   </div>
+
+  <!-- Taskbar: Start (directory) button + running windows, centered -->
+  <nav class="hud-taskbar" id="hud-taskbar" aria-label="Taskbar">
+    <div class="tb-center">
+      <div class="tb-start-wrap">
+        <div class="tb-start-menu" id="hud-start-menu" role="menu" aria-label="Directory">
+          <div class="tb-menu-head">// DIRECTORY</div>
+          <div id="hud-nav-list" class="tb-menu-list"></div>
+        </div>
+        <button id="hud-dir-toggle" class="tb-start" aria-label="Open directory" aria-haspopup="true" aria-expanded="false">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>
+          <span>DIRECTORY</span>
+        </button>
+      </div>
+      <span class="tb-sep" id="tb-sep" aria-hidden="true"></span>
+      <div class="tb-items" id="hud-taskbar-items"></div>
+    </div>
+  </nav>
 </div>
 
 <!-- ====================================================
@@ -1796,7 +1416,7 @@ body.mode-hud .frame {
         playBeep(750, 0.06);
         document.body.classList.add('mode-hud');
         document.body.classList.remove('nav-open');
-        ensureWindowsPopulated();
+        
       });
     });
 
@@ -1809,7 +1429,7 @@ body.mode-hud .frame {
           playBeep(650, 0.04);
           document.body.classList.add('mode-hud');
           document.body.classList.remove('nav-open');
-          ensureWindowsPopulated(href.replace('#', ''));
+          
         }
       });
     });
@@ -1825,17 +1445,20 @@ body.mode-hud .frame {
     const menuCloseBtn = document.getElementById('menu-close-btn');
     const menuBackdrop = document.getElementById('menu-backdrop');
     burger?.addEventListener('click', function(e) {
+      if (window.__LCM_APP_MOUNTED__) return;
       e.stopPropagation();
       playBeep(600, 0.04);
       const open = document.body.classList.toggle('nav-open');
       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     menuCloseBtn?.addEventListener('click', function() {
+      if (window.__LCM_APP_MOUNTED__) return;
       playBeep(400, 0.04);
       document.body.classList.remove('nav-open');
       burger?.setAttribute('aria-expanded', 'false');
     });
     menuBackdrop?.addEventListener('click', function() {
+      if (window.__LCM_APP_MOUNTED__) return;
       document.body.classList.remove('nav-open');
       burger?.setAttribute('aria-expanded', 'false');
     });
@@ -1845,331 +1468,35 @@ body.mode-hud .frame {
     const dirClose = document.getElementById('hud-dir-close');
     const dirBackdrop = document.getElementById('hud-nav-backdrop');
     dirToggle?.addEventListener('click', function(e) {
+      if (window.__LCM_APP_MOUNTED__) return;
       e.stopPropagation();
       playBeep(550, 0.04);
       document.body.classList.toggle('dir-open');
     });
     dirClose?.addEventListener('click', function() {
+      if (window.__LCM_APP_MOUNTED__) return;
       playBeep(400, 0.04);
       document.body.classList.remove('dir-open');
     });
     dirBackdrop?.addEventListener('click', function() {
+      if (window.__LCM_APP_MOUNTED__) return;
       document.body.classList.remove('dir-open');
     });
 
     // 6. Theme toggle
     const themeBtn = document.getElementById('hud-theme-toggle');
     themeBtn?.addEventListener('click', function() {
+      if (window.__LCM_APP_MOUNTED__) return;
       playBeep(880, 0.05);
-      const themes = ['crimson', 'matrix', 'amber'];
-      const cur = document.documentElement.getAttribute('data-theme') || 'crimson';
+      const themes = ['cyan', 'amber', 'violet', 'blue'];
+      const cur = document.documentElement.getAttribute('data-theme') || 'cyan';
       const nxt = themes[(themes.indexOf(cur) + 1) % themes.length];
       document.documentElement.setAttribute('data-theme', nxt);
       themeBtn.textContent = 'THEME: ' + nxt.toUpperCase();
     });
 
-    // Check if ES Module app loaded after 250ms; if not, initialize standalone workstation
-    setTimeout(function() {
-      if (!window.__LCM_APP_MOUNTED__) {
-        setupStandaloneWorkstation();
-      }
-    }, 250);
   }
 
-  // Standalone Window & Directory Population for file:// and direct download environments
-  function setupStandaloneWorkstation() {
-    const desktopArea = document.getElementById('hud-desktop-area');
-    const navList = document.getElementById('hud-nav-list');
-    if (!desktopArea || !navList) return;
-
-    // Render Navigation Directory
-    const navItems = [
-      { id: 'overview', label: '// OVERVIEW & TELEMETRY', win: 'win-overview' },
-      { id: 'terminal', label: '// VISITOR TERMINAL (CLI)', win: 'win-terminal' },
-      { id: 'about', label: '// ABOUT & AVATAR', win: 'win-about' },
-      { id: 'experience', label: '// EXPERIENCE DEBRIEF', win: 'win-experience' },
-      { id: 'projects', label: '// REPOSITORIES (VAPT)', win: 'win-projects' },
-      { id: 'skills', label: '// SKILLS TELEMETRY', win: 'win-skills' },
-      { id: 'certs', label: '// CERTIFICATIONS', win: 'win-certs' },
-      { id: 'contact', label: '// COMM CHANNELS', win: 'win-contact' }
-    ];
-
-    navList.innerHTML = navItems.map(function(item) {
-      return '<button class="hud-nav-item" data-win="' + item.win + '" style="background:none;border:1px solid rgba(var(--accent-rgb),0.25);color:var(--accent);padding:8px 12px;font-family:inherit;font-size:11.5px;cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between;transition:all 0.18s">' +
-        '<span>' + item.label + '</span><span class="hud-nav-state" style="font-size:10px;opacity:0.65">ACTIVE</span></button>';
-    }).join('') + '<button id="standalone-resume-btn" class="hud-nav-item" style="margin-top:12px;background:rgba(var(--accent-rgb),0.15);border:1px solid var(--accent);color:#fff;padding:9px 12px;font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer;text-align:center">PRINT RESUME / CV ⤓</button>';
-
-    // Windows Markup
-    desktopArea.innerHTML = [
-      // 1. Overview Window
-      '<div id="win-overview" class="os-window is-focused" style="top:20px;left:20px;width:min(680px,94%);height:auto;z-index:20">' +
-        '<div class="win-header"><span class="win-title">WIN://OVERVIEW_TELEMETRY.SYS</span><div class="win-controls"><button class="win-btn win-min">−</button><button class="win-btn win-max">□</button><button class="win-btn win-close">✕</button></div></div>' +
-        '<div class="win-body">' +
-          '<div style="border-bottom:1px solid var(--accent-border);padding-bottom:12px;margin-bottom:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">' +
-            '<div><div style="color:#fff;font-family:SG,sans-serif;font-size:19px;font-weight:700">Lalith Chaitanya Mulapala</div><div style="color:var(--accent);font-size:12px">Cybersecurity Analyst &amp; Systems Engineer · B.Tech CSE (8.58 GPA)</div></div>' +
-            '<div style="display:flex;gap:6px"><button class="doc-tab active" data-tab="story" style="background:var(--accent);color:#000;border:none;padding:4px 8px;font-size:11px;font-weight:700;cursor:pointer">WALKTHROUGH</button><button class="doc-tab" data-tab="specs" style="background:none;border:1px solid var(--accent-border);color:var(--accent);padding:4px 8px;font-size:11px;cursor:pointer">SPECS</button></div>' +
-          '</div>' +
-          '<div class="tab-pane pane-story" style="font-size:12.5px;line-height:1.6;color:#c0ebd0">' +
-            'I specialize in offensive vulnerability assessment and penetration testing (VAPT), SIEM detection engineering, and cloud compliance automation. During enterprise penetration testing across 8 production client environments, I discovered 14 vulnerabilities that automated scanners failed to detect—including 3 critical SQL Injections and 4 high-severity IDORs—and partnered directly with developers to resolve 85% of findings within 30 days.' +
-          '</div>' +
-          '<div class="tab-pane pane-specs" style="display:none;font-size:12.5px;line-height:1.6;color:#c0ebd0">' +
-            '<ul style="padding-left:18px;display:flex;flex-direction:column;gap:6px">' +
-              '<li>Automated 18 AWS CIS Benchmark controls via Python/Boto3, cutting audit cycles by 60%.</li>' +
-              '<li>Engineered 50+ custom SIEM detection rules across Snort, Wazuh, and Splunk with &lt;2s ingestion.</li>' +
-              '<li>ISC² Certified in Cybersecurity (CC) · Fortinet Certified Associate (FCA) · EC-Council CHFI.</li>' +
-            '</ul>' +
-          '</div>' +
-        '</div>' +
-      '</div>',
-
-      // 2. Terminal Window
-      '<div id="win-terminal" class="os-window" style="top:50px;left:60px;width:min(640px,94%);height:auto;z-index:21">' +
-        '<div class="win-header"><span class="win-title">WIN://VISITOR_TERMINAL.SH</span><div class="win-controls"><button class="win-btn win-min">−</button><button class="win-btn win-max">□</button><button class="win-btn win-close">✕</button></div></div>' +
-        '<div class="win-body" style="background:#020603">' +
-          '<div class="term-chips" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">' +
-            '<button class="chip-btn" data-cmd="help">help</button>' +
-            '<button class="chip-btn" data-cmd="skills">skills</button>' +
-            '<button class="chip-btn" data-cmd="projects">projects</button>' +
-            '<button class="chip-cmd chip-btn" data-cmd="exp">experience</button>' +
-            '<button class="chip-btn" data-cmd="contact">contact</button>' +
-            '<button class="chip-btn" data-cmd="clear">clear</button>' +
-          '</div>' +
-          '<div id="standalone-term-output" style="display:flex;flex-direction:column;gap:4px;font-size:12px;max-height:180px;overflow-y:auto;margin-bottom:8px;color:#a8f0c2">' +
-            '<div>[SYS://ONLINE] Type <b>help</b> or click command chips to interact with cybersecurity telemetry.</div>' +
-          '</div>' +
-          '<div style="display:flex;align-items:center;gap:8px;border-top:1px solid rgba(var(--accent-rgb),0.2);padding-top:6px">' +
-            '<span style="color:var(--accent);font-weight:700">visitor@lcm-sys:~$</span>' +
-            '<input id="standalone-term-in" type="text" placeholder="type command (help, skills, projects, exp)..." style="flex:1;background:none;border:none;outline:none;color:#fff;font-family:inherit;font-size:12.5px">' +
-          '</div>' +
-        '</div>' +
-      '</div>',
-
-      // 3. Projects Window
-      '<div id="win-projects" class="os-window" style="top:80px;left:90px;width:min(680px,94%);height:auto;z-index:22">' +
-        '<div class="win-header"><span class="win-title">WIN://REPOSITORIES.JSON</span><div class="win-controls"><button class="win-btn win-min">−</button><button class="win-btn win-max">□</button><button class="win-btn win-close">✕</button></div></div>' +
-        '<div class="win-body">' +
-          '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">' +
-            '<div class="proj-card" style="border:1px solid var(--accent-border);background:#051208;padding:12px;display:flex;flex-direction:column;gap:6px">' +
-              '<div style="color:#fff;font-weight:700;font-family:SG,sans-serif">Automated AWS CIS Compliance Evaluator</div>' +
-              '<div style="color:var(--accent);font-size:11px">Cloud Security &amp; Compliance Automation</div>' +
-              '<div style="color:#a8e5be;font-size:11.5px">Python/Boto3 engine auditing IAM, S3, and CloudTrail against CIS Benchmarks. Generated remediation reports and reduced evaluation cycles by 60%.</div>' +
-              '<a href="https://github.com/LalithChaitanya1701" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-size:11px;font-weight:700;text-decoration:none;margin-top:auto">VIEW SOURCE CODE ↗</a>' +
-            '</div>' +
-            '<div class="proj-card" style="border:1px solid var(--accent-border);background:#051208;padding:12px;display:flex;flex-direction:column;gap:6px">' +
-              '<div style="color:#fff;font-weight:700;font-family:SG,sans-serif">High-Throughput SIEM Detection Engine</div>' +
-              '<div style="color:var(--accent);font-size:11px">Threat Monitoring &amp; Incident Pipeline</div>' +
-              '<div style="color:#a8e5be;font-size:11.5px">Configured 50+ detection rules across Wazuh and Snort. Simulated brute-force and port scans to validate &lt;2s ingestion SLAs.</div>' +
-              '<a href="https://github.com/LalithChaitanya1701" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-size:11px;font-weight:700;text-decoration:none;margin-top:auto">VIEW SOURCE CODE ↗</a>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-      '</div>'
-    ].join('');
-
-    // Setup Window Controls (Close, Min, Focus, Drag)
-    desktopArea.querySelectorAll('.os-window').forEach(function(win) {
-      const header = win.querySelector('.win-header');
-      const closeBtn = win.querySelector('.win-close');
-      const minBtn = win.querySelector('.win-min');
-      const maxBtn = win.querySelector('.win-max');
-
-      win.addEventListener('mousedown', function() {
-        desktopArea.querySelectorAll('.os-window').forEach(w => w.classList.remove('is-focused'));
-        win.classList.add('is-focused');
-      });
-
-      closeBtn?.addEventListener('click', function(e) {
-        e.stopPropagation();
-        playBeep(350, 0.06);
-        win.style.display = 'none';
-      });
-
-      minBtn?.addEventListener('click', function(e) {
-        e.stopPropagation();
-        win.classList.toggle('is-minimized');
-      });
-
-      maxBtn?.addEventListener('click', function(e) {
-        e.stopPropagation();
-        win.classList.toggle('is-maximized');
-      });
-
-      // Dragging logic
-      if (header) {
-        let isDragging = false;
-        let startX = 0, startY = 0, initLeft = 0, initTop = 0;
-        header.addEventListener('mousedown', function(e) {
-          if (e.target.closest('.win-controls')) return;
-          isDragging = true;
-          startX = e.clientX;
-          startY = e.clientY;
-          initLeft = win.offsetLeft;
-          initTop = win.offsetTop;
-          e.preventDefault();
-        });
-        window.addEventListener('mousemove', function(e) {
-          if (!isDragging) return;
-          win.style.left = Math.max(0, initLeft + (e.clientX - startX)) + 'px';
-          win.style.top = Math.max(0, initTop + (e.clientY - startY)) + 'px';
-        });
-        window.addEventListener('mouseup', function() { isDragging = false; });
-      }
-    });
-
-    // Nav Item Click to Focus / Show Window
-    navList.querySelectorAll('.hud-nav-item[data-win]').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        playBeep(650, 0.04);
-        const winId = btn.getAttribute('data-win');
-        const targetWin = document.getElementById(winId);
-        if (targetWin) {
-          targetWin.style.display = 'flex';
-          targetWin.classList.remove('is-minimized');
-          desktopArea.querySelectorAll('.os-window').forEach(w => w.classList.remove('is-focused'));
-          targetWin.classList.add('is-focused');
-        }
-        document.body.classList.remove('dir-open');
-      });
-    });
-
-    // Overview Tab Switching
-    desktopArea.querySelectorAll('.doc-tab').forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        const type = tab.getAttribute('data-tab');
-        const parent = tab.closest('.os-window');
-        parent.querySelectorAll('.doc-tab').forEach(t => {
-          t.style.background = 'none';
-          t.style.color = 'var(--accent)';
-          t.style.fontWeight = 'normal';
-        });
-        tab.style.background = 'var(--accent)';
-        tab.style.color = '#000';
-        tab.style.fontWeight = 'bold';
-        parent.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
-        const target = parent.querySelector('.pane-' + type);
-        if (target) target.style.display = 'block';
-      });
-    });
-
-    // Terminal Interactive Execution
-    const termIn = document.getElementById('standalone-term-in');
-    const termOut = document.getElementById('standalone-term-output');
-    function executeCmd(raw) {
-      const cmd = (raw || '').trim().toLowerCase();
-      if (!cmd) return;
-      playBeep(600, 0.03);
-      const row = document.createElement('div');
-      row.innerHTML = '<span style="color:var(--accent)">visitor@lcm-sys:~$ ' + cmd + '</span>';
-      termOut.appendChild(row);
-
-      const resp = document.createElement('div');
-      resp.style.color = '#c8ffd9';
-      if (cmd === 'help') {
-        resp.innerHTML = 'Available: <b>skills</b>, <b>projects</b>, <b>exp</b>, <b>contact</b>, <b>whoami</b>, <b>cv</b>, <b>clear</b>, <b>exit</b>';
-      } else if (cmd === 'whoami') {
-        resp.innerHTML = 'Lalith Chaitanya Mulapala — Cybersecurity Analyst &amp; Systems Engineer (ISC² CC)';
-      } else if (cmd === 'skills') {
-        resp.innerHTML = 'Offensive VAPT · SIEM Detection Engineering · Cloud Security (AWS CIS) · Forensic Triage · Python/Boto3';
-      } else if (cmd === 'projects') {
-        resp.innerHTML = '1. Automated AWS CIS Evaluator (Boto3)<br>2. High-Throughput SIEM Pipeline (Wazuh/Snort)<br>3. Brut3Zero Pentest Suite';
-      } else if (cmd === 'exp') {
-        resp.innerHTML = '1. Supraja Technologies (VAPT Intern - 14 vulns documented)<br>2. SecurWires STSL (Cybersecurity &amp; AI/ML Intern)';
-      } else if (cmd === 'contact') {
-        resp.innerHTML = 'Email: lalithchaitanya.mulapala@gmail.com · GitHub: github.com/LalithChaitanya1701';
-      } else if (cmd === 'clear') {
-        termOut.innerHTML = '';
-        return;
-      } else if (cmd === 'cv') {
-        openResumeModalDirect();
-        resp.innerHTML = 'Opening Curriculum Vitae dossier...';
-      } else if (cmd === 'exit') {
-        document.body.classList.remove('mode-hud');
-        return;
-      } else {
-        resp.innerHTML = 'Command not recognized: ' + cmd + '. Type <b>help</b> for command directory.';
-      }
-      termOut.appendChild(resp);
-      termOut.scrollTop = termOut.scrollHeight;
-    }
-
-    termIn?.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        executeCmd(termIn.value);
-        termIn.value = '';
-      }
-    });
-
-    desktopArea.querySelectorAll('.chip-btn').forEach(function(chip) {
-      chip.addEventListener('click', function() {
-        executeCmd(chip.getAttribute('data-cmd'));
-      });
-    });
-
-    // Resume Modal Handler
-    document.getElementById('standalone-resume-btn')?.addEventListener('click', openResumeModalDirect);
-    function openResumeModalDirect() {
-      playBeep(700, 0.05);
-      const modal = document.getElementById('resume-modal');
-      if (!modal) return;
-      modal.classList.add('active');
-      modal.innerHTML = '<div class="resume-paper" style="max-width:800px;background:#08120a;border:1px solid var(--accent-border);padding:28px;color:#e0f8e9;position:relative">' +
-        '<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--accent-border);padding-bottom:12px;margin-bottom:16px">' +
-          '<div><div style="font-size:20px;font-weight:700;color:#fff;font-family:SG,sans-serif">Lalith Chaitanya Mulapala</div><div style="color:var(--accent);font-size:12px">Cybersecurity Analyst &amp; Systems Engineer · ISC² CC</div></div>' +
-          '<div style="display:flex;gap:8px"><button onclick="window.print()" style="background:var(--accent);color:#000;border:none;padding:6px 12px;font-weight:700;cursor:pointer">PRINT / PDF ⎙</button><button id="close-resume-btn" style="background:none;border:1px solid var(--accent-border);color:var(--accent);padding:6px 12px;cursor:pointer">✕ CLOSE</button></div>' +
-        '</div>' +
-        '<div style="font-size:12.5px;line-height:1.6">' +
-          '<p><b>Education:</b> B.Tech Computer Science (Cybersecurity Major) · GNITC Hyderabad (8.58 GPA)</p>' +
-          '<p style="margin-top:8px"><b>Experience:</b><br>• Supraja Technologies — VAPT Intern (May 2025 – Jan 2026)<br>• SecurWires STSL — Cybersecurity Intern (Jan 2026 – Mar 2026)</p>' +
-          '<p style="margin-top:8px"><b>Certifications:</b> ISC² Certified in Cybersecurity (CC) · Fortinet Certified Associate (FCA) · EC-Council CHFI</p>' +
-        '</div>' +
-      '</div>';
-      document.getElementById('close-resume-btn')?.addEventListener('click', function() {
-        modal.classList.remove('active');
-      });
-    }
-
-    // Workstation Motion Background
-    const bgCanvas = document.getElementById('hud-motion-bg');
-    if (bgCanvas && bgCanvas.getContext) {
-      const bgCtx = bgCanvas.getContext('2d');
-      let w = bgCanvas.width = window.innerWidth;
-      let h = bgCanvas.height = window.innerHeight;
-      window.addEventListener('resize', function() {
-        w = bgCanvas.width = window.innerWidth;
-        h = bgCanvas.height = window.innerHeight;
-      });
-      let sweep = 0;
-      function renderMotionBg() {
-        if (document.body.classList.contains('mode-hud')) {
-          bgCtx.clearRect(0, 0, w, h);
-          sweep = (sweep + 0.008) % (Math.PI * 2);
-          bgCtx.save();
-          bgCtx.strokeStyle = 'rgba(var(--accent-rgb), 0.12)';
-          bgCtx.lineWidth = 1.2;
-          bgCtx.beginPath();
-          bgCtx.moveTo(w - 50, 50);
-          bgCtx.lineTo(w - 50 - Math.cos(sweep) * 450, 50 + Math.sin(sweep) * 450);
-          bgCtx.stroke();
-          bgCtx.restore();
-        }
-        requestAnimationFrame(renderMotionBg);
-      }
-      renderMotionBg();
-    }
-  }
-
-  function ensureWindowsPopulated(targetId) {
-    if (!window.__LCM_APP_MOUNTED__) {
-      setupStandaloneWorkstation();
-      if (targetId) {
-        const win = document.getElementById('win-' + targetId);
-        if (win) {
-          win.style.display = 'flex';
-          win.classList.add('is-focused');
-        }
-      }
-    }
-  }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initDirectController);

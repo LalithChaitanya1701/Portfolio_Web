@@ -11,7 +11,7 @@ import { HUDController } from './hud.js';
 class App {
   constructor() {
     this.currentMode = 'landing'; // 'landing' | 'hud'
-    this.currentTheme = 'crimson'; // 'crimson' | 'matrix' | 'amber'
+    this.currentTheme = 'cyan'; // 'cyan' | 'amber' | 'violet'
   }
 
   init() {
@@ -30,16 +30,22 @@ class App {
       onThemeChange: (theme) => this.setTheme(theme),
       onSoundToggle: (state) => this.toggleSound(state),
       onPrintResume: () => this.hud.openResumeModal(),
-      onReturnToLanding: () => this.switchMode('landing')
+      onReturnToLanding: () => this.switchMode('landing'),
+      onOpenAll: () => {
+        this.switchMode('hud');
+        this.hud.winManager?.openAllWindows();
+      },
+      onCloseAll: () => {
+        this.hud.winManager?.closeAllWindows();
+      }
     });
 
     this.hud.mount();
 
     const termInput = document.getElementById('term-input');
     const termOutput = document.getElementById('term-output');
-    const termChips = document.getElementById('term-chips');
-    if (termInput && termOutput && termChips) {
-      this.terminal.attach(termInput, termOutput, termChips);
+    if (termInput && termOutput) {
+      this.terminal.attach(termInput, termOutput);
     }
 
     this.bindEvents();
@@ -95,7 +101,7 @@ class App {
   }
 
   cycleTheme() {
-    const themes = ['crimson', 'matrix', 'amber'];
+    const themes = ['cyan', 'amber', 'violet', 'blue'];
     const nextIdx = (themes.indexOf(this.currentTheme) + 1) % themes.length;
     this.setTheme(themes[nextIdx]);
   }

@@ -1,39 +1,41 @@
 /**
  * Hybrid Terminal Command Engine
  * Synchronizes typed CLI commands with HUD panels, history, and autocomplete.
+ * Supports /commands (/help, /whoami, /projects, /open-all, /close-all, etc.)
  */
 
 import { sound } from './sound.js';
 
 export class TerminalEngine {
-  constructor({ onPanelChange, onThemeChange, onSoundToggle, onPrintResume, onReturnToLanding }) {
+  constructor({ onPanelChange, onThemeChange, onSoundToggle, onPrintResume, onReturnToLanding, onOpenAll, onCloseAll }) {
     this.onPanelChange = onPanelChange;
     this.onThemeChange = onThemeChange;
     this.onSoundToggle = onSoundToggle;
     this.onPrintResume = onPrintResume;
     this.onReturnToLanding = onReturnToLanding;
+    this.onOpenAll = onOpenAll;
+    this.onCloseAll = onCloseAll;
 
     this.history = [];
     this.historyIndex = -1;
     this.log = [
-      { type: 'out', text: 'LCM-OS SEC_KERNEL v2.4 initialized.' },
-      { type: 'out', text: "Type 'help' for command matrix or click available chips below." }
+      { type: 'out', text: 'LCM-OS SEC_KERNEL v2.5 initialized.' },
+      { type: 'out', text: "Type '/help' to inspect available system commands." }
     ];
 
     this.commands = [
-      'help', 'home', 'whoami', 'about', 'experience', 'projects',
-      'skills', 'certs', 'education', 'contact', 'resume', 'landing',
-      'theme', 'sound', 'clear', 'ls', 'sudo'
+      '/help', '/home', '/whoami', '/about', '/experience', '/projects',
+      '/skills', '/certs', '/education', '/contact', '/resume', '/landing',
+      '/theme', '/sound', '/clear', '/ls', '/sudo', '/open-all', '/close-all'
     ];
   }
 
-  attach(inputEl, outputEl, chipsEl) {
+  attach(inputEl, outputEl, chipsEl = null) {
     this.input = inputEl;
     this.output = outputEl;
     this.chips = chipsEl;
 
     this.renderLog();
-    this.renderChips();
 
     this.input.addEventListener('keydown', (e) => this.handleKey(e));
   }
@@ -68,7 +70,7 @@ export class TerminalEngine {
       e.preventDefault();
       const val = this.input.value.trim().toLowerCase();
       if (val) {
-        const match = this.commands.find(c => c.startsWith(val));
+        const match = this.commands.find(c => c.startsWith(val) || c.replace('/', '').startsWith(val));
         if (match) {
           this.input.value = match;
         }
@@ -78,7 +80,9 @@ export class TerminalEngine {
 
   execute(raw) {
     const tokens = raw.trim().split(/\s+/);
-    const cmd = tokens[0].toLowerCase();
+    const rawCmd = tokens[0].toLowerCase();
+    // Normalize command by stripping leading slash for internal handling
+    const cmd = rawCmd.startsWith('/') ? rawCmd.slice(1) : rawCmd;
     const arg = tokens[1]?.toLowerCase();
 
     this.log.push({ type: 'in', text: `visitor@lcm:~$ ${raw}` });
@@ -87,15 +91,35 @@ export class TerminalEngine {
       case 'help':
         this.log.push({
           type: 'out',
-          text: 'Available commands: whoami · experience · projects · skills · certs · education · contact · resume · theme [crimson|matrix|amber] · sound [on|off] · landing · clear'
+          text: 'Available commands: /help · /whoami · /experience · /projects · /skills · /certs · /education · /contact · /resume · /open-all · /close-all · /theme [cyan|amber|violet|blue] · /sound [on|off] · /landing · /clear'
         });
         sound.playNav();
+        break;
+
+      case 'open-all':
+      case 'openall':
+        if (this.onOpenAll) {
+          this.onOpenAll();
+          this.log.push({ type: 'out', text: 'Sequence initiated: Opening all workstation windows in order...' });
+        } else {
+          this.log.push({ type: 'err', text: 'open-all handler not available.' });
+        }
+        break;
+
+      case 'close-all':
+      case 'closeall':
+        if (this.onCloseAll) {
+          this.onCloseAll();
+          this.log.push({ type: 'out', text: 'Sequence initiated: Closing all open windows in order...' });
+        } else {
+          this.log.push({ type: 'err', text: 'close-all handler not available.' });
+        }
         break;
 
       case 'home':
       case 'overview':
         this.onPanelChange('overview');
-        this.log.push({ type: 'out', text: 'Navigated to Overview & Telemetry stage.' });
+        this.log.push({ type: 'out', text: 'Navigated to Overview stage.' });
         sound.playNav();
         break;
 
@@ -174,11 +198,11 @@ export class TerminalEngine {
         break;
 
       case 'theme':
-        if (arg === 'matrix' || arg === 'crimson' || arg === 'amber') {
+        if (arg === 'cyan' || arg === 'amber' || arg === 'violet' || arg === 'blue') {
           this.onThemeChange(arg);
           this.log.push({ type: 'out', text: `Theme color updated to: ${arg.toUpperCase()}` });
         } else {
-          this.log.push({ type: 'err', text: 'Usage: theme [crimson | matrix | amber]' });
+          this.log.push({ type: 'err', text: 'Usage: /theme [cyan | amber | violet | blue]' });
         }
         break;
 
@@ -223,7 +247,7 @@ export class TerminalEngine {
       default:
         this.log.push({
           type: 'err',
-          text: `Command not recognized: '${cmd}'. Type 'help' to inspect command list.`
+          text: `Command not recognized: '${rawCmd}'. Type '/help' to inspect command list.`
         });
         sound.playAlert();
         break;
@@ -244,21 +268,5 @@ export class TerminalEngine {
       this.output.appendChild(div);
     });
     this.output.scrollTop = this.output.scrollHeight;
-  }
-
-  renderChips() {
-    if (!this.chips) return;
-    this.chips.innerHTML = '';
-    const quickCmds = ['help', 'whoami', 'experience', 'projects', 'skills', 'certs', 'contact', 'resume', 'theme matrix', 'clear'];
-    quickCmds.forEach(c => {
-      const btn = document.createElement('button');
-      btn.className = 'chip-btn';
-      btn.textContent = c;
-      btn.addEventListener('click', () => {
-        this.execute(c);
-        if (this.input) this.input.focus();
-      });
-      this.chips.appendChild(btn);
-    });
   }
 }

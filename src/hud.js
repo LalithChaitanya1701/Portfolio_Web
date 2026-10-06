@@ -35,8 +35,20 @@ export class HUDController {
 
     this.winManager = new WindowManager(desktopArea, window.innerWidth <= 680);
 
-    this.winManager.onWindowFocus = (id) => {
-      this.updateDirectoryHighlight(id);
+    // SVG Icons for each distinct workstation window
+    this.icons = {
+      overview: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.5L8 2.5l5.5 4v6.5a1 1 0 01-1 1h-9a1 1 0 01-1-1v-6.5z"/><path d="M6 14V8.5h4V14"/></svg>',
+      terminal: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l4 3-4 3M8.5 12H13"/></svg>',
+      about: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5" r="3"/><path d="M2.5 13.5a5.5 5.5 0 0111 0"/></svg>',
+      experience: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="11" height="9" rx="1.5"/><path d="M6 4V2.5h4V4M2.5 8h11"/></svg>',
+      projects: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5h4l1.5 2H13.5a1 1 0 011 1v6a1 1 0 01-1 1h-11a1 1 0 01-1-1v-8a1 1 0 011-1z"/></svg>',
+      skills: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="2.5"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4"/></svg>',
+      certs: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="6" r="4"/><path d="M5.5 9.5L4 14.5l4-2 4 2-1.5-5"/></svg>',
+      contact: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="11" height="9" rx="1.5"/><path d="M2.5 5.5l5.5 4 5.5-4"/></svg>'
+    };
+
+    this.winManager.onWindowStateChange = () => {
+      this.renderTaskbar();
     };
 
     // 1. Initialize interactive 3D Cyber Cube on the workstation background by default
@@ -54,46 +66,55 @@ export class HUDController {
 
     this.initWindows();
     this.renderDirectory();
+    this.renderTaskbar();
     this.initThreatMonitor();
     this.setupResumeModal();
     this.setupDirectoryToggle();
+    this.setupArrangeButton();
 
     window.addEventListener('resize', () => {
       if (this.winManager) this.winManager.handleResize();
     });
   }
 
+  setupArrangeButton() {
+    const arrangeBtn = document.getElementById('hud-arrange-btn');
+    arrangeBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (this.winManager) {
+        this.winManager.arrangeWindows();
+      }
+    });
+  }
+
   setupDirectoryToggle() {
     const toggleBtn = document.getElementById('hud-dir-toggle');
-    const closeBtn = document.getElementById('hud-dir-close');
-    const backdrop = document.getElementById('hud-nav-backdrop');
+    const menu = document.getElementById('hud-start-menu');
 
     const closeDir = () => {
-      document.body.classList.remove('dir-open');
-      sound.playKey();
+      menu?.classList.remove('open');
+      toggleBtn?.setAttribute('aria-expanded', 'false');
     };
 
     const openDir = () => {
-      document.body.classList.add('dir-open');
+      menu?.classList.add('open');
+      toggleBtn?.setAttribute('aria-expanded', 'true');
       sound.playNav();
     };
 
     toggleBtn?.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (document.body.classList.contains('dir-open')) {
+      if (menu?.classList.contains('open')) {
         closeDir();
       } else {
         openDir();
       }
     });
 
-    closeBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      closeDir();
-    });
-
-    backdrop?.addEventListener('click', () => {
-      closeDir();
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.tb-start-wrap')) {
+        closeDir();
+      }
     });
   }
 
@@ -114,10 +135,11 @@ export class HUDController {
       return { pos: { x, y }, size: { w, h } };
     };
 
-    // 1. Overview & Telemetry Window (MERGED)
+    // 1. Overview Window
     const ovBounds = getWinBounds(isSmall ? 620 : 740, isSmall ? 460 : 500, 20, 20);
     this.winManager.registerWindow('overview', {
-      title: 'WIN://OVERVIEW_TELEMETRY.SYS',
+      title: 'WIN://OVERVIEW.SYS',
+      icon: this.icons.overview,
       contentHtml: this.getOverviewHtml(),
       defaultPos: ovBounds.pos,
       defaultSize: ovBounds.size
@@ -127,6 +149,7 @@ export class HUDController {
     const termBounds = getWinBounds(isSmall ? 580 : 660, isSmall ? 320 : 360, 30, 40);
     this.winManager.registerWindow('terminal', {
       title: 'WIN://VISITOR_TERMINAL.SH',
+      icon: this.icons.terminal,
       contentHtml: this.getTerminalHtml(),
       defaultPos: termBounds.pos,
       defaultSize: termBounds.size,
@@ -142,6 +165,7 @@ export class HUDController {
     const aboutBounds = getWinBounds(isSmall ? 600 : 660, isSmall ? 420 : 440, 25, 25);
     this.winManager.registerWindow('about', {
       title: 'WIN://SECURITY_ID.DAT',
+      icon: this.icons.about,
       contentHtml: this.getAboutHtml(),
       defaultPos: aboutBounds.pos,
       defaultSize: aboutBounds.size,
@@ -164,6 +188,7 @@ export class HUDController {
     const expBounds = getWinBounds(isSmall ? 620 : 700, isSmall ? 460 : 490, 30, 30);
     this.winManager.registerWindow('experience', {
       title: 'WIN://EXPERIENCE_DEBRIEF.LOG',
+      icon: this.icons.experience,
       contentHtml: this.getExperienceHtml(),
       defaultPos: expBounds.pos,
       defaultSize: expBounds.size
@@ -173,6 +198,7 @@ export class HUDController {
     const projBounds = getWinBounds(isSmall ? 620 : 700, isSmall ? 460 : 490, 35, 35);
     this.winManager.registerWindow('projects', {
       title: 'WIN://REPOSITORIES.JSON',
+      icon: this.icons.projects,
       contentHtml: this.getProjectsHtml(),
       defaultPos: projBounds.pos,
       defaultSize: projBounds.size
@@ -182,6 +208,7 @@ export class HUDController {
     const skillsBounds = getWinBounds(isSmall ? 600 : 660, isSmall ? 420 : 450, 40, 40);
     this.winManager.registerWindow('skills', {
       title: 'WIN://SKILLS_TELEMETRY.MAT',
+      icon: this.icons.skills,
       contentHtml: this.getSkillsHtml(),
       defaultPos: skillsBounds.pos,
       defaultSize: skillsBounds.size
@@ -191,6 +218,7 @@ export class HUDController {
     const certsBounds = getWinBounds(isSmall ? 580 : 640, isSmall ? 380 : 400, 45, 45);
     this.winManager.registerWindow('certs', {
       title: 'WIN://CERTIFICATIONS.SEC',
+      icon: this.icons.certs,
       contentHtml: this.getCertsHtml(),
       defaultPos: certsBounds.pos,
       defaultSize: certsBounds.size
@@ -200,6 +228,7 @@ export class HUDController {
     const contactBounds = getWinBounds(isSmall ? 540 : 580, isSmall ? 360 : 360, 50, 50);
     this.winManager.registerWindow('contact', {
       title: 'WIN://COMM_CHANNELS.IO',
+      icon: this.icons.contact,
       contentHtml: this.getContactHtml(),
       defaultPos: contactBounds.pos,
       defaultSize: contactBounds.size
@@ -218,9 +247,8 @@ export class HUDController {
     const navContainer = document.getElementById('hud-nav-list');
     if (!navContainer) return;
 
-    // Zero emojis, strictly clean text
     const sections = [
-      { id: 'overview', label: 'OVERVIEW & TELEMETRY' },
+      { id: 'overview', label: 'OVERVIEW' },
       { id: 'terminal', label: 'TERMINAL' },
       { id: 'about', label: 'ABOUT // WHOAMI' },
       { id: 'experience', label: 'EXPERIENCE LOG' },
@@ -233,18 +261,18 @@ export class HUDController {
     navContainer.innerHTML = '';
     sections.forEach(item => {
       const btn = document.createElement('button');
-      btn.className = 'hud-nav-item';
+      btn.className = 'tb-menu-item';
       btn.id = `dir-${item.id}`;
+      const ico = this.icons[item.id] || '';
       btn.innerHTML = `
-        <span class="dir-label">${item.label}</span>
-        <span class="dir-indicator"></span>
+        <span class="tb-ico">${ico}</span>
+        <span class="tb-label">${item.label}</span>
+        <span class="tb-state"></span>
       `;
       btn.addEventListener('click', () => {
         this.openOrFocus(item.id);
-        // On mobile/tablet, collapse drawer after selection
-        if (window.innerWidth <= 1024) {
-          document.body.classList.remove('dir-open');
-        }
+        document.getElementById('hud-start-menu')?.classList.remove('open');
+        document.getElementById('hud-dir-toggle')?.setAttribute('aria-expanded', 'false');
       });
       navContainer.appendChild(btn);
     });
@@ -252,8 +280,71 @@ export class HUDController {
     this.updateDirectoryHighlight('overview');
   }
 
+  renderTaskbar() {
+    const container = document.getElementById('hud-taskbar-items');
+    const sep = document.getElementById('tb-sep');
+    if (!container || !this.winManager) return;
+
+    container.innerHTML = '';
+
+    const labelMap = {
+      overview: 'OVERVIEW',
+      terminal: 'TERMINAL',
+      about: 'ABOUT',
+      experience: 'EXPERIENCE',
+      projects: 'PROJECTS',
+      skills: 'SKILLS',
+      certs: 'CERTS',
+      contact: 'CONTACT'
+    };
+
+    let count = 0;
+    this.winManager.windows.forEach((win, id) => {
+      if (!win.isOpen) return;
+      count++;
+
+      const btn = document.createElement('button');
+      btn.className = 'tb-item';
+      if (this.winManager.activeWindowId === id && !win.isMinimized) {
+        btn.classList.add('is-active');
+      }
+      if (win.isMinimized) {
+        btn.classList.add('is-minimized');
+      }
+
+      const iconSvg = win.icon || this.icons[id] || '';
+      const label = labelMap[id] || id.toUpperCase();
+
+      btn.innerHTML = `
+        <span class="tb-ico">${iconSvg}</span>
+        <span class="tb-label">${label}</span>
+      `;
+
+      btn.title = win.isMinimized ? `Restore ${label}` : `Focus/Minimize ${label}`;
+
+      btn.addEventListener('click', () => {
+        if (win.isMinimized) {
+          this.winManager.toggleMinimize(id);
+        } else if (this.winManager.activeWindowId === id) {
+          // If already focused and clicked on taskbar, minimize it (Windows OS behavior)
+          this.winManager.toggleMinimize(id);
+        } else {
+          this.winManager.focusWindow(id);
+        }
+      });
+
+      container.appendChild(btn);
+    });
+
+    if (sep) {
+      sep.classList.toggle('is-hidden', count === 0);
+    }
+
+    this.updateDirectoryHighlight(this.winManager.activeWindowId || 'overview');
+  }
+
   updateDirectoryHighlight(activeId) {
-    document.querySelectorAll('.hud-nav-item').forEach(btn => {
+    document.querySelectorAll('.tb-menu-item').forEach(btn => {
       btn.classList.remove('active');
     });
 
@@ -271,7 +362,7 @@ export class HUDController {
     }
 
     const panelLabel = document.getElementById('hud-current-panel');
-    if (panelLabel) {
+    if (panelLabel && activeId) {
       panelLabel.textContent = activeId.toUpperCase();
     }
   }
@@ -281,8 +372,10 @@ export class HUDController {
     const win = this.winManager.windows.get(id);
     if (!win) return;
 
-    if (!win.isOpen || win.isMinimized) {
+    if (!win.isOpen) {
       this.winManager.openWindow(id);
+    } else if (win.isMinimized) {
+      this.winManager.toggleMinimize(id);
     } else {
       this.winManager.focusWindow(id);
     }
@@ -300,79 +393,82 @@ export class HUDController {
         <div class="term-output" id="term-output" aria-live="polite" style="flex:1;min-height:140px;overflow-y:auto"></div>
         <div class="term-input-row" style="margin-top:auto">
           <label for="term-input" class="term-prompt">visitor@lcm:~$</label>
-          <input id="term-input" class="term-input" type="text" autocomplete="off" spellcheck="false" placeholder="type a command and press Enter">
+          <input id="term-input" class="term-input" type="text" autocomplete="off" spellcheck="false" placeholder="type /help to get all commands">
         </div>
-        <div class="term-chips" id="term-chips" style="padding:6px 0 0"></div>
       </div>
     `;
   }
 
   getOverviewHtml() {
     return `
-      <div>
-        <div style="font-size:11px;color:var(--accent);letter-spacing:0.18em;margin-bottom:6px">> SYSTEM STATUS: NORMAL // LIVE SOC TELEMETRY</div>
-        <h1 style="font-family:'SG',sans-serif;font-weight:700;font-size:28px;color:#fff;margin-bottom:4px;line-height:1.2">
-          ${PERSONAL_INFO.name}
-        </h1>
-        <div style="font-size:14px;color:var(--accent);letter-spacing:0.06em;margin-bottom:14px">
-          ${PERSONAL_INFO.title} · ${PERSONAL_INFO.location}
-        </div>
-        <p style="color:#bdf0ce;line-height:1.65;font-size:13px;margin-bottom:18px">
-          ISC²-certified Cybersecurity Analyst &amp; Systems Engineer. Specialist in offensive web application assessment (VAPT),
-          cloud infrastructure compliance automation (AWS/Terraform), and high-throughput SIEM threat detection.
-        </p>
+      <div class="overview-layout">
+        <div class="overview-left-col">
+          <div style="font-size:11px;color:var(--accent);letter-spacing:0.18em;margin-bottom:6px">> SYSTEM STATUS: NORMAL // LIVE SOC TELEMETRY</div>
+          <h1 style="font-family:'SG',sans-serif;font-weight:700;font-size:28px;color:#fff;margin-bottom:4px;line-height:1.2">
+            ${PERSONAL_INFO.name}
+          </h1>
+          <div style="font-size:14px;color:var(--accent);letter-spacing:0.06em;margin-bottom:14px">
+            ${PERSONAL_INFO.title} · ${PERSONAL_INFO.location}
+          </div>
+          <p style="color:#bdf0ce;line-height:1.65;font-size:13px;margin-bottom:18px">
+            ISC²-certified Cybersecurity Analyst &amp; Systems Engineer. Specialist in offensive web application assessment (VAPT),
+            cloud infrastructure compliance automation (AWS/Terraform), and high-throughput SIEM threat detection.
+          </p>
 
-        <!-- Metric Tiles Grid -->
-        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:10px;margin-bottom:20px">
-          ${PERSONAL_INFO.stats.map(s => `
-            <div style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.7);padding:12px">
-              <div style="font-family:'SG',sans-serif;font-size:24px;font-weight:700;color:var(--accent)">${s.value}</div>
-              <div style="font-size:11px;color:#fff;margin-top:2px;font-weight:600">${s.label}</div>
-              <div style="font-size:10px;color:#78d496;margin-top:2px">${s.sub}</div>
-            </div>
-          `).join('')}
-        </div>
-
-        <!-- Merged Telemetry & Threat Monitor Report -->
-        <div style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.85);padding:16px;margin-bottom:18px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;border-bottom:1px solid rgba(var(--accent-rgb),0.25);padding-bottom:8px">
-            <span style="font-size:12px;color:var(--accent);letter-spacing:0.12em;font-weight:700">LIVE THREAT MONITOR &amp; TELEMETRY REPORT</span>
-            <span style="font-size:10.5px;color:#72cf90;display:flex;align-items:center;gap:6px">
-              <span class="win-led"></span> ACTIVE INGESTION
-            </span>
+          <!-- Metric Tiles Grid -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:10px;margin-bottom:18px">
+            ${PERSONAL_INFO.stats.map(s => `
+              <div style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.7);padding:12px">
+                <div style="font-family:'SG',sans-serif;font-size:24px;font-weight:700;color:var(--accent)">${s.value}</div>
+                <div style="font-size:11px;color:#fff;margin-top:2px;font-weight:600">${s.label}</div>
+                <div style="font-size:10px;color:#78d496;margin-top:2px">${s.sub}</div>
+              </div>
+            `).join('')}
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:16px;align-items:center">
-            <div>
-              <div id="threat-bars" style="display:flex;align-items:flex-end;gap:5px;height:54px">
-                <div class="threat-bar" style="flex:1;height:45%;background:var(--accent);opacity:0.7;transition:height 0.8s ease"></div>
-                <div class="threat-bar" style="flex:1;height:75%;background:var(--accent);opacity:0.9;transition:height 0.8s ease"></div>
-                <div class="threat-bar" style="flex:1;height:35%;background:var(--accent);opacity:0.6;transition:height 0.8s ease"></div>
-                <div class="threat-bar" style="flex:1;height:88%;background:var(--accent);opacity:1.0;transition:height 0.8s ease"></div>
-                <div class="threat-bar" style="flex:1;height:60%;background:var(--accent);opacity:0.75;transition:height 0.8s ease"></div>
-                <div class="threat-bar" style="flex:1;height:40%;background:var(--accent);opacity:0.65;transition:height 0.8s ease"></div>
-                <div class="threat-bar" style="flex:1;height:95%;background:var(--accent);opacity:0.95;transition:height 0.8s ease"></div>
-              </div>
-              <div style="color:#72cf90;font-size:10.5px;margin-top:6px;display:flex;justify-content:space-between">
-                <span>INGESTION: 18.2 MB/s</span>
-                <span>LATENCY: 1.4ms</span>
-              </div>
-            </div>
-
-            <div style="font-size:12px;color:#bdf0ce;display:flex;flex-direction:column;gap:6px">
-              <div><b style="color:var(--accent)">SECURITY INVARIANTS:</b> VERIFIED</div>
-              <div><b style="color:var(--accent)">AUDIT COMPLIANCE:</b> CIS BENCHMARKS · PCI-DSS</div>
-              <div><b style="color:var(--accent)">DETECTION LATENCY:</b> &lt; 2.0s REAL-TIME ALERTING</div>
+          <!-- Quick Actions Row -->
+          <div style="border-left:3px solid var(--accent);padding:10px 14px;background:var(--accent-dim);color:#e2f7ea;font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+            <span>Desktop OS environment: drag headers, grab borders to resize, or arrange windows.</span>
+            <div style="display:flex;gap:8px">
+              <button id="quick-resume-btn" class="hud-btn" style="background:var(--accent);color:#000;font-weight:bold;border:none">PRINT RESUME</button>
+              <button id="quick-terminal-btn" class="hud-btn">LAUNCH TERMINAL</button>
             </div>
           </div>
         </div>
 
-        <!-- Quick Actions Row -->
-        <div style="border-left:3px solid var(--accent);padding:10px 14px;background:var(--accent-dim);color:#e2f7ea;font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-          <span>Click window headers to drag, corner/edges to resize, and buttons to maximize.</span>
-          <div style="display:flex;gap:8px">
-            <button id="quick-resume-btn" class="hud-btn" style="background:var(--accent);color:#000;font-weight:bold;border:none">PRINT RESUME</button>
-            <button id="quick-terminal-btn" class="hud-btn">LAUNCH TERMINAL</button>
+        <!-- Merged Telemetry & Threat Monitor Report (Pushed to right when maximized) -->
+        <div class="overview-right-col">
+          <div class="telemetry-card" style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.85);padding:16px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;border-bottom:1px solid rgba(var(--accent-rgb),0.25);padding-bottom:8px">
+              <span style="font-size:12px;color:var(--accent);letter-spacing:0.12em;font-weight:700">LIVE THREAT MONITOR &amp; TELEMETRY REPORT</span>
+              <span style="font-size:10.5px;color:#72cf90;display:flex;align-items:center;gap:6px">
+                <span class="win-led"></span> ACTIVE INGESTION
+              </span>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div>
+                <div id="threat-bars" style="display:flex;align-items:flex-end;gap:5px;height:54px">
+                  <div class="threat-bar" style="flex:1;height:45%;background:var(--accent);opacity:0.7;transition:height 0.8s ease"></div>
+                  <div class="threat-bar" style="flex:1;height:75%;background:var(--accent);opacity:0.9;transition:height 0.8s ease"></div>
+                  <div class="threat-bar" style="flex:1;height:35%;background:var(--accent);opacity:0.6;transition:height 0.8s ease"></div>
+                  <div class="threat-bar" style="flex:1;height:88%;background:var(--accent);opacity:1.0;transition:height 0.8s ease"></div>
+                  <div class="threat-bar" style="flex:1;height:60%;background:var(--accent);opacity:0.75;transition:height 0.8s ease"></div>
+                  <div class="threat-bar" style="flex:1;height:40%;background:var(--accent);opacity:0.65;transition:height 0.8s ease"></div>
+                  <div class="threat-bar" style="flex:1;height:95%;background:var(--accent);opacity:0.95;transition:height 0.8s ease"></div>
+                </div>
+                <div style="color:#72cf90;font-size:10.5px;margin-top:6px;display:flex;justify-content:space-between">
+                  <span>INGESTION: 18.2 MB/s</span>
+                  <span>LATENCY: 1.4ms</span>
+                </div>
+              </div>
+
+              <div style="font-size:12px;color:#bdf0ce;display:flex;flex-direction:column;gap:6px;border-top:1px solid rgba(var(--accent-rgb),0.15);padding-top:10px">
+                <div><b style="color:var(--accent)">SECURITY INVARIANTS:</b> VERIFIED</div>
+                <div><b style="color:var(--accent)">AUDIT COMPLIANCE:</b> CIS BENCHMARKS · PCI-DSS</div>
+                <div><b style="color:var(--accent)">DETECTION LATENCY:</b> &lt; 2.0s REAL-TIME ALERTING</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -468,9 +564,11 @@ export class HUDController {
               <ul style="list-style:none;padding:0;margin:4px 0 8px;display:flex;flex-direction:column;gap:4px">
                 ${p.highlights.map(h => `<li style="font-size:11.5px;color:#8fe4b0;display:flex;gap:6px"><span>▹</span><span>${h}</span></li>`).join('')}
               </ul>
-              <a href="${p.repo}" target="_blank" rel="noopener noreferrer" class="proj-link">
-                VIEW GITHUB REPOSITORY ↗
-              </a>
+              ${p.repo ? `
+                <a href="${p.repo}" target="_blank" rel="noopener noreferrer" class="proj-link">
+                  VIEW GITHUB REPOSITORY ↗
+                </a>
+              ` : ''}
             </div>
           `).join('')}
         </div>
@@ -510,12 +608,28 @@ export class HUDController {
       <div style="display:flex;flex-direction:column;gap:14px">
         ${CERTIFICATIONS.map(c => `
           <div style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.7);padding:16px 18px">
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-              <div style="color:#fff;font-weight:700;font-size:15px">${c.title}</div>
-              <div style="font-size:10.5px;color:var(--accent);border:1px solid var(--accent-border);padding:2px 8px">${c.badge}</div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+              <div style="display:flex;gap:16px;align-items:flex-start;flex:1;min-width:240px">
+                ${c.image ? `
+                  <div style="width:78px;height:78px;flex-shrink:0;background:rgba(0,0,0,0.5);border:1px solid var(--accent-border);padding:4px;display:flex;align-items:center;justify-content:center">
+                    <img src="${c.image}" alt="${c.title}" style="max-width:100%;max-height:100%;object-fit:contain" />
+                  </div>
+                ` : ''}
+                <div>
+                  <div style="color:#fff;font-weight:700;font-size:15px">${c.title}</div>
+                  <div style="color:#8be0a5;font-size:12px;margin:3px 0 6px">${c.issuer} · ${c.period}</div>
+                  <div style="color:#bdf0ce;font-size:12.5px;line-height:1.6">${c.desc}</div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+                <div style="font-size:10.5px;color:var(--accent);border:1px solid var(--accent-border);padding:2px 8px">${c.badge}</div>
+                ${c.verifyUrl ? `
+                  <a href="${c.verifyUrl}" target="_blank" rel="noopener noreferrer" class="hud-btn" style="text-decoration:none;font-size:10.5px;padding:4px 10px;background:var(--accent);color:#000;font-weight:700;border:none">
+                    VERIFY CREDLY ↗
+                  </a>
+                ` : ''}
+              </div>
             </div>
-            <div style="color:#8be0a5;font-size:12px;margin:3px 0 6px">${c.issuer} · ${c.period}</div>
-            <div style="color:#bdf0ce;font-size:12.5px;line-height:1.6">${c.desc}</div>
           </div>
         `).join('')}
       </div>
@@ -576,58 +690,43 @@ export class HUDController {
     if (!modal) return;
 
     modal.innerHTML = `
-      <div class="resume-paper">
-        <div class="no-print" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:1px solid var(--accent-border);padding-bottom:12px">
-          <div style="font-size:12px;color:var(--accent);font-weight:bold">SECURITY DOSSIER // CURRICULUM VITAE</div>
-          <div style="display:flex;gap:10px">
-            <button id="modal-print-btn" class="hud-btn" style="background:var(--accent);color:#000;font-weight:bold;border:none">PRINT / SAVE AS PDF</button>
+      <div class="resume-paper" style="max-width:960px;width:95%;height:92vh;max-height:92vh;display:flex;flex-direction:column;padding:16px 20px;background:#061009;border:1px solid var(--accent-border);box-shadow:0 10px 40px rgba(0,0,0,0.9)">
+        <div class="no-print" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid var(--accent-border);padding-bottom:12px;flex-wrap:wrap;gap:10px">
+          <div>
+            <div style="font-size:13px;color:var(--accent);font-weight:bold;letter-spacing:0.08em">LALITH CHAITANYA MULAPALA // RESUME</div>
+            <div style="font-size:11px;color:#8be0a5">Cybersecurity Analyst &amp; Systems Engineer</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <a href="./assets/Lalith_Resume.pdf" download="Lalith_Resume.pdf" class="hud-btn" style="background:var(--accent);color:#000;font-weight:bold;border:none;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+              DOWNLOAD / SAVE AS PDF ↓
+            </a>
+            <a href="./assets/Lalith_Resume.pdf" target="_blank" rel="noopener noreferrer" class="hud-btn" style="text-decoration:none">
+              OPEN PDF IN NEW TAB ↗
+            </a>
+            <button id="modal-print-btn" class="hud-btn">PRINT</button>
             <button id="modal-close-btn" class="hud-btn">CLOSE [ESC]</button>
           </div>
         </div>
 
-        <div>
-          <h1 style="font-family:'SG',sans-serif;font-size:26px;margin-bottom:4px;color:#fff">${PERSONAL_INFO.name}</h1>
-          <div style="font-size:14px;color:var(--accent);margin-bottom:6px">${PERSONAL_INFO.title} · ${PERSONAL_INFO.location}</div>
-          <div style="font-size:12px;color:#8be0a5;margin-bottom:18px">${PERSONAL_INFO.email} · ${PERSONAL_INFO.linkedin} · ${PERSONAL_INFO.github}</div>
-
-          <h3 style="font-size:13px;letter-spacing:0.1em;border-bottom:1px solid var(--accent-border);padding-bottom:4px;margin:16px 0 8px;color:var(--accent)">EDUCATION</h3>
-          <div style="font-weight:bold;font-size:13px">${PERSONAL_INFO.education.institution}</div>
-          <div style="font-size:12.5px">${PERSONAL_INFO.education.degree} (${PERSONAL_INFO.education.specialization}) · ${PERSONAL_INFO.education.period}</div>
-          <div style="font-size:12px;color:#8be0a5">${PERSONAL_INFO.education.gpa}</div>
-
-          <h3 style="font-size:13px;letter-spacing:0.1em;border-bottom:1px solid var(--accent-border);padding-bottom:4px;margin:18px 0 8px;color:var(--accent)">WORK EXPERIENCE</h3>
-          ${EXPERIENCES.map(job => `
-            <div style="margin-bottom:12px">
-              <div style="display:flex;justify-content:space-between;font-weight:bold;font-size:13px">
-                <span>${job.role} — ${job.company}</span>
-                <span style="color:#8be0a5">${job.period}</span>
+        <div style="flex:1;min-height:0;background:#0d1117;border:1px solid rgba(var(--accent-rgb),0.3);display:flex;flex-direction:column;overflow:hidden">
+          <object data="./assets/Lalith_Resume.pdf" type="application/pdf" width="100%" height="100%" style="width:100%;height:100%;flex:1">
+            <iframe id="resume-frame" src="./assets/Lalith_Resume.pdf" style="width:100%;height:100%;border:none">
+              <div style="padding:24px;color:#fff;text-align:center">
+                <p>Unable to preview PDF directly in this browser frame.</p>
+                <a href="./assets/Lalith_Resume.pdf" target="_blank" class="hud-btn" style="display:inline-block;margin-top:12px;background:var(--accent);color:#000;text-decoration:none;font-weight:bold">
+                  Open Lalith_Resume.pdf
+                </a>
               </div>
-              <ul style="margin-top:4px;padding-left:18px;font-size:12px;color:#d8fae4;line-height:1.55">
-                ${job.specs.map(s => `<li>${s}</li>`).join('')}
-              </ul>
-            </div>
-          `).join('')}
-
-          <h3 style="font-size:13px;letter-spacing:0.1em;border-bottom:1px solid var(--accent-border);padding-bottom:4px;margin:18px 0 8px;color:var(--accent)">KEY PROJECTS</h3>
-          ${PROJECTS.slice(0, 3).map(p => `
-            <div style="margin-bottom:8px">
-              <div style="font-weight:bold;font-size:12.5px">${p.name} <span style="font-size:11px;color:#8be0a5">(${p.stack.join(', ')})</span></div>
-              <div style="font-size:11.5px;color:#c8ffd9">${p.blurb}</div>
-            </div>
-          `).join('')}
-
-          <h3 style="font-size:13px;letter-spacing:0.1em;border-bottom:1px solid var(--accent-border);padding-bottom:4px;margin:18px 0 8px;color:var(--accent)">CERTIFICATIONS</h3>
-          ${CERTIFICATIONS.map(c => `
-            <div style="font-size:12px;margin-bottom:4px">
-              <b>${c.title}</b> — ${c.issuer} (${c.period})
-            </div>
-          `).join('')}
+            </iframe>
+          </object>
         </div>
       </div>
     `;
 
     document.getElementById('modal-close-btn')?.addEventListener('click', () => this.closeResumeModal());
-    document.getElementById('modal-print-btn')?.addEventListener('click', () => window.print());
+    document.getElementById('modal-print-btn')?.addEventListener('click', () => {
+      window.open('./assets/Lalith_Resume.pdf', '_blank');
+    });
 
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('active')) {
