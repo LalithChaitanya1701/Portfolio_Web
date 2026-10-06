@@ -39,7 +39,17 @@ export class HUDController {
       this.updateDirectoryHighlight(id);
     };
 
-    // Initialize ambient workstation motion background
+    // 1. Initialize interactive 3D Cyber Cube on the workstation background by default
+    const cubeBg = document.getElementById('hud-cube-bg');
+    if (cubeBg) {
+      try {
+        this.cubeCleanup = initCyberCube(cubeBg);
+      } catch (err) {
+        console.warn('3D Cyber Cube background init skipped:', err);
+      }
+    }
+
+    // 2. Initialize ambient workstation motion background (particles & radar)
     this.motionBgCleanup = initWorkstationMotionBg('hud-motion-bg');
 
     this.initWindows();
@@ -128,32 +138,7 @@ export class HUDController {
       }
     });
 
-    // 3. 3D Cyber Cube Window (CHROMATIC DISPERSION)
-    const cubeBounds = getWinBounds(isSmall ? 620 : 700, isSmall ? 440 : 480, 25, 25);
-    this.winManager.registerWindow('cube', {
-      title: 'WIN://CYBER_CUBE_3D.GL',
-      contentHtml: this.getCubeHtml(),
-      defaultPos: cubeBounds.pos,
-      defaultSize: cubeBounds.size,
-      onFocus: () => {
-        if (!this.cubeCleanup) {
-          setTimeout(() => {
-            const container = document.getElementById('cube-scene-container');
-            if (container) {
-              this.cubeCleanup = initCyberCube(container);
-            }
-          }, 50);
-        }
-      },
-      onClose: () => {
-        if (this.cubeCleanup) {
-          this.cubeCleanup();
-          this.cubeCleanup = null;
-        }
-      }
-    });
-
-    // 4. About & 3D Wireframe Avatar
+    // 3. About & 3D Wireframe Avatar
     const aboutBounds = getWinBounds(isSmall ? 600 : 660, isSmall ? 420 : 440, 25, 25);
     this.winManager.registerWindow('about', {
       title: 'WIN://SECURITY_ID.DAT',
@@ -221,7 +206,7 @@ export class HUDController {
     });
 
     // Close others initially, open Overview
-    ['terminal', 'cube', 'about', 'experience', 'projects', 'skills', 'certs', 'contact'].forEach(id => {
+    ['terminal', 'about', 'experience', 'projects', 'skills', 'certs', 'contact'].forEach(id => {
       this.winManager.closeWindow(id);
     });
 
@@ -237,7 +222,6 @@ export class HUDController {
     const sections = [
       { id: 'overview', label: 'OVERVIEW & TELEMETRY' },
       { id: 'terminal', label: 'TERMINAL' },
-      { id: 'cube', label: 'CYBER CUBE 3D' },
       { id: 'about', label: 'ABOUT // WHOAMI' },
       { id: 'experience', label: 'EXPERIENCE LOG' },
       { id: 'projects', label: 'PROJECTS' },
@@ -319,47 +303,6 @@ export class HUDController {
           <input id="term-input" class="term-input" type="text" autocomplete="off" spellcheck="false" placeholder="type a command and press Enter">
         </div>
         <div class="term-chips" id="term-chips" style="padding:6px 0 0"></div>
-      </div>
-    `;
-  }
-
-  getCubeHtml() {
-    return `
-      <div id="cube-scene-container" class="cube-hero" style="position:relative;width:100%;height:100%;min-height:360px;overflow:hidden;background:#000">
-        <canvas id="scene" aria-label="Rotatable glass cube. Drag to rotate."></canvas>
-        <div class="cube-ui">
-          <h1 class="sr-only">Privacy is a MYTH</h1>
-          <div class="cube-header">
-            <span style="font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.1em;color:#fff">
-              CYBER <span style="font-weight:400;color:var(--accent)">WORLD</span>
-            </span>
-            <div class="cube-arrows">
-              <button class="cube-arrow" id="prev" title="Rotate left" aria-label="Previous rotation">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M19 12H5M11 6l-6 6 6 6"/>
-                </svg>
-              </button>
-              <button class="cube-arrow" id="next" title="Rotate right" aria-label="Next rotation">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M5 12h14M13 6l6 6-6 6"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <nav class="cube-dots" aria-label="Cube viewpoints">
-            <button class="dot" aria-label="Viewpoint 1"></button>
-            <button class="dot active" aria-label="Viewpoint 2"></button>
-            <button class="dot" aria-label="Viewpoint 3"></button>
-          </nav>
-
-          <div class="cube-cta-row">
-            <button class="cube-cta" id="cube-reset-btn">DRAG TO ROTATE</button>
-            <span class="cube-cta-line"></span>
-            <span class="cube-count" aria-hidden="true">07</span>
-          </div>
-          <div class="cube-loader" id="loader">LOADING MODEL...</div>
-        </div>
       </div>
     `;
   }

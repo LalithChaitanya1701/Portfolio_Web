@@ -3,6 +3,7 @@
  * Seamlessly connects the Cinematic Landing Page and the HUD Workstation.
  */
 
+import './styles.css';
 import { sound } from './sound.js';
 import { TerminalEngine } from './terminal.js';
 import { HUDController } from './hud.js';
@@ -44,6 +45,24 @@ class App {
     this.bindEvents();
     this.initVideoSync();
     this.initEntranceAnimation();
+
+    // Auto-detect if user requested workstation/HUD directly via hash or query param
+    const hash = (window.location.hash || '').toLowerCase();
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestedMode = urlParams.get('mode') || urlParams.get('view');
+    if (
+      requestedMode === 'hud' ||
+      requestedMode === 'workstation' ||
+      hash === '#hud' ||
+      hash === '#workstation' ||
+      ['#overview', '#about', '#experience', '#projects', '#skills', '#certs', '#contact'].includes(hash)
+    ) {
+      this.switchMode('hud');
+      if (hash && hash !== '#hud' && hash !== '#workstation') {
+        const panel = hash.replace('#', '');
+        setTimeout(() => this.hud.setPanel(panel), 80);
+      }
+    }
   }
 
   switchMode(mode) {
@@ -51,6 +70,9 @@ class App {
     if (mode === 'hud') {
       document.body.classList.add('mode-hud');
       sound.playBoot();
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 50);
       // Auto-focus terminal on desktop
       if (window.innerWidth > 768) {
         const input = document.getElementById('term-input');
@@ -130,6 +152,23 @@ class App {
     // Sound toggle button
     document.getElementById('hud-sound-toggle')?.addEventListener('click', () => {
       this.toggleSound();
+    });
+
+    // Quick launch workstation button
+    document.getElementById('quick-hud-btn')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.switchMode('hud');
+    });
+
+    // Hashchange listener
+    window.addEventListener('hashchange', () => {
+      const h = (window.location.hash || '').toLowerCase();
+      if (h === '#hud' || h === '#workstation') {
+        this.switchMode('hud');
+      } else if (h.startsWith('#') && ['#overview', '#about', '#experience', '#projects', '#skills', '#certs', '#contact'].includes(h)) {
+        this.switchMode('hud');
+        this.hud.setPanel(h.replace('#', ''));
+      }
     });
 
     // Mobile burger & menu toggle for landing
@@ -331,10 +370,24 @@ class App {
     };
 
     const fontP = document.fonts ? document.fonts.ready : Promise.resolve();
-    Promise.race([fontP, new Promise(res => setTimeout(res, 1000))]).then(() => {
+    Promise.race([fontP, new Promise(res => setTimeout(res, 800))]).then(() => {
       requestAnimationFrame(run);
     });
-    setTimeout(run, 1200);
+    setTimeout(run, 1000);
+
+    // Guaranteed visibility safety net: ensure all interactive elements and typography are 100% visible
+    setTimeout(() => {
+      document.querySelectorAll('.btn-top, .btn-cta').forEach(b => {
+        b.style.clipPath = 'none';
+        b.style.opacity = '1';
+      });
+      document.querySelectorAll('.hero .ln > span').forEach(s => {
+        s.style.transform = 'none';
+      });
+      document.querySelectorAll('.stat-col, .stat-num, .stat-lab, .hero .sub, .logo, .nav-item').forEach(el => {
+        el.style.opacity = '1';
+      });
+    }, 1600);
   }
 }
 

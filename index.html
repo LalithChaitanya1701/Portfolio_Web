@@ -25,7 +25,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="./src/styles.css">
+<link rel="stylesheet" href="/src/styles.css">
 
 <style>
 /* ----------------------------------------------------
@@ -1030,6 +1030,7 @@ body.mode-hud .frame {
   display: flex;
   position: relative;
   z-index: 10;
+  pointer-events: none;
 }
 
 .hud-nav {
@@ -1043,6 +1044,7 @@ body.mode-hud .frame {
   gap: 6px;
   overflow-y: auto;
   z-index: 20;
+  pointer-events: auto;
 }
 
 .hud-nav-head {
@@ -1096,6 +1098,7 @@ body.mode-hud .frame {
   position: relative;
   overflow: hidden;
   background: transparent;
+  pointer-events: none;
 }
 
 /* OS Window Styles */
@@ -1103,6 +1106,7 @@ body.mode-hud .frame {
   position: absolute;
   display: flex;
   flex-direction: column;
+  pointer-events: auto;
   background: rgba(5, 16, 9, 0.95);
   border: 1px solid var(--accent-border);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75), 0 0 14px rgba(var(--accent-rgb), 0.12);
@@ -1284,6 +1288,182 @@ body.mode-hud .frame {
   .os-window { position: static !important; width: 100% !important; height: auto !important; min-height: auto !important; margin-bottom: 12px; }
   .win-resizer { display: none !important; }
 }
+
+/* ----------------------------------------------------
+   3D Cyber Cube Container on Workstation Background
+   ---------------------------------------------------- */
+.hud-cube-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, rgba(var(--accent-rgb), 0.12) 0%, rgba(2, 7, 4, 0.96) 75%);
+  pointer-events: auto;
+}
+
+.hud-cube-bg canvas#scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  touch-action: none;
+  pointer-events: auto;
+}
+
+.hud-cube-bg canvas#scene.dragging {
+  cursor: grabbing;
+}
+
+.cube-bg-controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px 18px;
+  z-index: 2;
+}
+
+.cube-bg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.cube-bg-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  background: rgba(2, 10, 5, 0.85);
+  border: 1px solid var(--accent-border);
+  padding: 5px 12px;
+  backdrop-filter: blur(8px);
+  user-select: none;
+}
+
+.cube-bg-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.cube-arrows {
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.cube-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
+  background: rgba(3, 14, 7, 0.85);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(6px);
+}
+
+.cube-arrow:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.5);
+}
+
+.cube-dots {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: auto;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.cube-bg-footer {
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.cube-bg-caption {
+  font-size: 10.5px;
+  letter-spacing: 0.15em;
+  color: rgba(var(--accent-rgb), 0.8);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 5px 12px;
+  border-left: 2px solid var(--accent);
+  backdrop-filter: blur(4px);
+  user-select: none;
+}
+
+.cube-loader {
+  display: none;
+}
+
+/* Quick Workstation Launch Button in Header */
+.btn-workstation-launch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(var(--accent-rgb), 0.18);
+  border: 1px solid var(--accent-border);
+  color: #fff;
+  font-family: 'JetBrains Mono', 'JB', monospace;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 7px 14px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+.btn-workstation-launch:hover {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.5);
+}
+.btn-workstation-launch .btn-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #72cf90;
+  box-shadow: 0 0 6px #72cf90;
+  animation: pulse 2s infinite ease-in-out;
+}
 </style>
 </head>
 <body>
@@ -1349,6 +1529,12 @@ body.mode-hud .frame {
         <span class="b-bar b1"></span>
         <span class="b-bar b2"></span>
         <span class="b-bar b3"></span>
+      </button>
+
+      <!-- Workstation Quick Switcher Button -->
+      <button class="btn-workstation-launch" id="quick-hud-btn" aria-label="Launch interactive 3D cybersecurity workstation">
+        <span class="btn-led"></span>
+        <span>WORKSTATION 3D ⚡</span>
       </button>
 
       <!-- Top CTA: Boots into HUD Workstation -->
@@ -1468,6 +1654,43 @@ body.mode-hud .frame {
      STAGE 2: HUD & TERMINAL WORKSTATION (OS Workspace)
      ==================================================== -->
 <div id="hud-stage" role="region" aria-label="Cybersecurity HUD Workstation">
+  <!-- Interactive 3D Cyber Cube Background Layer (Active by default) -->
+  <div id="hud-cube-bg" class="hud-cube-bg" aria-label="Interactive 3D Glass Cyber Cube Workstation Background">
+    <canvas id="scene" aria-label="Rotatable 3D Glass Cube. Drag to rotate."></canvas>
+    
+    <div class="cube-bg-controls">
+      <div class="cube-bg-header">
+        <div class="cube-bg-badge">
+          <span class="cube-bg-led"></span>
+          <span>3D CYBER CORE // CHROMATIC REFRACTION</span>
+        </div>
+        <div class="cube-arrows">
+          <button class="cube-arrow" id="prev" title="Rotate left" aria-label="Previous rotation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5M11 6l-6 6 6 6"/>
+            </svg>
+          </button>
+          <button class="cube-arrow" id="next" title="Rotate right" aria-label="Next rotation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <nav class="cube-dots" aria-label="Cube viewpoints">
+        <button class="dot" aria-label="Viewpoint 1"></button>
+        <button class="dot active" aria-label="Viewpoint 2"></button>
+        <button class="dot" aria-label="Viewpoint 3"></button>
+      </nav>
+
+      <div class="cube-bg-footer">
+        <span class="cube-bg-caption">DRAG BACKGROUND TO ROTATE 3D CORE // OPTICAL DISPERSION</span>
+      </div>
+      <div class="cube-loader done" id="loader">3D CORE ONLINE</div>
+    </div>
+  </div>
+
   <!-- Workstation Ambient Motion Background -->
   <canvas id="hud-motion-bg"></canvas>
 
@@ -1663,7 +1886,6 @@ body.mode-hud .frame {
     const navItems = [
       { id: 'overview', label: '// OVERVIEW & TELEMETRY', win: 'win-overview' },
       { id: 'terminal', label: '// VISITOR TERMINAL (CLI)', win: 'win-terminal' },
-      { id: 'cube', label: '// 3D CYBER CUBE (GL)', win: 'win-cube' },
       { id: 'about', label: '// ABOUT & AVATAR', win: 'win-about' },
       { id: 'experience', label: '// EXPERIENCE DEBRIEF', win: 'win-experience' },
       { id: 'projects', label: '// REPOSITORIES (VAPT)', win: 'win-projects' },

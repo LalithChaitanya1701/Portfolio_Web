@@ -242,6 +242,13 @@ export function initCyberCube(containerEl) {
     if (loaderEl) loaderEl.classList.add('done');
   }
 
+  // Immediately mount responsive 3D rounded cuboid so background is active on frame 1
+  try {
+    setCubeGeometry(new RoundedBoxGeometry(1, 1, 1, 8, 0.12));
+  } catch (e) {
+    console.warn('Initial geometry fallback:', e);
+  }
+
   const gltfLoader = new GLTFLoader();
   gltfLoader.load(
     MODEL_URL,
