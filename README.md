@@ -1,109 +1,143 @@
 # Cybersecurity Analyst & Systems Engineer Portfolio
 
 > **Live Workstation & Cinematic Landing Experience**  
-> Engineered by **Lalith Chaitanya Mulapala** — Cybersecurity Analyst & Systems Engineer specializing in VAPT, Cloud Compliance Automation, SIEM Detection Pipelines, and Threat Intelligence.
+> Engineered by **Lalith Chaitanya Mulapala** — ISC²-certified Cybersecurity Analyst & Systems Engineer specializing in Offensive VAPT, SIEM Detection Pipelines, Cloud Security & CIS Compliance Automation, and Threat Intelligence.
 
 ---
 
-## Overview
+## 🌐 Live Experience & Overview
 
-This repository houses a hybrid cybersecurity portfolio featuring two tightly integrated visual paradigms:
-1. **Stage 1 — The Gateway**: A pixel-faithful, cinematic black stage landing page with dual-pass looping video atmosphere, SVG color-lookup grading (`#grade` / `#grade2`), left-locked typography (`Space Grotesk` & `JetBrains Mono`), responsive coordinate scaling, and one-shot WAAPI entrance choreography.
-2. **Stage 2 — The OS Workstation**: An interactive, desktop-grade HUD operating system environment providing multi-window capabilities (drag, drop, maximize, 8-directional touch/tablet resize), live telemetry ingestion monitors, ambient particle & radar motion background, an unpinned CLI terminal emulator, and an interactive 3D rotatable glass cyber cube.
+This portfolio blends two cohesive interactive paradigms designed around offensive and defensive cybersecurity telemetry:
+
+1. **Stage 1 — The Cinematic Gateway**:
+   - Ultra-dark aesthetic with dual-pass looping background atmosphere and hardware-accelerated SVG color-lookup filters (`#grade` / `#grade2`).
+   - Left-locked typography featuring `Space Grotesk` and `JetBrains Mono`.
+   - Responsive multi-breakpoint coordinate scaling with zero unwanted scroll jumps and one-shot WAAPI entrance choreography.
+
+2. **Stage 2 — The HUD Cyber Workstation (OS Desktop)**:
+   - True multi-window desktop operating system with drag-and-drop, 8-directional edge/corner resizing, touch/tablet clamping, and CRT glitch slice pop-up entrances.
+   - **Dynamic Centered Taskbar**: Window minimize-to-taskbar, restore, and focus indicators with smooth spring transitions.
+   - **Start-Style Directory Launcher**: Pinned **DIRECTORY** button that opens an elevated launcher menu with click-away dismissal.
+   - **Modern Window Chrome**: Themed title bars with distinct SVG icons, custom themed slim scrollbars, corner cyber-brackets, and neutral obsidian glassmorphism.
+   - **Unpinned CLI Terminal**: Slash-command architecture (`/help`, `/whoami`, `/projects`, `/open-all`, `/close-all`, `/theme`, etc.) with ghost placeholder guidance and autocomplete.
+   - **Interactive 3D Glass Cyber Core**: Real-time Three.js chromatic dispersion shader cuboid refracting live telemetry headlines.
+   - **Real-Time 3D Wireframe Cyber Avatar**: Canvas-based rotating cybernetic head mesh with depth projection and scanline sweep.
+   - **Smart Window Tiling & Docking**: Multi-column responsive auto-tiling via the top status `ARRANGE` button.
 
 ---
 
-## Key Features
+## ⚡ Key Highlights & Capabilities
 
-### 1. Cinematic Landing Page (Stage 1)
-- **Fluid Scaled Canvas**: Dynamic CSS `--s` coordinate system targeting `1505×700` (desktop), `900×1200` (tablet portrait), and `430×620` (mobile) with zero scrolling and strict mathematical scaling.
-- **Dual-Pass Looping Atmosphere**: Synchronized CloudFront video plate with real-time SVG color-grade lookup matrices.
-- **One-Shot Entrance Choreography**: Web Animations API (WAAPI) sequencing with staggered ease curves (`EXPO`, `QUINT`, `QUART`, `TYPE`) and automatic cleanup.
-- **Responsive Navigation**: Adaptive desktop header links and a mobile/tablet off-canvas accordion navigation overlay.
+### 1. Modern OS Window Chrome & Ergonomics
+- **HUD Corner Accents**: Windows feature cyber-bracket corner ticks in the active theme accent with focused drop-shadow highlights.
+- **Dedicated Window Icons**: Each window features an SVG identity badge across both its title bar and taskbar button:
+  - `Overview` (`WIN://OVERVIEW.SYS`): System Home badge
+  - `Terminal` (`WIN://VISITOR_TERMINAL.SH`): Command line `>_` badge
+  - `About` (`WIN://SECURITY_ID.DAT`): Security ID badge
+  - `Experience` (`WIN://EXPERIENCE_DEBRIEF.LOG`): Briefcase & log badge
+  - `Projects` (`WIN://REPOSITORIES.JSON`): Repositories & folder badge
+  - `Skills` (`WIN://SKILLS_TELEMETRY.MAT`): Core telemetry & radar badge
+  - `Certs` (`WIN://CERTIFICATIONS.SEC`): Certificate shield badge
+  - `Contact` (`WIN://COMM_CHANNELS.IO`): Comm channels envelope badge
+- **8-Directional Precision Resizing**: Hit zones on all 4 corners (`tl`, `tr`, `bl`, `br`) and all 4 edges (`t`, `b`, `l`, `r`) with touch-friendly grab pads (`touch-action: none`).
+- **Custom Cyber Scrollbars**: Native-feeling slim scrollbars (`scrollbar-width: thin` with webkit gradient thumbs) tinted to match the active theme.
 
-### 2. Multi-Window OS HUD Workstation (Stage 2)
-- **OS Window Management**:
-  - Full windowing controls: Drag by titlebar, minimize, maximize/restore (`□` / `❐`), and close (`✕`).
-  - **8-Directional Resizing**: Grab and resize from all 4 corners (`tl`, `tr`, `bl`, `br`) and all 4 edges (`t`, `b`, `l`, `r`) with generous touch targets (`touch-action: none`) optimized for iPad, Android tablets, and touchscreens.
-  - **Corner Anti-Collision Clamping**: Automatic container bounds protection preventing windows from getting stuck in screen corners.
+### 2. Centered Dynamic Taskbar & Start Menu
+- **Minimize-to-Taskbar**: Clicking `_` minimizes any window directly to the centered taskbar, hiding it cleanly from the desktop canvas.
+- **Taskbar Click Interactions**: Clicking a minimized taskbar item restores and brings it to focus. Clicking the currently active window minimizes it (standard OS desktop behavior).
+- **Pinned Start Directory**: The `DIRECTORY` launcher is pinned to the left of the taskbar like a desktop Start button, popping up an elevated launcher menu with live active status dots.
+
+### 3. Interactive CLI Terminal (`WIN://VISITOR_TERMINAL.SH`)
+- **Slash-Command System**: Type commands using familiar modern CLI syntax:
+  - `/help`: Print command index
+  - `/whoami` or `/about`: Display operator profile & education
+  - `/experience`: Load production internship logs (VAPT & SOC automation)
+  - `/projects`: Retrieve security repositories & tooling
+  - `/skills`: Query telemetry matrix (SIEM, Cloud, Pentesting, Scripting)
+  - `/certs`: Verify credentials (ISC² CC, leadership awards)
+  - `/contact`: Open communication channels (Email, LinkedIn, GitHub)
+  - `/resume`: Open printable formatted CV dossier
+  - `/open-all`: Sequentially pop open all workstation windows with smooth staggered intervals
+  - `/close-all`: Sequentially close all open windows
+  - `/theme [cyan|amber|violet|blue]`: Switch visual accent palette
+  - `/sound [on|off]`: Toggle synthetic audio
+  - `/landing`: Return to primary Stage 1 Gateway
+  - `/clear`: Clear terminal buffer
+- **Ghost Input Guidance**: Input field features italicized ghost placeholder text: `"type /help to get all commands"`.
+- **Keyboard Navigation**: Persistent command history via `↑` / `↓` arrow keys and command completion on `Tab`.
+
+### 4. Harmonized Visual Theme Palettes
+Deep obsidian glass surfaces (`rgba(5, 11, 18, 0.93)`) paired with high-contrast accent themes:
+- **Cyber Cyan (Default)** (`#00e5ff`): Quantum teal with atmospheric radar filaments.
+- **Tactical Amber** (`#ffb000`): Solar hazard amber inspired by tactical terminals.
+- **Electric Violet** (`#c084fc`): Synthwave neon amethyst.
+- **Cyber Blue** (`#38a0ff`): High-contrast electric blue imported from the reference system build.
+
+Cycling themes dynamically updates all UI components, SVG borders, radar sweep, 3D wireframe avatar, and taskbar indicators.
+
+### 5. 3D Graphics & Visual FX
 - **Interactive 3D Glass Cyber Cube**:
-  - Built with **Three.js** (WebGL).
-  - Dual-pass 6-band chromatic dispersion shader (`uIorR`, `uIorY`, `uIorG`, `uIorC`, `uIorB`, `uIorP`) with Blinn-Phong specular lighting and Fresnel reflections.
-  - Offscreen 2D canvas dynamically rendering the bold headline **"Privacy is a MYTH"**, refracted in real-time through the rounded cuboid.
-  - Inertia physics, drag-to-rotate touch controls, idle drift, ±90° arrow steps, and dot pagination.
-  - Loads a high-precision rounded cube GLTF model with procedural fallback to `RoundedBoxGeometry`.
-- **Unpinned CLI Terminal Window (`WIN://VISITOR_TERMINAL.SH`)**:
-  - Full interactive terminal emulator with persistent history (↑/↓ arrows) and Tab autocomplete.
-  - Commands suite: `help`, `whoami`, `about`, `experience`, `projects`, `skills`, `certs`, `resume`, `theme [crimson|matrix|amber]`, `sound [on|off]`, `landing`, `sudo`, `clear`.
-  - Quick-action command chips for instant execution.
-- **Procedural 3D Wireframe Cyber Hologram**:
-  - Real-time rotating 3D cybernetic mesh avatar rendered on HTML5 canvas with depth projection, vertex glows, scanner beam, and HUD crosshairs.
-- **Ambient Workstation Motion Background**:
-  - Real-time HTML5 particle canvas with interconnected vector filaments and a 360° sweeping radar beam adapted to the active theme accent.
-- **Merged Overview & Telemetry Tile**:
-  - Live animated threat ingestion bars, surveillance indicators, and system metrics alongside career highlights.
-- **Dual Narrative & Technical Experience Log**:
-  - Toggle between **First-Person Narrative** (behind-the-scenes engineering stories) and **Technical Specifications** (remediation metrics, tools, and methodologies).
-- **Theme Customization Engine**:
-  - Instant theme switching between **Crimson Security** (`#c81b1c`), **Matrix Green** (`#00ff66`), and **Amber Gold** (`#ffb000`).
-- **Programmatic Audio Engine (Web Audio API)**:
-  - Zero external MP3 files: synthetically generated sine, triangle, and sawtooth frequencies for keystrokes, navigation chirps, boot sequence, and window closure blips (muted by default with toggle control).
+  - Three.js WebGL scene with dual-pass 6-band chromatic dispersion shader (`uIorR`, `uIorY`, `uIorG`, `uIorC`, `uIorB`, `uIorP`).
+  - Refracts an offscreen dynamic headline canvas (**"Privacy is a MYTH"**).
+  - Physics-based inertia drag, auto-drift, and arrow navigation.
+- **Procedural 3D Wireframe Cyber Avatar**:
+  - Real-time rotating 3D mesh rendered on HTML5 canvas with depth projection, vertex glows, scanner beam, and HUD crosshairs.
+- **Ambient Motion Background**:
+  - HTML5 canvas particle field with interconnected vector filaments and a continuous 360° radar sweep.
+- **Synthesized Audio Engine (Web Audio API)**:
+  - Zero external sound files: generates synthetic keystrokes, navigation chirps, boot sequences, and alert frequencies dynamically.
 
-### 3. Printable Resume Dossier (Stage 3)
-- Dedicated CV modal view detailing education, experience, technical skills, and certifications.
-- Clean `@media print` layout formatting the dossier into a crisp, recruiter-friendly black-and-white document via `window.print()`.
+### 6. Printable Resume Dossier (Stage 3)
+- Dedicated CV viewer and printable modal layout formatted for recruiters via `window.print()`.
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- **Runtime / Framework**: React 19, TypeScript, Vanilla Modern JS (ES Modules)
-- **Bundler & Tooling**: Vite 8, tsx, esbuild
+- **Core & Runtime**: Modern Vanilla JavaScript (ES Modules), TypeScript, HTML5, CSS3
 - **3D Graphics & Shaders**: Three.js (WebGL, Custom GLSL Shaders, GLTFLoader, BufferGeometryUtils)
-- **Styling**: Tailwind CSS v4, Custom CSS Variables & Fluid Coordinate Math
+- **Styling**: Fluid Coordinate Math (`clamp`), Custom CSS Variables, Glassmorphism, Tailwind CSS v4
 - **Animation & Audio**: Web Animations API (WAAPI), HTML5 Canvas 2D, Web Audio API
-- **Deployment**: Google Cloud Run / Static Web Hosting
+- **Build Tooling**: Vite 8, esbuild, TypeScript Compiler (`tsc`)
 
 ---
 
-## Project Structure
+## 📁 Repository Structure
 
 ```
-├── index.html              # Document shell, Stage 1 Landing markup, HUD Stage, and SVG filters
-├── metadata.json           # Application metadata and capabilities
-├── package.json            # Project dependencies and build scripts
+├── index.html              # Document shell, Stage 1 Landing markup, HUD Stage & Taskbar
+├── package.json            # Scripts and dependencies
 ├── tsconfig.json           # TypeScript configuration
-├── vite.config.ts          # Vite build configuration
+├── vite.config.ts          # Vite configuration
+├── public/
+│   └── assets/             # Static PDF resume and certification badges
 ├── src/
-│   ├── app.js              # Application orchestrator, mode switching & WAAPI entrance
-│   ├── avatar.js           # Procedural 3D wireframe cybernetic avatar canvas
+│   ├── app.js              # Application orchestrator & mode lifecycle
+│   ├── avatar.js           # Procedural 3D wireframe avatar canvas
 │   ├── cube.js             # 3D Glass Cyber Cube with chromatic dispersion (Three.js)
-│   ├── data.js             # Portfolio content, experiences, projects, skills, and certifications
-│   ├── hud.js              # HUD workstation controller, directory drawer & window lifecycle
-│   ├── motion-bg.js        # Ambient particle matrix & radar sweep canvas background
-│   ├── sound.js            # Synthesized Web Audio API sound effects engine
-│   ├── styles.css          # Unified stylesheet, OS window system, themes, and responsive queries
-│   ├── terminal.js         # Interactive CLI terminal command parser and autocomplete
-│   ├── window-manager.js   # OS desktop multi-window manager (8-direction resize, drag, clamp)
-│   ├── main.tsx            # React entry point
-│   ├── App.tsx             # Root component wrapper
-│   └── index.css           # Global Tailwind CSS imports
+│   ├── data.js             # Resume, telemetry, and portfolio data models
+│   ├── hud.js              # Workstation HUD controller, icons, start menu & taskbar
+│   ├── motion-bg.js        # Ambient particle matrix & radar sweep canvas
+│   ├── sound.js            # Synthesized Web Audio API sound effects
+│   ├── styles.css          # Unified styling: window chrome, taskbar, themes & animations
+│   ├── terminal.js         # Slash-command CLI engine, autocomplete & history
+│   └── window-manager.js   # Multi-window manager: taskbar docking, 8-way resize, tiling
 ```
 
 ---
 
-## Getting Started Locally
+## 🚀 Getting Started Locally
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/) (v18.0.0 or higher recommended)
-- [npm](https://www.npmjs.com/) or [bun](https://bun.sh/)
+- [npm](https://www.npmjs.com/)
 
-### Installation
+### Setup Instructions
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/LalithChaitanya1701/portfolio-website.git
-   cd portfolio-website
+   git clone https://github.com/LalithChaitanya1701/Portfolio_Web.git
+   cd Portfolio_Web
    ```
 
 2. **Install dependencies**:
@@ -111,33 +145,34 @@ This repository houses a hybrid cybersecurity portfolio featuring two tightly in
    npm install
    ```
 
-3. **Start the development server**:
+3. **Start local development server**:
    ```bash
    npm run dev
    ```
-   Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+   Open [http://localhost:3000](http://localhost:3000) (or the port indicated in your console).
 
-4. **Build for production**:
-   ```bash
-   npm run build
-   ```
-   The production-ready artifacts will be generated in the `dist/` directory.
-
-5. **Typecheck & Lint**:
+4. **Verify typecheck & linting**:
    ```bash
    npm run lint
    ```
+
+5. **Build for production**:
+   ```bash
+   npm run build
+   ```
+   The bundled, optimized assets will be emitted into the `dist/` folder.
 
 ---
 
 ## 👤 Author
 
 **Lalith Chaitanya Mulapala**  
-*Cybersecurity Analyst & Systems Engineer*  
+*ISC²-certified Cybersecurity Analyst & Systems Engineer*  
 - **Email**: [lalithchaitanya.mulapala@gmail.com](mailto:lalithchaitanya.mulapala@gmail.com)  
 - **GitHub**: [@LalithChaitanya1701](https://github.com/LalithChaitanya1701)  
 - **LinkedIn**: [lalith-chaitanya-mulapala](https://linkedin.com/in/lalith-chaitanya-mulapala)  
-- **Education**: B.Tech CSE (Cybersecurity Major, AI/ML Minor) — Guru Nanak Institutions Technical Campus (GNITC)
+- **Credentials**: ISC² Certified in Cybersecurity (CC) · Fortinet Certified Associate (FCA) · EC-Council CHFI  
+- **Education**: B.Tech CSE (Cybersecurity Major: 8.58 GPA, AI/ML Minor: 8.22 GPA) — Guru Nanak Institutions Technical Campus (GNITC)
 
 ---
 
