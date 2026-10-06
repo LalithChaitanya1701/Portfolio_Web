@@ -5,7 +5,7 @@
 
 ---
 
-## 🌐 Live Experience & Overview
+## Live Experience & Overview
 
 This portfolio blends two cohesive interactive paradigms designed around offensive and defensive cybersecurity telemetry:
 
@@ -26,7 +26,7 @@ This portfolio blends two cohesive interactive paradigms designed around offensi
 
 ---
 
-## ⚡ Key Highlights & Capabilities
+## Key Highlights & Capabilities
 
 ### 1. Modern OS Window Chrome & Ergonomics
 - **HUD Corner Accents**: Windows feature cyber-bracket corner ticks in the active theme accent with focused drop-shadow highlights.
@@ -92,7 +92,7 @@ Cycling themes dynamically updates all UI components, SVG borders, radar sweep, 
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Core & Runtime**: Modern Vanilla JavaScript (ES Modules), TypeScript, HTML5, CSS3
 - **3D Graphics & Shaders**: Three.js (WebGL, Custom GLSL Shaders, GLTFLoader, BufferGeometryUtils)
@@ -102,7 +102,7 @@ Cycling themes dynamically updates all UI components, SVG borders, radar sweep, 
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 ├── index.html              # Document shell, Stage 1 Landing markup, HUD Stage & Taskbar
@@ -126,7 +126,7 @@ Cycling themes dynamically updates all UI components, SVG borders, radar sweep, 
 
 ---
 
-## 🚀 Getting Started Locally
+## Getting Started Locally
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/) (v18.0.0 or higher recommended)
@@ -164,7 +164,7 @@ Cycling themes dynamically updates all UI components, SVG borders, radar sweep, 
 
 ---
 
-## 👤 Author
+## Author
 
 **Lalith Chaitanya Mulapala**  
 *ISC²-certified Cybersecurity Analyst & Systems Engineer*  
