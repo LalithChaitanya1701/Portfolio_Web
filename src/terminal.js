@@ -118,17 +118,12 @@ export class TerminalEngine {
 
       case 'home':
       case 'overview':
-        this.onPanelChange('overview');
-        this.log.push({ type: 'out', text: 'Navigated to Overview stage.' });
-        sound.playNav();
-        break;
-
       case 'whoami':
       case 'about':
         this.onPanelChange('about');
         this.log.push({
           type: 'out',
-          text: 'Lalith Chaitanya Mulapala — Cybersecurity Analyst & Systems Engineer (GPA: 8.58).'
+          text: 'Loaded About // Whoami dossier: Lalith Chaitanya Mulapala — Cybersecurity Analyst & Systems Engineer (GPA: 8.58).'
         });
         sound.playNav();
         break;

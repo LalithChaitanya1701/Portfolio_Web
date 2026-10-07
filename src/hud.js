@@ -135,14 +135,28 @@ export class HUDController {
       return { pos: { x, y }, size: { w, h } };
     };
 
-    // 1. Overview Window
-    const ovBounds = getWinBounds(isSmall ? 620 : 740, isSmall ? 460 : 500, 20, 20);
-    this.winManager.registerWindow('overview', {
-      title: 'WIN://OVERVIEW.SYS',
-      icon: this.icons.overview,
-      contentHtml: this.getOverviewHtml(),
-      defaultPos: ovBounds.pos,
-      defaultSize: ovBounds.size
+    // 1. About // Whoami Window (Unified Profile, Photo & System Dossier)
+    const aboutBounds = getWinBounds(isSmall ? 620 : 800, isSmall ? 480 : 530, 20, 20);
+    this.winManager.registerWindow('about', {
+      title: 'WIN://ABOUT_WHOAMI.SYS',
+      icon: this.icons.about,
+      contentHtml: this.getAboutHtml(),
+      defaultPos: aboutBounds.pos,
+      defaultSize: aboutBounds.size,
+      onFocus: () => {
+        const wrap = document.getElementById('avatar-canvas-wrap');
+        if (wrap && wrap.style.display === 'block' && !this.avatarCleanup) {
+          setTimeout(() => {
+            this.avatarCleanup = initWireframeAvatar('avatar-canvas');
+          }, 40);
+        }
+      },
+      onClose: () => {
+        if (this.avatarCleanup) {
+          this.avatarCleanup();
+          this.avatarCleanup = null;
+        }
+      }
     });
 
     // 2. Terminal Window (UNPINNED OS WINDOW)
@@ -161,30 +175,7 @@ export class HUDController {
       }
     });
 
-    // 3. About & 3D Wireframe Avatar
-    const aboutBounds = getWinBounds(isSmall ? 600 : 660, isSmall ? 420 : 440, 25, 25);
-    this.winManager.registerWindow('about', {
-      title: 'WIN://SECURITY_ID.DAT',
-      icon: this.icons.about,
-      contentHtml: this.getAboutHtml(),
-      defaultPos: aboutBounds.pos,
-      defaultSize: aboutBounds.size,
-      onFocus: () => {
-        if (!this.avatarCleanup) {
-          setTimeout(() => {
-            this.avatarCleanup = initWireframeAvatar('avatar-canvas');
-          }, 40);
-        }
-      },
-      onClose: () => {
-        if (this.avatarCleanup) {
-          this.avatarCleanup();
-          this.avatarCleanup = null;
-        }
-      }
-    });
-
-    // 5. Experience Debrief Window
+    // 3. Experience Debrief Window
     const expBounds = getWinBounds(isSmall ? 620 : 700, isSmall ? 460 : 490, 30, 30);
     this.winManager.registerWindow('experience', {
       title: 'WIN://EXPERIENCE_DEBRIEF.LOG',
@@ -194,7 +185,7 @@ export class HUDController {
       defaultSize: expBounds.size
     });
 
-    // 6. Projects Window
+    // 4. Projects Window
     const projBounds = getWinBounds(isSmall ? 620 : 700, isSmall ? 460 : 490, 35, 35);
     this.winManager.registerWindow('projects', {
       title: 'WIN://REPOSITORIES.JSON',
@@ -204,7 +195,7 @@ export class HUDController {
       defaultSize: projBounds.size
     });
 
-    // 7. Skills Matrix Window
+    // 5. Skills Matrix Window
     const skillsBounds = getWinBounds(isSmall ? 600 : 660, isSmall ? 420 : 450, 40, 40);
     this.winManager.registerWindow('skills', {
       title: 'WIN://SKILLS_TELEMETRY.MAT',
@@ -214,7 +205,7 @@ export class HUDController {
       defaultSize: skillsBounds.size
     });
 
-    // 8. Certifications Window
+    // 6. Certifications Window
     const certsBounds = getWinBounds(isSmall ? 580 : 640, isSmall ? 380 : 400, 45, 45);
     this.winManager.registerWindow('certs', {
       title: 'WIN://CERTIFICATIONS.SEC',
@@ -224,7 +215,7 @@ export class HUDController {
       defaultSize: certsBounds.size
     });
 
-    // 9. Contact Window
+    // 7. Contact Window
     const contactBounds = getWinBounds(isSmall ? 540 : 580, isSmall ? 360 : 360, 50, 50);
     this.winManager.registerWindow('contact', {
       title: 'WIN://COMM_CHANNELS.IO',
@@ -234,12 +225,12 @@ export class HUDController {
       defaultSize: contactBounds.size
     });
 
-    // Close others initially, open Overview
-    ['terminal', 'about', 'experience', 'projects', 'skills', 'certs', 'contact'].forEach(id => {
+    // Close others initially, open About // Whoami
+    ['terminal', 'experience', 'projects', 'skills', 'certs', 'contact'].forEach(id => {
       this.winManager.closeWindow(id);
     });
 
-    this.winManager.openWindow('overview');
+    this.winManager.openWindow('about');
     this.bindInternalEvents();
   }
 
@@ -248,9 +239,8 @@ export class HUDController {
     if (!navContainer) return;
 
     const sections = [
-      { id: 'overview', label: 'OVERVIEW' },
-      { id: 'terminal', label: 'TERMINAL' },
       { id: 'about', label: 'ABOUT // WHOAMI' },
+      { id: 'terminal', label: 'TERMINAL' },
       { id: 'experience', label: 'EXPERIENCE LOG' },
       { id: 'projects', label: 'PROJECTS' },
       { id: 'skills', label: 'SKILLS MATRIX' },
@@ -277,7 +267,7 @@ export class HUDController {
       navContainer.appendChild(btn);
     });
 
-    this.updateDirectoryHighlight('overview');
+    this.updateDirectoryHighlight('about');
   }
 
   renderTaskbar() {
@@ -288,9 +278,8 @@ export class HUDController {
     container.innerHTML = '';
 
     const labelMap = {
-      overview: 'OVERVIEW',
+      about: 'ABOUT // WHOAMI',
       terminal: 'TERMINAL',
-      about: 'ABOUT',
       experience: 'EXPERIENCE',
       projects: 'PROJECTS',
       skills: 'SKILLS',
@@ -340,7 +329,7 @@ export class HUDController {
       sep.classList.toggle('is-hidden', count === 0);
     }
 
-    this.updateDirectoryHighlight(this.winManager.activeWindowId || 'overview');
+    this.updateDirectoryHighlight(this.winManager.activeWindowId || 'about');
   }
 
   updateDirectoryHighlight(activeId) {
@@ -383,7 +372,7 @@ export class HUDController {
   }
 
   setPanel(panelId) {
-    const mapped = panelId === 'home' ? 'overview' : panelId;
+    const mapped = (panelId === 'home' || panelId === 'overview' || panelId === 'whoami') ? 'about' : panelId;
     this.openOrFocus(mapped);
   }
 
@@ -399,26 +388,75 @@ export class HUDController {
     `;
   }
 
-  getOverviewHtml() {
+  getAboutHtml() {
     return `
-      <div class="overview-layout">
-        <div class="overview-left-col">
-          <div style="font-size:11px;color:var(--accent);letter-spacing:0.18em;margin-bottom:6px">> SYSTEM STATUS: NORMAL // LIVE SOC TELEMETRY</div>
-          <h1 style="font-family:'SG',sans-serif;font-weight:700;font-size:28px;color:#fff;margin-bottom:4px;line-height:1.2">
-            ${PERSONAL_INFO.name}
-          </h1>
-          <div style="font-size:14px;color:var(--accent);letter-spacing:0.06em;margin-bottom:14px">
-            ${PERSONAL_INFO.title} · ${PERSONAL_INFO.location}
+      <div class="about-layout">
+        <div class="about-left-col">
+          <div style="font-size:11px;color:var(--accent);letter-spacing:0.18em;margin-bottom:8px">> SYSTEM STATUS: NORMAL // WHOAMI DOSSIER</div>
+
+          <!-- Operator ID & Bio with Photo Card -->
+          <div style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.75);padding:16px;margin-bottom:14px;border-radius:6px">
+            <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+              <!-- Photo / Cyber ID Media Badge -->
+              <div class="profile-photo-card" style="width:160px;flex:none;border:1px solid var(--accent-border);background:rgba(2,10,5,0.9);padding:8px;border-radius:6px;display:flex;flex-direction:column;align-items:center;position:relative">
+                <div class="profile-photo-frame" style="position:relative;width:100%;height:190px;overflow:hidden;border-radius:4px;border:1px solid rgba(var(--accent-rgb),0.5);background:#020a05">
+                  <picture id="profile-pic-el">
+                    <source srcset="./my_img_opt.webp" type="image/webp">
+                    <source srcset="./my_img_opt.jpg" type="image/jpeg">
+                    <img src="./my_img_opt.jpg" alt="${PERSONAL_INFO.name}" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block">
+                  </picture>
+                  <div class="photo-scanline" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 65%,rgba(2,10,5,0.5)),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(var(--accent-rgb),0.04) 3px)"></div>
+                  <div class="avatar-canvas-wrap" id="avatar-canvas-wrap" style="position:absolute;inset:0;display:none;background:#020a05">
+                    <canvas id="avatar-canvas" style="width:100%;height:100%"></canvas>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:8px">
+                  <span style="font-size:10px;color:var(--accent);letter-spacing:0.1em;font-weight:700">ID: LCM-SEC</span>
+                  <span style="font-size:9.5px;color:#78d496;display:flex;align-items:center;gap:4px">
+                    <span class="win-led" style="width:5px;height:5px"></span> ACTIVE
+                  </span>
+                </div>
+                <!-- Visual Mode Toggle (Photo vs 3D Hologram) -->
+                <button id="toggle-avatar-mode" class="hud-btn" style="width:100%;margin-top:6px;font-size:9.5px;padding:3px 6px;letter-spacing:0.06em" title="Toggle between Photo and 3D Wireframe Hologram">
+                  SWITCH: 3D HOLOGRAM
+                </button>
+              </div>
+
+              <!-- Header Info & Summary -->
+              <div style="flex:1;min-width:240px">
+                <h1 style="font-family:'SG',sans-serif;font-weight:700;font-size:26px;color:#fff;margin:0 0 4px;line-height:1.2">
+                  ${PERSONAL_INFO.name}
+                </h1>
+                <div style="font-size:13.5px;color:var(--accent);letter-spacing:0.06em;margin-bottom:12px;font-weight:600">
+                  ${PERSONAL_INFO.title} · ${PERSONAL_INFO.location}
+                </div>
+                <p style="color:#d8fae4;line-height:1.65;font-size:13px;margin:0 0 12px">
+                  ISC²-certified Cybersecurity Analyst &amp; Systems Engineer. Specialist in offensive web application assessment (VAPT),
+                  cloud infrastructure compliance automation (AWS/Terraform), and high-throughput SIEM threat detection. Bridging application
+                  security with infrastructure to ensure defenses withstand realistic threat models.
+                </p>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <span style="font-size:11px;border:1px solid var(--accent-border);padding:2px 8px;color:var(--accent);background:rgba(var(--accent-rgb),0.08)">ISC² CC CERTIFIED</span>
+                  <span style="font-size:11px;border:1px solid var(--accent-border);padding:2px 8px;color:#78d496;background:rgba(2,10,5,0.6)">SOC LEVEL 1/2</span>
+                  <span style="font-size:11px;border:1px solid var(--accent-border);padding:2px 8px;color:#a8e5be;background:rgba(2,10,5,0.6)">VAPT SPECIALIST</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <p style="color:#bdf0ce;line-height:1.65;font-size:13px;margin-bottom:18px">
-            ISC²-certified Cybersecurity Analyst &amp; Systems Engineer. Specialist in offensive web application assessment (VAPT),
-            cloud infrastructure compliance automation (AWS/Terraform), and high-throughput SIEM threat detection.
-          </p>
+
+          <!-- Academic Background Card -->
+          <div style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.7);padding:14px;margin-bottom:14px;border-radius:6px">
+            <div style="color:var(--accent);font-size:11.5px;letter-spacing:0.12em;font-weight:700;margin-bottom:6px">ACADEMIC BACKGROUND &amp; EDUCATION</div>
+            <div style="color:#fff;font-weight:700;font-size:14px">${PERSONAL_INFO.education.institution}</div>
+            <div style="color:#a8e5be;font-size:12.5px;margin-top:2px">${PERSONAL_INFO.education.degree} (${PERSONAL_INFO.education.specialization})</div>
+            <div style="color:var(--accent);font-size:12px;margin-top:4px;font-weight:600">${PERSONAL_INFO.education.gpa} · ${PERSONAL_INFO.education.period}</div>
+            <div style="color:#72cf90;font-size:11.5px;margin-top:6px;line-height:1.5">Relevant coursework: ${PERSONAL_INFO.education.coursework.join(' · ')}</div>
+          </div>
 
           <!-- Metric Tiles Grid -->
-          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:10px;margin-bottom:18px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:10px;margin-bottom:14px">
             ${PERSONAL_INFO.stats.map(s => `
-              <div style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.7);padding:12px">
+              <div style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.7);padding:12px;border-radius:6px">
                 <div style="font-family:'SG',sans-serif;font-size:24px;font-weight:700;color:var(--accent)">${s.value}</div>
                 <div style="font-size:11px;color:#fff;margin-top:2px;font-weight:600">${s.label}</div>
                 <div style="font-size:10px;color:#78d496;margin-top:2px">${s.sub}</div>
@@ -427,8 +465,8 @@ export class HUDController {
           </div>
 
           <!-- Quick Actions Row -->
-          <div style="border-left:3px solid var(--accent);padding:10px 14px;background:var(--accent-dim);color:#e2f7ea;font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-            <span>Desktop OS environment: drag headers, grab borders to resize, or arrange windows.</span>
+          <div style="border-left:3px solid var(--accent);padding:10px 14px;background:var(--accent-dim);color:#e2f7ea;font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-radius:0 6px 6px 0">
+            <span>Workstation controls: drag headers, resize edges, or navigate modules via Directory.</span>
             <div style="display:flex;gap:8px">
               <button id="quick-resume-btn" class="hud-btn" style="background:var(--accent);color:#000;font-weight:bold;border:none">PRINT RESUME</button>
               <button id="quick-terminal-btn" class="hud-btn">LAUNCH TERMINAL</button>
@@ -436,9 +474,9 @@ export class HUDController {
           </div>
         </div>
 
-        <!-- Merged Telemetry & Threat Monitor Report (Pushed to right when maximized) -->
-        <div class="overview-right-col">
-          <div class="telemetry-card" style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.85);padding:16px">
+        <!-- Telemetry & Threat Monitor Report Column -->
+        <div class="about-right-col">
+          <div class="telemetry-card" style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.85);padding:16px;border-radius:6px">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;border-bottom:1px solid rgba(var(--accent-rgb),0.25);padding-bottom:8px">
               <span style="font-size:12px;color:var(--accent);letter-spacing:0.12em;font-weight:700">LIVE THREAT MONITOR &amp; TELEMETRY REPORT</span>
               <span style="font-size:10.5px;color:#72cf90;display:flex;align-items:center;gap:6px">
@@ -467,38 +505,8 @@ export class HUDController {
                 <div><b style="color:var(--accent)">SECURITY INVARIANTS:</b> VERIFIED</div>
                 <div><b style="color:var(--accent)">AUDIT COMPLIANCE:</b> CIS BENCHMARKS · PCI-DSS</div>
                 <div><b style="color:var(--accent)">DETECTION LATENCY:</b> &lt; 2.0s REAL-TIME ALERTING</div>
+                <div><b style="color:var(--accent)">IDENTITY PROTOCOL:</b> 2FA / ZERO TRUST VALIDATED</div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  getAboutHtml() {
-    return `
-      <div>
-        <div style="display:flex;gap:20px;flex-wrap:wrap">
-          <div style="width:190px;flex:none;border:1px dashed var(--accent-border);background:#020a05;padding:12px;display:flex;flex-direction:column;align-items:center">
-            <div class="avatar-canvas-wrap" style="height:160px;width:100%">
-              <canvas id="avatar-canvas"></canvas>
-            </div>
-            <div style="font-size:10.5px;color:var(--accent);letter-spacing:0.1em;margin-top:6px">[ CYBER_ID // HOLOGRAM ]</div>
-          </div>
-
-          <div style="flex:1;min-width:260px;display:flex;flex-direction:column;gap:12px">
-            <p style="color:#d8fae4;line-height:1.7;font-size:13px;margin:0">
-              I am an ISC²-certified Cybersecurity Analyst and Computer Science Engineer (GPA: 8.58) focused on offensive security, 
-              cloud compliance automation, and threat detection systems. I bridge the gap between application security and infrastructure, 
-              ensuring defenses are validated under realistic threat models.
-            </p>
-
-            <div style="border:1px solid var(--accent-border);background:rgba(2,10,5,0.7);padding:14px">
-              <div style="color:var(--accent);font-size:11.5px;letter-spacing:0.1em;font-weight:600;margin-bottom:6px">ACADEMIC BACKGROUND</div>
-              <div style="color:#fff;font-weight:600;font-size:13.5px">${PERSONAL_INFO.education.institution}</div>
-              <div style="color:#a8e5be;font-size:12px;margin-top:2px">${PERSONAL_INFO.education.degree} (${PERSONAL_INFO.education.specialization})</div>
-              <div style="color:var(--accent);font-size:11.5px;margin-top:4px">${PERSONAL_INFO.education.gpa} · ${PERSONAL_INFO.education.period}</div>
-              <div style="color:#72cf90;font-size:11px;margin-top:6px">Relevant coursework: ${PERSONAL_INFO.education.coursework.join(' · ')}</div>
             </div>
           </div>
         </div>
@@ -681,6 +689,28 @@ export class HUDController {
 
       if (e.target.id === 'quick-terminal-btn') {
         this.openOrFocus('terminal');
+      }
+
+      if (e.target.id === 'toggle-avatar-mode') {
+        const pic = document.getElementById('profile-pic-el');
+        const wrap = document.getElementById('avatar-canvas-wrap');
+        const btn = document.getElementById('toggle-avatar-mode');
+        if (pic && wrap && btn) {
+          const isPhotoVisible = pic.style.display !== 'none';
+          if (isPhotoVisible) {
+            pic.style.display = 'none';
+            wrap.style.display = 'block';
+            btn.textContent = 'SWITCH: PHOTO ID';
+            if (!this.avatarCleanup) {
+              this.avatarCleanup = initWireframeAvatar('avatar-canvas');
+            }
+            window.dispatchEvent(new Event('resize'));
+          } else {
+            pic.style.display = 'block';
+            wrap.style.display = 'none';
+            btn.textContent = 'SWITCH: 3D HOLOGRAM';
+          }
+        }
       }
     });
   }

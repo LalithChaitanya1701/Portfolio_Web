@@ -1099,26 +1099,49 @@ body.mode-hud .frame {
   }
 }
 
-/* Overview window maximized layout: push telemetry report cleanly to the right */
-.overview-layout {
+/* About // Whoami merged window layout */
+.about-layout {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.os-window.is-maximized .overview-layout {
+.about-left-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.about-right-col {
+  width: 100%;
+}
+
+.os-window.is-maximized .about-layout {
   display: grid;
-  grid-template-columns: 1fr 390px;
-  gap: 24px;
+  grid-template-columns: 1fr 370px;
+  gap: 22px;
   align-items: start;
 }
 
+.profile-photo-card {
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.profile-photo-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.2);
+}
+
+.profile-photo-frame {
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.8);
+}
+
 @media (max-width: 960px) {
-  .os-window.is-maximized .overview-layout {
+  .os-window.is-maximized .about-layout {
     display: flex;
     flex-direction: column;
   }
 }
+
 
 
 /* ====================================================

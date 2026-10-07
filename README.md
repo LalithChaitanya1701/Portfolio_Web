@@ -31,9 +31,8 @@ This portfolio blends two cohesive interactive paradigms designed around offensi
 ### 1. Modern OS Window Chrome & Ergonomics
 - **HUD Corner Accents**: Windows feature cyber-bracket corner ticks in the active theme accent with focused drop-shadow highlights.
 - **Dedicated Window Icons**: Each window features an SVG identity badge across both its title bar and taskbar button:
-  - `Overview` (`WIN://OVERVIEW.SYS`): System Home badge
+  - `About // Whoami` (`WIN://ABOUT_WHOAMI.SYS`): Security ID & operator photo dossier, telemetry & threat monitor
   - `Terminal` (`WIN://VISITOR_TERMINAL.SH`): Command line `>_` badge
-  - `About` (`WIN://SECURITY_ID.DAT`): Security ID badge
   - `Experience` (`WIN://EXPERIENCE_DEBRIEF.LOG`): Briefcase & log badge
   - `Projects` (`WIN://REPOSITORIES.JSON`): Repositories & folder badge
   - `Skills` (`WIN://SKILLS_TELEMETRY.MAT`): Core telemetry & radar badge
