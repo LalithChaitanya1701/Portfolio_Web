@@ -1,6 +1,6 @@
 /**
  * Lalith Chaitanya Mulapala - Portfolio & Experience Data
- * Includes First-Person Narrative Walkthroughs & Technical Specifications
+ * Includes Personal Narrative Debriefs & Technical Specifications
  */
 
 export const PERSONAL_INFO = {

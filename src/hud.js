@@ -520,7 +520,7 @@ export class HUDController {
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;border-bottom:1px solid rgba(var(--accent-rgb),0.25);padding-bottom:10px">
           <span style="font-size:12px;color:var(--accent);letter-spacing:0.12em;font-weight:700">MISSION LOG // INTERVIEWS &amp; AUDITS</span>
           <div class="view-switch">
-            <button class="switch-btn ${this.experienceMode === 'narrative' ? 'active' : ''}" data-mode="narrative">FIRST-PERSON DEBRIEF</button>
+            <button class="switch-btn ${this.experienceMode === 'narrative' ? 'active' : ''}" data-mode="narrative">MY PERSONAL DEBRIEF</button>
             <button class="switch-btn ${this.experienceMode === 'specs' ? 'active' : ''}" data-mode="specs">TECHNICAL SPECS</button>
           </div>
         </div>

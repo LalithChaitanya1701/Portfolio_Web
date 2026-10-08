@@ -782,7 +782,7 @@ body.mode-hud .frame {
   opacity: 0;
 }
 
-/* First-Person Experience Switcher */
+/* Personal Experience Debrief Switcher */
 .view-switch {
   display: inline-flex;
   border: 1px solid var(--accent-border);
