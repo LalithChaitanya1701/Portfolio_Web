@@ -306,7 +306,7 @@ export class HUDController {
 
       btn.innerHTML = `<span class="tb-ico">${iconSvg}</span>`;
       btn.setAttribute('aria-label', label);
-      btn.title = win.isMinimized ? `Restore ${label}` : `Focus/Minimize ${label}`;
+      btn.title = label;
 
       btn.addEventListener('click', () => {
         if (win.isMinimized) {
