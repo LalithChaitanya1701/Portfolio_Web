@@ -1481,23 +1481,21 @@ body.mode-hud .frame {
   display: none;
 }
 
-/* Taskbar item — hover effect imported from Portfolio/site (.dk) */
+/* Taskbar item — clean OS icon tile */
 .tb-item {
   position: relative;
   flex: none;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  height: 36px;
-  padding: 0 12px;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
   font-family: inherit;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  white-space: nowrap;
   color: #d1e4ee;
-  background: rgba(var(--accent-rgb), 0.04);
+  background: rgba(var(--accent-rgb), 0.05);
   border: 1px solid rgba(var(--accent-rgb), 0.28);
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s, opacity 0.2s;
   animation: tbIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -1511,7 +1509,8 @@ body.mode-hud .frame {
 .tb-item:hover {
   transform: translateY(-3px);
   border-color: var(--accent);
-  box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.3);
+  background: rgba(var(--accent-rgb), 0.12);
+  box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.35);
 }
 
 .tb-ico {
@@ -1520,13 +1519,19 @@ body.mode-hud .frame {
   color: var(--accent);
 }
 
+.tb-item .tb-ico svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
 .tb-item::after {
   content: "";
   position: absolute;
-  left: 22%;
-  right: 22%;
-  bottom: -7px;
-  height: 2px;
+  left: 28%;
+  right: 28%;
+  bottom: -6px;
+  height: 2.5px;
   border-radius: 2px;
   background: var(--accent);
   box-shadow: 0 0 8px var(--accent);
@@ -1537,24 +1542,25 @@ body.mode-hud .frame {
 .tb-item.is-active {
   color: var(--accent);
   border-color: var(--accent);
-  background: rgba(var(--accent-rgb), 0.14);
+  background: rgba(var(--accent-rgb), 0.18);
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.25);
 }
 
 .tb-item.is-active::after {
-  left: 8%;
-  right: 8%;
+  left: 18%;
+  right: 18%;
   opacity: 1;
 }
 
 .tb-item.is-minimized {
-  opacity: 0.6;
+  opacity: 0.55;
   border-style: dashed;
 }
 
 .tb-item.is-minimized::after {
-  left: 40%;
-  right: 40%;
-  opacity: 0.4;
+  left: 38%;
+  right: 38%;
+  opacity: 0.35;
 }
 
 .tb-item.is-leaving {
@@ -1682,12 +1688,10 @@ body.mode-hud .frame {
 }
 
 @media (max-width: 900px) {
-  .tb-start span,
-  .tb-item .tb-label {
+  .tb-start span {
     display: none;
   }
-  .tb-start,
-  .tb-item {
+  .tb-start {
     padding: 0 11px;
   }
 }

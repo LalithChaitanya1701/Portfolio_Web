@@ -42,6 +42,7 @@ This portfolio blends two cohesive interactive paradigms designed around offensi
 - **Custom Cyber Scrollbars**: Native-feeling slim scrollbars (`scrollbar-width: thin` with webkit gradient thumbs) tinted to match the active theme.
 
 ### 2. Centered Dynamic Taskbar & Start Menu
+- **Icon-Only OS Taskbar**: Standard operating system taskbar behavior featuring square icon tiles with active/minimized underline pills and native hover tooltips, eliminating text clutter.
 - **Minimize-to-Taskbar**: Clicking `_` minimizes any window directly to the centered taskbar, hiding it cleanly from the desktop canvas.
 - **Taskbar Click Interactions**: Clicking a minimized taskbar item restores and brings it to focus. Clicking the currently active window minimizes it (standard OS desktop behavior).
 - **Pinned Start Directory**: The `DIRECTORY` launcher is pinned to the left of the taskbar like a desktop Start button, popping up an elevated launcher menu with live active status dots.

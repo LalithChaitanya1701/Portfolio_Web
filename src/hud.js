@@ -304,11 +304,8 @@ export class HUDController {
       const iconSvg = win.icon || this.icons[id] || '';
       const label = labelMap[id] || id.toUpperCase();
 
-      btn.innerHTML = `
-        <span class="tb-ico">${iconSvg}</span>
-        <span class="tb-label">${label}</span>
-      `;
-
+      btn.innerHTML = `<span class="tb-ico">${iconSvg}</span>`;
+      btn.setAttribute('aria-label', label);
       btn.title = win.isMinimized ? `Restore ${label}` : `Focus/Minimize ${label}`;
 
       btn.addEventListener('click', () => {
