@@ -124,46 +124,6 @@ Cycling themes dynamically updates all UI components, SVG borders, radar sweep, 
 │   └── window-manager.js   # Multi-window manager: taskbar docking, 8-way resize, tiling
 ```
 
----
-
-## Getting Started Locally
-
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18.0.0 or higher recommended)
-- [npm](https://www.npmjs.com/)
-
-### Setup Instructions
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/LalithChaitanya1701/Portfolio_Web.git
-   cd Portfolio_Web
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Start local development server**:
-   ```bash
-   npm run dev
-   ```
-   Open [http://localhost:3000](http://localhost:3000) (or the port indicated in your console).
-
-4. **Verify typecheck & linting**:
-   ```bash
-   npm run lint
-   ```
-
-5. **Build for production**:
-   ```bash
-   npm run build
-   ```
-   The bundled, optimized assets will be emitted into the `dist/` folder.
-
----
-
 ## Author
 
 **Lalith Chaitanya Mulapala**  
