@@ -68,6 +68,7 @@ export class HUDController {
     this.renderDirectory();
     this.renderTaskbar();
     this.initThreatMonitor();
+    this.initClock();
     this.setupResumeModal();
     this.setupDirectoryToggle();
     this.setupArrangeButton();
@@ -345,11 +346,6 @@ export class HUDController {
           itemBtn.classList.toggle('is-open', win.isOpen);
         }
       });
-    }
-
-    const panelLabel = document.getElementById('hud-current-panel');
-    if (panelLabel && activeId) {
-      panelLabel.textContent = activeId.toUpperCase();
     }
   }
 
@@ -786,5 +782,17 @@ export class HUDController {
         b.style.height = `${h}%`;
       });
     }, 1800);
+  }
+
+  initClock() {
+    const clockEl = document.getElementById('hud-clock');
+    if (!clockEl) return;
+    const update = () => {
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      clockEl.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    };
+    update();
+    setInterval(update, 1000);
   }
 }

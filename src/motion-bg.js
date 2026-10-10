@@ -17,11 +17,11 @@ export function initWorkstationMotionBg(canvasId) {
 
   function getThemeRGB() {
     const root = document.documentElement;
-    const theme = root.getAttribute('data-theme') || 'cyan';
+    const theme = root.getAttribute('data-theme') || 'amber';
     if (theme === 'amber') return { r: 255, g: 176, b: 0 };
-    if (theme === 'violet') return { r: 192, g: 132, b: 252 };
     if (theme === 'blue') return { r: 56, g: 160, b: 255 };
-    return { r: 0, g: 229, b: 255 };
+    if (theme === 'black') return { r: 240, g: 246, b: 252 };
+    return { r: 255, g: 176, b: 0 };
   }
 
   let lastDrawTime = 0;

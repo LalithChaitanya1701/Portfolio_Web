@@ -11,7 +11,7 @@ import { HUDController } from './hud.js';
 class App {
   constructor() {
     this.currentMode = 'landing'; // 'landing' | 'hud'
-    this.currentTheme = 'cyan'; // 'cyan' | 'amber' | 'violet'
+    this.currentTheme = 'amber'; // 'amber' | 'blue' | 'black'
   }
 
   init() {
@@ -101,7 +101,7 @@ class App {
   }
 
   cycleTheme() {
-    const themes = ['cyan', 'amber', 'violet', 'blue'];
+    const themes = ['amber', 'blue', 'black'];
     const nextIdx = (themes.indexOf(this.currentTheme) + 1) % themes.length;
     this.setTheme(themes[nextIdx]);
   }

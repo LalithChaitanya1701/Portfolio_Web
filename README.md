@@ -59,7 +59,7 @@ This portfolio blends two cohesive interactive paradigms designed around offensi
   - `/resume`: Open printable formatted CV dossier
   - `/open-all`: Sequentially pop open all workstation windows with smooth staggered intervals
   - `/close-all`: Sequentially close all open windows
-  - `/theme [cyan|amber|violet|blue]`: Switch visual accent palette
+  - `/theme [amber|blue|black]`: Switch visual accent palette
   - `/sound [on|off]`: Toggle synthetic audio
   - `/landing`: Return to primary Stage 1 Gateway
   - `/clear`: Clear terminal buffer
@@ -67,13 +67,12 @@ This portfolio blends two cohesive interactive paradigms designed around offensi
 - **Keyboard Navigation**: Persistent command history via `↑` / `↓` arrow keys and command completion on `Tab`.
 
 ### 4. Harmonized Visual Theme Palettes
-Deep obsidian glass surfaces (`rgba(5, 11, 18, 0.93)`) paired with high-contrast accent themes:
-- **Cyber Cyan (Default)** (`#00e5ff`): Quantum teal with atmospheric radar filaments.
-- **Tactical Amber** (`#ffb000`): Solar hazard amber inspired by tactical terminals.
-- **Electric Violet** (`#c084fc`): Synthwave neon amethyst.
-- **Cyber Blue** (`#38a0ff`): High-contrast electric blue imported from the reference system build.
+Deep obsidian glass surfaces paired with high-contrast accent themes:
+- **Tactical Amber (Default)** (`#ffb000`): Solar hazard amber inspired by tactical terminals.
+- **Cyber Blue** (`#38a0ff`): High-contrast electric blue.
+- **Stealth Black (Monochrome)** (`#f0f6fc`): Platinum silver luminescence on onyx obsidian surfaces.
 
-Cycling themes dynamically updates all UI components, SVG borders, radar sweep, 3D wireframe avatar, and taskbar indicators.
+Cycling themes (`amber -> blue -> black`) dynamically updates all UI components, SVG borders, radar sweep, 3D wireframe avatar, and taskbar indicators.
 
 ### 5. 3D Graphics & Visual FX
 - **Interactive 3D Glass Cyber Cube**:

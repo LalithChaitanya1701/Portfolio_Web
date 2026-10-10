@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="amber">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -61,15 +61,6 @@
   --s3x: 380;
 }
 
-[data-theme="cyan"] {
-  --accent: #00e5ff;
-  --accent-rgb: 0, 229, 255;
-  --accent-dim: rgba(0, 229, 255, 0.14);
-  --accent-border: rgba(0, 229, 255, 0.42);
-  --accent-hover: #00c4d8;
-  --red: #00e5ff;
-}
-
 [data-theme="amber"] {
   --accent: #ffb000;
   --accent-rgb: 255, 176, 0;
@@ -79,15 +70,6 @@
   --red: #ffb000;
 }
 
-[data-theme="violet"] {
-  --accent: #c084fc;
-  --accent-rgb: 192, 132, 252;
-  --accent-dim: rgba(192, 132, 252, 0.16);
-  --accent-border: rgba(192, 132, 252, 0.45);
-  --accent-hover: #a855f7;
-  --red: #c084fc;
-}
-
 [data-theme="blue"] {
   --accent: #38a0ff;
   --accent-rgb: 56, 160, 255;
@@ -95,6 +77,15 @@
   --accent-border: rgba(56, 160, 255, 0.45);
   --accent-hover: #1f86e6;
   --red: #38a0ff;
+}
+
+[data-theme="black"] {
+  --accent: #f0f6fc;
+  --accent-rgb: 240, 246, 252;
+  --accent-dim: rgba(255, 255, 255, 0.12);
+  --accent-border: rgba(255, 255, 255, 0.38);
+  --accent-hover: #ffffff;
+  --red: #f0f6fc;
 }
 
 @media (max-width: 1023px) and (max-aspect-ratio: 1/1) {
@@ -1319,14 +1310,14 @@ body.nav-open .mi-4 { transition-delay: 0.26s; }
     </div>
 
     <div class="hud-meta">
-      <span>ACTIVE: <b id="hud-current-panel" style="color:var(--accent)">ABOUT // WHOAMI</b></span>
       <span>STATUS: <b style="color:var(--accent)">ONLINE</b></span>
+      <span>TIME: <b id="hud-clock" style="color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:0.04em">00:00:00</b></span>
       <span>LOC: HYDERABAD, IN</span>
     </div>
 
     <div class="hud-actions">
       <button id="hud-arrange-btn" class="hud-btn" title="Re-tile windows to fill the screen" aria-label="Arrange open windows">ARRANGE</button>
-      <button id="hud-theme-toggle" class="hud-btn" aria-label="Cycle visual theme">THEME: CYAN</button>
+      <button id="hud-theme-toggle" class="hud-btn" aria-label="Cycle visual theme">THEME: AMBER</button>
       <button id="hud-sound-toggle" class="hud-btn" aria-label="Toggle synthesized audio">SOUND: OFF</button>
       <button id="hud-back-btn" class="hud-btn" style="background:var(--accent);color:#000;font-weight:700;border:none">EXIT WORKSPACE ✕</button>
     </div>
@@ -1482,13 +1473,27 @@ body.nav-open .mi-4 { transition-delay: 0.26s; }
       document.body.classList.remove('dir-open');
     });
 
-    // 6. Theme toggle
+    // 6. Digital clock ticker
+    const clockEl = document.getElementById('hud-clock');
+    if (clockEl) {
+      const updateClock = () => {
+        const d = new Date();
+        const h = String(d.getHours()).padStart(2, '0');
+        const m = String(d.getMinutes()).padStart(2, '0');
+        const s = String(d.getSeconds()).padStart(2, '0');
+        clockEl.textContent = `${h}:${m}:${s}`;
+      };
+      updateClock();
+      setInterval(updateClock, 1000);
+    }
+
+    // 7. Theme toggle (amber -> blue -> black)
     const themeBtn = document.getElementById('hud-theme-toggle');
     themeBtn?.addEventListener('click', function() {
       if (window.__LCM_APP_MOUNTED__) return;
       playBeep(880, 0.05);
-      const themes = ['cyan', 'amber', 'violet', 'blue'];
-      const cur = document.documentElement.getAttribute('data-theme') || 'cyan';
+      const themes = ['amber', 'blue', 'black'];
+      const cur = document.documentElement.getAttribute('data-theme') || 'amber';
       const nxt = themes[(themes.indexOf(cur) + 1) % themes.length];
       document.documentElement.setAttribute('data-theme', nxt);
       themeBtn.textContent = 'THEME: ' + nxt.toUpperCase();

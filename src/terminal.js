@@ -91,7 +91,7 @@ export class TerminalEngine {
       case 'help':
         this.log.push({
           type: 'out',
-          text: 'Available commands: /help · /whoami · /experience · /projects · /skills · /certs · /education · /contact · /resume · /open-all · /close-all · /theme [cyan|amber|violet|blue] · /sound [on|off] · /landing · /clear'
+          text: 'Available commands: /help · /whoami · /experience · /projects · /skills · /certs · /education · /contact · /resume · /open-all · /close-all · /theme [amber|blue|black] · /sound [on|off] · /landing · /clear'
         });
         sound.playNav();
         break;
@@ -193,11 +193,11 @@ export class TerminalEngine {
         break;
 
       case 'theme':
-        if (arg === 'cyan' || arg === 'amber' || arg === 'violet' || arg === 'blue') {
+        if (arg === 'amber' || arg === 'blue' || arg === 'black') {
           this.onThemeChange(arg);
           this.log.push({ type: 'out', text: `Theme color updated to: ${arg.toUpperCase()}` });
         } else {
-          this.log.push({ type: 'err', text: 'Usage: /theme [cyan | amber | violet | blue]' });
+          this.log.push({ type: 'err', text: 'Usage: /theme [amber | blue | black]' });
         }
         break;
 

@@ -8,13 +8,13 @@
   --sub: #e6e6e6;
   --lab: #949494;
 
-  /* Theme Accents (default: Cyber Cyan / Quantum Teal) */
-  --accent: #00e5ff;
-  --accent-rgb: 0, 229, 255;
-  --accent-dim: rgba(0, 229, 255, 0.14);
-  --accent-border: rgba(0, 229, 255, 0.42);
-  --accent-hover: #00c4d8;
-  --red: #00e5ff;
+  /* Theme Accents (default: Amber) */
+  --accent: #ffb000;
+  --accent-rgb: 255, 176, 0;
+  --accent-dim: rgba(255, 176, 0, 0.16);
+  --accent-border: rgba(255, 176, 0, 0.45);
+  --accent-hover: #e09b00;
+  --red: #ffb000;
 
   /* Landing coordinates */
   --bx: 60;
@@ -32,15 +32,6 @@
   --s3x: 392.6;
 }
 
-[data-theme="cyan"] {
-  --accent: #00e5ff;
-  --accent-rgb: 0, 229, 255;
-  --accent-dim: rgba(0, 229, 255, 0.14);
-  --accent-border: rgba(0, 229, 255, 0.42);
-  --accent-hover: #00c4d8;
-  --red: #00e5ff;
-}
-
 [data-theme="amber"] {
   --accent: #ffb000;
   --accent-rgb: 255, 176, 0;
@@ -48,15 +39,6 @@
   --accent-border: rgba(255, 176, 0, 0.45);
   --accent-hover: #e09b00;
   --red: #ffb000;
-}
-
-[data-theme="violet"] {
-  --accent: #c084fc;
-  --accent-rgb: 192, 132, 252;
-  --accent-dim: rgba(192, 132, 252, 0.16);
-  --accent-border: rgba(192, 132, 252, 0.45);
-  --accent-hover: #a855f7;
-  --red: #c084fc;
 }
 
 /* Blue theme imported from the Portfolio/site reference build */
@@ -67,6 +49,38 @@
   --accent-border: rgba(56, 160, 255, 0.45);
   --accent-hover: #1f86e6;
   --red: #38a0ff;
+}
+
+/* Black (Onyx / Stealth Monochrome) Theme */
+[data-theme="black"] {
+  --accent: #f0f6fc;
+  --accent-rgb: 240, 246, 252;
+  --accent-dim: rgba(255, 255, 255, 0.12);
+  --accent-border: rgba(255, 255, 255, 0.38);
+  --accent-hover: #ffffff;
+  --red: #f0f6fc;
+}
+
+[data-theme="black"] .tb-start {
+  background: linear-gradient(135deg, #ffffff, #94a3b8);
+  border-color: #ffffff;
+  color: #000000;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.45);
+}
+
+[data-theme="black"] .os-window {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0, transparent 90px),
+    rgba(4, 6, 10, 0.96);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+[data-theme="black"] .os-window.win-focused {
+  border-color: rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+    0 0 30px rgba(255, 255, 255, 0.15);
 }
 
 @media (max-width: 1023px) and (max-aspect-ratio: 1/1) {
