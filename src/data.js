@@ -8,10 +8,10 @@ export const PERSONAL_INFO = {
   title: "Cybersecurity Analyst & Systems Engineer",
   location: "Hyderabad, Telangana, India",
   email: "lalithchaitanya.mulapala@gmail.com",
-  linkedin: "https://linkedin.com/in/lalith-chaitanya-mulapala",
+  linkedin: "https://www.linkedin.com/in/lalith-chaitanya-mulapala-615435301/",
   github: "https://github.com/LalithChaitanya1701",
   stats: [
-    { value: "8.58", label: "CUMULATIVE GPA (MAJOR)", sub: "B.Tech CSE Cybersecurity" },
+    { value: "8.58", label: "CUMULATIVE GPA (MAJOR)", sub: "Minor: 8.22 / 10.0 · B.Tech CSE" },
     { value: "14", label: "VULNS DOCUMENTED", sub: "3 Critical SQLi, 4 High IDOR" },
     { value: "50+", label: "SIEM DETECTION RULES", sub: "<2s Alert Ingestion Pipeline" },
     { value: "18", label: "AWS CONTROLS AUTOMATED", sub: "60% Faster Audit Evaluations" }
@@ -22,10 +22,10 @@ export const PERSONAL_INFO = {
     degree: "B.Tech Computer Science and Engineering",
     specialization: "Cybersecurity Major · AI/ML Minor",
     period: "Nov 2022 – Apr 2026",
-    gpa: "Major: 8.58 / 10 · Minor: 8.22 / 10",
+    gpa: "Cumulative GPA: Major: 8.58 / 10.0, Minor: 8.22 / 10.0 (Study Type: Full-time)",
     coursework: [
-      "Network Security", "Cryptography", "Cloud Infrastructure Security",
-      "Digital Forensics & Incident Response", "Operating Systems", "Data Structures"
+      "Network Security", "Cryptography", "Digital Forensics",
+      "Cloud Architecture", "Operating Systems"
     ]
   }
 };
@@ -70,30 +70,58 @@ I took the initiative to validate over 40 high-priority scanner findings manuall
 export const PROJECTS = [
   {
     id: "aws-compliance",
-    name: "Security Automation & Compliance Testing Across AWS",
+    name: "Security Automation and Compliance Testing Across AWS",
     category: "Cloud Security",
     role: "Cloud Security Architect & Engineer",
     stack: ["Terraform", "AWS Security Hub", "AWS Config", "Python", "CloudTrail", "SNS"],
     blurb: "Automated IaC continuous compliance for 18 security controls against CIS AWS Foundations Benchmark and PCI-DSS, cutting audit evaluation cycle time by 60%.",
-    repo: null,
+    repo: "https://github.com/LalithChaitanya1701",
     highlights: [
-      "Automated policy-as-code for S3 bucket encryption, IAM MFA enforcement, and Security Group ingress rules.",
-      "Created automated remediation lambdas triggered via SNS notifications when configuration drift is detected.",
-      "Validated end-to-end audit readiness with reproducible Terraform provisioning."
+      "Architected an automated Infrastructure-as-Code (IaC) continuous compliance framework using Terraform and custom Python (Boto3) AWS Lambda functions.",
+      "Automated real-time evaluation and remediation for 18 security controls against CIS AWS Foundations Benchmark and PCI-DSS, decreasing compliance audit evaluation time by 60%.",
+      "Integrated automated incident notifications via AWS CloudTrail, CloudWatch, and SNS to alert security operations upon policy violations."
+    ]
+  },
+  {
+    id: "exam-forge",
+    name: "Exam Forge: Customizable CBT Test Engine",
+    category: "Software Engineering",
+    role: "Core Developer",
+    stack: ["Python", "JavaScript", "HTML5/CSS3", "Regex"],
+    blurb: "Automated Computer-Based Testing (CBT) engine ingesting raw markdown/text question banks into interactive simulation environments with configurable timers, scoring schemes, and instant post-exam analytics.",
+    repo: "https://github.com/LalithChaitanya1701/Exam_Forge",
+    highlights: [
+      "Developed an automated Computer-Based Testing (CBT) engine that ingests custom raw text/markdown question banks and transforms them into interactive simulation environments.",
+      "Built customizable assessment parameters including configurable countdown timers, custom positive and negative marking schemes, and section navigation.",
+      "Implemented real-time score calculation, response persistence, and instant post-exam analytics across multi-question test sessions."
+    ]
+  },
+  {
+    id: "auto-recon",
+    name: "Automated Reconnaissance Tool",
+    category: "OSINT & Recon",
+    role: "Core Developer",
+    stack: ["Python", "OSINT", "Shodan API", "DNS", "SSL", "ReportLab"],
+    blurb: "Python-based GUI reconnaissance engine aggregating OSINT data streams from WHOIS, DNS records, SSL/TLS certificates, and the Shodan API with multithreaded token-bucket rate limiting and audit-ready PDF reporting.",
+    repo: "https://github.com/LalithChaitanya1701/Automatic-Reconnaissance-with-Python_Mark_1",
+    highlights: [
+      "Engineered a Python-based GUI reconnaissance engine aggregating OSINT data streams from WHOIS, DNS records, SSL/TLS certificates, and the Shodan API.",
+      "Implemented multithreaded scanning modules with built-in token-bucket rate limiting to prevent network disruptions, reducing manual reconnaissance duration by 45%.",
+      "Developed an automated reporting pipeline exporting structured, audit-ready PDF intelligence summaries and attack surface assessments."
     ]
   },
   {
     id: "siem-engine",
     name: "Log-Based Threat Detection System (SIEM)",
     category: "Threat Detection",
-    role: "Core Systems Developer",
+    role: "Core Developer",
     stack: ["Python", "SQLite", "SMTP Protocol", "Regex", "Multithreading", "Socket API"],
-    blurb: "Lightweight SIEM simulation featuring multithreaded log ingestion, 50+ pre-configured detection rules, and sub-2-second automated security alerts.",
+    blurb: "Lightweight SIEM simulation pipeline featuring 50+ pre-configured detection rules, real-time log file tailing, SQLite caching, and sub-2-second automated security alerts.",
     repo: "https://github.com/LalithChaitanya1701/Log_Based_Threat_Detector",
     highlights: [
-      "Engineered regex-driven correlation engine identifying brute-force bursts, privilege escalations, and port sweeps.",
-      "Reduced triage latency by 45% compared to baseline file auditing.",
-      "Implemented automated SMTP email dispatcher for high-priority security incidents."
+      "Engineered a lightweight SIEM simulation pipeline featuring 50+ pre-configured detection rules, real-time log file tailing, and automated SMTP incident dispatching.",
+      "Implemented high-throughput multithreaded log ingestion with SQLite caching, reducing security event triage latency by 45% and achieving an average alert dispatch time under 2 seconds.",
+      "Automated email incident alerts dispatched via SMTP protocol with full security context."
     ]
   },
   {
@@ -101,13 +129,13 @@ export const PROJECTS = [
     name: "Brut3Zero: Multi-Protocol Security Testing Suite",
     category: "Offensive Security",
     role: "Security Tool Developer",
-    stack: ["Python", "Paramiko", "Requests", "Tkinter", "Multithreading", "Rate-Limiter"],
-    blurb: "Modular authentication stress-testing suite for HTTP, FTP, and SSH protocols with configurable thread pools, adaptive backoff, and Tkinter GUI. Built for authorized lab use.",
+    stack: ["Python", "Requests", "Paramiko", "Multithreading", "Tkinter GUI"],
+    blurb: "Modular authentication stress-testing suite supporting HTTP, FTP, and SSH protocols featuring a Tkinter GUI, BFS web-form crawler, and token-bucket rate limiting.",
     repo: "https://github.com/LalithChaitanya1701/Brut3Zer0_mark_2",
     highlights: [
-      "Built resilient socket handlers supporting HTTP POST/Basic, SSH key/password, and FTP handshake probes.",
-      "Implemented jitter and rate-limiting controls to simulate realistic authentication boundary conditions.",
-      "Constructed forensic report generation capturing timestamps and connection response codes."
+      "Developed a modular authentication stress-testing suite supporting HTTP, FTP, and SSH protocols featuring a Tkinter GUI and a BFS web-form crawler.",
+      "Built token-bucket rate limiting and automated backoff mechanisms to prevent endpoint denial-of-service, sustaining 200+ requests/sec across 10+ authorized lab wordlists with 0% socket drops.",
+      "Implemented resilient socket handlers and thread pools for safe, high-speed credential auditing in authorized lab environments."
     ]
   },
   {
@@ -115,13 +143,13 @@ export const PROJECTS = [
     name: "Enterprise Digital Forensics Investigation (CHFI Lab)",
     category: "Digital Forensics",
     role: "Forensic Investigator",
-    stack: ["Volatility 3", "Wireshark", "FTK Imager", "Hex Editors"],
-    blurb: "Acquired and analyzed 4 raw memory and disk images with SHA-256 integrity verification, reconstructed full adversary kill-chain, and authored a 22-page forensic investigation report.",
+    stack: ["Volatility 3", "Wireshark", "FTK Imager", "Cryptographic Hashing"],
+    blurb: "Forensic acquisition across 4 host system images with SHA-256 integrity verification, attack timeline reconstruction from volatile memory dumps, and 22-page post-incident assessment report.",
     repo: null,
     highlights: [
-      "Identified memory-injected DLL artifacts and malicious process parentage using Volatility 3.",
-      "Extracted C2 beaconing patterns and packet payloads from PCAP packet captures.",
-      "Maintained strict chain-of-custody documentation and hash integrity checks."
+      "Conducted forensic acquisition across 4 host system images; verified evidentiary integrity through SHA-256 cryptographic hashing to maintain strict legal chain of custody.",
+      "Reconstructed attack timelines from volatile memory dumps using Volatility 3 and extracted malicious payloads from packet captures in Wireshark, authoring a 22-page post-incident assessment report.",
+      "Identified memory-injected DLL artifacts, malicious process lineage, and command-and-control beaconing channels."
     ]
   },
   {
@@ -129,13 +157,13 @@ export const PROJECTS = [
     name: "YaRi: Full-Stack E-Commerce Platform",
     category: "Full Stack",
     role: "Full-Stack Developer",
-    stack: ["Java EE", "React.js", "MySQL", "Docker", "JWT", "Bcrypt"],
-    blurb: "Production-ready web platform with granular Role-Based Access Control (RBAC), secure password hashing, session tokens, and containerized Docker deployment.",
+    stack: ["Java EE", "React.js", "Docker", "MySQL", "JWT", "Bcrypt"],
+    blurb: "End-to-end e-commerce platform with role-based access control (RBAC), session management, and a dynamic storefront deployed via Docker containers.",
     repo: "https://github.com/LalithChaitanya1701/Yari_E-Commerce_Mark_1",
     highlights: [
+      "Built an end-to-end e-commerce platform with role-based access control (RBAC), session management, and a dynamic storefront deployed via Docker containers.",
       "Designed normalized relational database schema with parameterized SQL queries preventing injection attacks.",
-      "Implemented secure JWT session management and HTTP-only cookie guards.",
-      "Containerized backend and database services with Docker Compose."
+      "Implemented secure JWT session management and HTTP-only cookie guards."
     ]
   }
 ];

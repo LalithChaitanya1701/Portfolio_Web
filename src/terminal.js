@@ -141,7 +141,7 @@ export class TerminalEngine {
         this.onPanelChange('projects');
         this.log.push({
           type: 'out',
-          text: 'Security Repos: AWS Compliance, SIEM Detection, Brut3Zero, CHFI Lab, YaRi Platform.'
+          text: 'Security Repos: AWS Compliance, Exam Forge, Automated Recon, SIEM Detection, Brut3Zero, CHFI Lab.'
         });
         sound.playNav();
         break;
@@ -169,7 +169,7 @@ export class TerminalEngine {
         this.onPanelChange('about');
         this.log.push({
           type: 'out',
-          text: 'GNITC Hyderabad · B.Tech CSE (Cybersecurity Major: 8.58, AI/ML Minor: 8.22).'
+          text: 'GNITC Hyderabad · B.Tech CSE (Cybersecurity Major: 8.58 / 10.0, AI/ML Minor: 8.22 / 10.0).'
         });
         sound.playNav();
         break;

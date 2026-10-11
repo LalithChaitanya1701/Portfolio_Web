@@ -129,9 +129,9 @@ Cycling themes (`amber -> blue -> black`) dynamically updates all UI components,
 *ISC²-certified Cybersecurity Analyst & Systems Engineer*  
 - **Email**: [lalithchaitanya.mulapala@gmail.com](mailto:lalithchaitanya.mulapala@gmail.com)  
 - **GitHub**: [@LalithChaitanya1701](https://github.com/LalithChaitanya1701)  
-- **LinkedIn**: [lalith-chaitanya-mulapala](https://linkedin.com/in/lalith-chaitanya-mulapala)  
+- **LinkedIn**: [lalith-chaitanya-mulapala](https://www.linkedin.com/in/lalith-chaitanya-mulapala-615435301/)  
 - **Credentials**: ISC² Certified in Cybersecurity (CC) · Fortinet Certified Associate (FCA) · EC-Council CHFI  
-- **Education**: B.Tech CSE (Cybersecurity Major: 8.58 GPA, AI/ML Minor: 8.22 GPA) — Guru Nanak Institutions Technical Campus (GNITC)
+- **Education**: B.Tech CSE (Cybersecurity Major: 8.58 / 10.0 GPA, AI/ML Minor: 8.22 / 10.0 GPA) — Guru Nanak Institutions Technical Campus (GNITC)
 
 ---
 
