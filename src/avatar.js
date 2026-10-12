@@ -53,6 +53,12 @@ export function initWireframeAvatar(canvasId) {
   }
 
   function render() {
+    animId = requestAnimationFrame(render);
+
+    if (document.hidden || !document.body.classList.contains('mode-hud')) {
+      return;
+    }
+
     const w = canvas.getBoundingClientRect().width;
     const h = canvas.getBoundingClientRect().height;
     ctx.clearRect(0, 0, w, h);
@@ -155,12 +161,12 @@ export function initWireframeAvatar(canvasId) {
     ctx.stroke();
 
     ctx.globalAlpha = 1.0;
-    animId = requestAnimationFrame(render);
   }
 
   animId = requestAnimationFrame(render);
 
   return () => {
     if (animId) cancelAnimationFrame(animId);
+    window.removeEventListener('resize', resize);
   };
 }

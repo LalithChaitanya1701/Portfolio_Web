@@ -702,6 +702,10 @@ export class HUDController {
             pic.style.display = 'block';
             wrap.style.display = 'none';
             btn.textContent = 'SWITCH: 3D HOLOGRAM';
+            if (this.avatarCleanup) {
+              this.avatarCleanup();
+              this.avatarCleanup = null;
+            }
           }
         }
       }
@@ -776,7 +780,9 @@ export class HUDController {
 
   initThreatMonitor() {
     setInterval(() => {
+      if (document.hidden || !document.body.classList.contains('mode-hud')) return;
       const bars = document.querySelectorAll('.threat-bar');
+      if (bars.length === 0) return;
       bars.forEach(b => {
         const h = Math.floor(20 + Math.random() * 75);
         b.style.height = `${h}%`;

@@ -1401,33 +1401,36 @@ body.nav-open .mi-4 { transition-delay: 0.26s; }
   }
 
   function initDirectController() {
+    if (window.__LCM_APP_MOUNTED__) return;
+
     // 1. Landing buttons boot into HUD
     document.querySelectorAll('.btn-top, .btn-cta, .btn-menu').forEach(function(b) {
       b.addEventListener('click', function(e) {
+        if (window.__LCM_APP_MOUNTED__) return;
         e.preventDefault();
         playBeep(750, 0.06);
         document.body.classList.add('mode-hud');
         document.body.classList.remove('nav-open');
-        
       });
     });
 
     // 2. Nav links
     document.querySelectorAll('.nav-item, .sublink, .mrow').forEach(function(link) {
       link.addEventListener('click', function(e) {
+        if (window.__LCM_APP_MOUNTED__) return;
         const href = link.getAttribute('href');
         if (href && href.startsWith('#')) {
           e.preventDefault();
           playBeep(650, 0.04);
           document.body.classList.add('mode-hud');
           document.body.classList.remove('nav-open');
-          
         }
       });
     });
 
     // 3. Exit workspace button
     document.getElementById('hud-back-btn')?.addEventListener('click', function() {
+      if (window.__LCM_APP_MOUNTED__) return;
       playBeep(450, 0.06);
       document.body.classList.remove('mode-hud');
     });
@@ -1477,8 +1480,9 @@ body.nav-open .mi-4 { transition-delay: 0.26s; }
 
     // 6. Digital clock ticker
     const clockEl = document.getElementById('hud-clock');
-    if (clockEl) {
+    if (clockEl && !window.__LCM_APP_MOUNTED__) {
       const updateClock = () => {
+        if (window.__LCM_APP_MOUNTED__) return;
         const d = new Date();
         const h = String(d.getHours()).padStart(2, '0');
         const m = String(d.getMinutes()).padStart(2, '0');
