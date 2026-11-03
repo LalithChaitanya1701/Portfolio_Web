@@ -139,7 +139,7 @@ export class HUDController {
     // 1. About // Whoami Window (Unified Profile, Photo & System Dossier)
     const aboutBounds = getWinBounds(isSmall ? 620 : 800, isSmall ? 480 : 530, 20, 20);
     this.winManager.registerWindow('about', {
-      title: 'WIN://ABOUT_WHOAMI.SYS',
+      title: 'ABOUT_WHOAMI.SYS',
       icon: this.icons.about,
       contentHtml: this.getAboutHtml(),
       defaultPos: aboutBounds.pos,
@@ -163,7 +163,7 @@ export class HUDController {
     // 2. Terminal Window (UNPINNED OS WINDOW)
     const termBounds = getWinBounds(isSmall ? 580 : 660, isSmall ? 320 : 360, 30, 40);
     this.winManager.registerWindow('terminal', {
-      title: 'WIN://VISITOR_TERMINAL.SH',
+      title: 'VISITOR_TERMINAL.SH',
       icon: this.icons.terminal,
       contentHtml: this.getTerminalHtml(),
       defaultPos: termBounds.pos,
@@ -179,7 +179,7 @@ export class HUDController {
     // 3. Experience Log Window
     const expBounds = getWinBounds(isSmall ? 620 : 700, isSmall ? 460 : 490, 30, 30);
     this.winManager.registerWindow('experience', {
-      title: 'WIN://EXPERIENCE.LOG',
+      title: 'EXPERIENCE.LOG',
       icon: this.icons.experience,
       contentHtml: this.getExperienceHtml(),
       defaultPos: expBounds.pos,
@@ -189,7 +189,7 @@ export class HUDController {
     // 4. Projects Window
     const projBounds = getWinBounds(isSmall ? 620 : 700, isSmall ? 460 : 490, 35, 35);
     this.winManager.registerWindow('projects', {
-      title: 'WIN://REPOSITORIES.JSON',
+      title: 'REPOSITORIES.JSON',
       icon: this.icons.projects,
       contentHtml: this.getProjectsHtml(),
       defaultPos: projBounds.pos,
@@ -199,7 +199,7 @@ export class HUDController {
     // 5. Skills Matrix Window
     const skillsBounds = getWinBounds(isSmall ? 600 : 660, isSmall ? 420 : 450, 40, 40);
     this.winManager.registerWindow('skills', {
-      title: 'WIN://SKILLS_TELEMETRY.MAT',
+      title: 'SKILLS_TELEMETRY.MAT',
       icon: this.icons.skills,
       contentHtml: this.getSkillsHtml(),
       defaultPos: skillsBounds.pos,
@@ -209,7 +209,7 @@ export class HUDController {
     // 6. Certifications Window
     const certsBounds = getWinBounds(isSmall ? 580 : 640, isSmall ? 380 : 400, 45, 45);
     this.winManager.registerWindow('certs', {
-      title: 'WIN://CERTIFICATIONS.SEC',
+      title: 'CERTIFICATIONS.SEC',
       icon: this.icons.certs,
       contentHtml: this.getCertsHtml(),
       defaultPos: certsBounds.pos,
@@ -219,7 +219,7 @@ export class HUDController {
     // 7. Contact Window
     const contactBounds = getWinBounds(isSmall ? 540 : 580, isSmall ? 360 : 360, 50, 50);
     this.winManager.registerWindow('contact', {
-      title: 'WIN://COMM_CHANNELS.IO',
+      title: 'COMM_CHANNELS.IO',
       icon: this.icons.contact,
       contentHtml: this.getContactHtml(),
       defaultPos: contactBounds.pos,
@@ -512,7 +512,7 @@ export class HUDController {
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;border-bottom:1px solid rgba(var(--accent-rgb),0.25);padding-bottom:10px;flex-wrap:wrap;gap:8px">
           <div>
             <span style="font-size:12px;color:var(--accent);letter-spacing:0.12em;font-weight:700">EXPERIENCE.LOG // TECHNICAL EXECUTION SPECS</span>
-            <div style="font-size:11px;color:#8faac0;margin-top:2px">Verified achievement records &amp; operational metrics from Lalith_Resume.pdf</div>
+
           </div>
           <span style="font-size:10.5px;color:#78d496;letter-spacing:0.08em;font-weight:600;border:1px solid var(--accent-border);padding:3px 8px;background:rgba(var(--accent-rgb),0.08)">AUDITED SPECS</span>
         </div>
