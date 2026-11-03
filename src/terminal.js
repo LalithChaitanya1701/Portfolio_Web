@@ -132,7 +132,7 @@ export class TerminalEngine {
         this.onPanelChange('experience');
         this.log.push({
           type: 'out',
-          text: 'Debrief loaded: Supraja Tech (VAPT, 14 vulns) & SecurWires (SOC automation).'
+          text: 'Experience specs loaded: Supraja Tech (VAPT, 14 vulns) & SecurWires (SOC automation).'
         });
         sound.playNav();
         break;

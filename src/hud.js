@@ -23,7 +23,7 @@ export class HUDController {
     this.onSoundToggle = onSoundToggle;
 
     this.winManager = null;
-    this.experienceMode = 'narrative'; // 'narrative' | 'specs'
+    this.experienceMode = 'specs';
     this.avatarCleanup = null;
     this.cubeCleanup = null;
     this.motionBgCleanup = null;
@@ -176,10 +176,10 @@ export class HUDController {
       }
     });
 
-    // 3. Experience Debrief Window
+    // 3. Experience Log Window
     const expBounds = getWinBounds(isSmall ? 620 : 700, isSmall ? 460 : 490, 30, 30);
     this.winManager.registerWindow('experience', {
-      title: 'WIN://EXPERIENCE_DEBRIEF.LOG',
+      title: 'WIN://EXPERIENCE.LOG',
       icon: this.icons.experience,
       contentHtml: this.getExperienceHtml(),
       defaultPos: expBounds.pos,
@@ -395,8 +395,9 @@ export class HUDController {
                 <div class="profile-photo-frame" style="position:relative;width:100%;height:190px;overflow:hidden;border-radius:4px;border:1px solid rgba(var(--accent-rgb),0.5);background:#020a05">
                   <picture id="profile-pic-el">
                     <source srcset="./my_img_opt.webp" type="image/webp">
+                    <source srcset="./My_Img.png" type="image/png">
                     <source srcset="./my_img_opt.jpg" type="image/jpeg">
-                    <img src="./my_img_opt.jpg" alt="${PERSONAL_INFO.name}" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block">
+                    <img src="./My_Img.png" alt="${PERSONAL_INFO.name}" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block">
                   </picture>
                   <div class="photo-scanline" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 65%,rgba(2,10,5,0.5)),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(var(--accent-rgb),0.04) 3px)"></div>
                   <div class="avatar-canvas-wrap" id="avatar-canvas-wrap" style="position:absolute;inset:0;display:none;background:#020a05">
@@ -424,9 +425,7 @@ export class HUDController {
                   ${PERSONAL_INFO.title} · ${PERSONAL_INFO.location}
                 </div>
                 <p style="color:#d8fae4;line-height:1.65;font-size:13px;margin:0 0 12px">
-                  ISC²-certified Cybersecurity Analyst &amp; Systems Engineer. Specialist in offensive web application assessment (VAPT),
-                  cloud infrastructure compliance automation (AWS/Terraform), and high-throughput SIEM threat detection. Bridging application
-                  security with infrastructure to ensure defenses withstand realistic threat models.
+                  ${PERSONAL_INFO.summary}
                 </p>
                 <div style="display:flex;gap:8px;flex-wrap:wrap">
                   <span style="font-size:11px;border:1px solid var(--accent-border);padding:2px 8px;color:var(--accent);background:rgba(var(--accent-rgb),0.08)">ISC² CC CERTIFIED</span>
@@ -510,37 +509,37 @@ export class HUDController {
   getExperienceHtml() {
     return `
       <div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;border-bottom:1px solid rgba(var(--accent-rgb),0.25);padding-bottom:10px">
-          <span style="font-size:12px;color:var(--accent);letter-spacing:0.12em;font-weight:700">MISSION LOG // INTERVIEWS &amp; AUDITS</span>
-          <div class="view-switch">
-            <button class="switch-btn ${this.experienceMode === 'narrative' ? 'active' : ''}" data-mode="narrative">MY PERSONAL DEBRIEF</button>
-            <button class="switch-btn ${this.experienceMode === 'specs' ? 'active' : ''}" data-mode="specs">TECHNICAL SPECS</button>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;border-bottom:1px solid rgba(var(--accent-rgb),0.25);padding-bottom:10px;flex-wrap:wrap;gap:8px">
+          <div>
+            <span style="font-size:12px;color:var(--accent);letter-spacing:0.12em;font-weight:700">EXPERIENCE.LOG // TECHNICAL EXECUTION SPECS</span>
+            <div style="font-size:11px;color:#8faac0;margin-top:2px">Verified achievement records &amp; operational metrics from Lalith_Resume.pdf</div>
           </div>
+          <span style="font-size:10.5px;color:#78d496;letter-spacing:0.08em;font-weight:600;border:1px solid var(--accent-border);padding:3px 8px;background:rgba(var(--accent-rgb),0.08)">AUDITED SPECS</span>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:18px">
           ${EXPERIENCES.map(job => `
-            <div style="border:1px solid rgba(var(--accent-rgb),0.3);background:rgba(2,10,5,0.6);padding:16px 18px">
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+            <div style="border:1px solid rgba(var(--accent-rgb),0.3);background:rgba(2,10,5,0.6);padding:16px 18px;border-radius:4px">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:10px">
                 <div>
-                  <div style="color:#fff;font-weight:700;font-size:15px">${job.role}</div>
-                  <div style="color:var(--accent);font-size:12.5px;margin-top:2px">${job.company} · ${job.location}</div>
+                  <div style="color:#fff;font-weight:700;font-size:15px;letter-spacing:0.02em">${job.role}</div>
+                  <div style="color:var(--accent);font-size:12.5px;margin-top:2px;font-weight:500">${job.company} · ${job.location}</div>
                 </div>
-                <div style="font-size:11.5px;color:#8be0a5;background:rgba(var(--accent-rgb),0.12);padding:2px 8px;border:1px solid var(--accent-border)">${job.period}</div>
+                <div style="font-size:11.5px;color:#8be0a5;background:rgba(var(--accent-rgb),0.12);padding:2px 8px;border:1px solid var(--accent-border);font-family:'JetBrains Mono',monospace">${job.period}</div>
               </div>
 
-              ${this.experienceMode === 'narrative' ? `
-                <div class="story-bubble">
-                  ${job.narrative}
+              <div class="exp-specs-section">
+                <div style="font-size:11px;color:var(--accent);letter-spacing:0.08em;margin-bottom:8px;font-weight:600;display:flex;align-items:center;gap:6px">
+                  <span>▸</span> KEY ACHIEVEMENTS &amp; TECHNICAL EXECUTION
                 </div>
-              ` : `
-                <ul class="spec-list">
+                <ul class="spec-list" style="margin-top:4px">
                   ${job.specs.map(s => `<li class="spec-item">${s}</li>`).join('')}
                 </ul>
-              `}
+              </div>
 
-              <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">
-                ${job.tools.map(t => `<span style="font-size:10.5px;border:1px solid rgba(var(--accent-rgb),0.3);padding:2px 6px;color:#8be0a5;background:#020a05">${t}</span>`).join('')}
+              <div style="margin-top:12px;padding-top:10px;border-top:1px dashed rgba(var(--accent-rgb),0.2);display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+                <span style="font-size:10px;color:var(--accent);font-weight:bold;margin-right:2px">TECH &amp; SKILLS:</span>
+                ${job.tools.map(t => `<span style="font-size:10.5px;border:1px solid rgba(var(--accent-rgb),0.3);padding:2px 6px;color:#8be0a5;background:#020a05;border-radius:2px">${t}</span>`).join('')}
               </div>
             </div>
           `).join('')}
@@ -669,12 +668,6 @@ export class HUDController {
 
   bindInternalEvents() {
     document.addEventListener('click', (e) => {
-      const switchBtn = e.target.closest('.switch-btn');
-      if (switchBtn) {
-        this.experienceMode = switchBtn.getAttribute('data-mode');
-        this.winManager.updateContent('experience', this.getExperienceHtml());
-        sound.playNav();
-      }
 
       if (e.target.id === 'quick-resume-btn' || e.target.id === 'open-resume-btn') {
         this.openResumeModal();
